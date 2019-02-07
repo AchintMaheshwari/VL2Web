@@ -52,7 +52,7 @@
         "../src/assets/js/voicelessonsPlayer.js",
         "../src/assets/js/voicelessonsExercisePlayer.js",
         "../src/assets/js/voicelessonsVideoPlayer.js", 
-        "../src/assets/js/VoicelessonsGuidedVideoPlayer.js",                
+        "../src/assets/js/voicelessonsGuidedVideoPlayer.js",                
         "../src/assets/js/vexflow/vexflow-min.js",
         "../src/assets/js/vexflow/svg-pan-zoom.min.js",
         "../src/assets/js/MidiJS/inc/shim/Base64.js",

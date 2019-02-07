@@ -1,0 +1,17 @@
+<!-- settingsSection -->
+<section id="settingsSection">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="settingsLeft">
+        <app-settings-menu></app-settings-menu>
+      </div>
+      <div class="settingsRight">                        
+        <!-- <app-payment-not-received></app-payment-not-received> -->
+        <!-- <app-payment-from-student></app-payment-from-student> -->
+        <app-payment-history *ngIf="stripeConnected"></app-payment-history>
+        <app-stripe-connecting *ngIf="!stripeConnected"></app-stripe-connecting>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /settingsSection -->

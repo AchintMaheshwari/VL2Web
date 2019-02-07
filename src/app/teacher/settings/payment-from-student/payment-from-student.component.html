@@ -1,0 +1,85 @@
+
+  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+    <div class="paymetFromStu">
+      <div class="paymentBreadcrumb">
+        <ul>
+          <li><a href="javascript:void(0);" (click)="hidePaymentBreakup()">Payments</a></li>
+          <li>Payments from {{settingService.paymentBreakup.Name}}</li>
+        </ul>
+      </div>
+      <h1>{{settingService.paymentBreakup.PaymentDate}} Payment from {{settingService.paymentBreakup.Name}}</h1>
+      <div class="clr"></div>
+      <div class="row">
+        <div class="col-lg-5 col-sm-5 col-12">
+          <div class="totalBox">
+            <table>
+              <tbody>
+                <tr>
+                  <td width="70%" class="subtotal">
+                    Subtotal
+                  </td>
+                  <td width="30%" class="text-right subtotal">{{settingService.paymentBreakup.Amount| currency:'USD':'symbol-narrow':'1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td class="total">
+                    Total
+                  </td>
+                  <td class="text-right total">{{settingService.paymentBreakup.Amount| currency:'USD':'symbol-narrow':'1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td class="borderBot total">
+                      {{settingService.paymentBreakup.PaymentDate}} Payment
+                  </td>
+                  <td class="text-right borderBot total">-{{settingService.paymentBreakup.Amount| currency:'USD':'symbol-narrow':'1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td class="owed">$0.00 Owed</td>
+                  <td *ngIf="settingService.paymentBreakup.Status =='refund'">&nbsp;</td>
+                  <td *ngIf="settingService.paymentBreakup.Status !='refund'"><button class="refund" (click)="refundAmount(settingService.paymentBreakup)">Refund</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-lg-5 col-sm-5 col-12 offset-lg-1 offset-sm-1 offset-0">
+            <div class="stuPayDetail">
+              <table>
+                <tbody>
+                  <tr>
+                    <td width="50%">
+                      <label class="bigLabel">Amount</label>
+                      <span class="amount"><sup>{{settingService.paymentBreakup.Amount| currency:'USD':'symbol-narrow':'1.0-2'}}</sup></span>
+                    </td>
+                    <td width="50%">
+                      <label class="bigLabel">Status</label>
+                      <span *ngIf="settingService.paymentBreakup.Status =='succeeded'" class="blueStatus">Sent</span>
+                      <span *ngIf="settingService.paymentBreakup.Status =='refund'" class="pinkStatus">Refunded</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="50%">
+                      <label class="smallLabel">Phone</label>
+                      <span>{{settingService.paymentBreakup.Mobile}}</span>
+                    </td>
+                    <td width="50%">
+                      <label class="smallLabel">Email</label>
+                      <span>{{settingService.paymentBreakup.Email}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="50%">
+                      <label class="smallLabel">Lessons</label>
+                      <span>{{settingService.paymentBreakup.LessonDuration}} minutes  x {{settingService.paymentBreakup.EventsCount}}</span>
+                    </td>
+                    <td width="50%">
+                      <label class="smallLabel">Dates</label>
+                      <span *ngFor="let date of bookingDates" style="padding-bottom: 2px !important;">{{date}}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

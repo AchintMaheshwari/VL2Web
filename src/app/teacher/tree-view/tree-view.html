@@ -1,0 +1,58 @@
+﻿<div dnd-droppable (onDropSuccess)="addTo($event,nodes)" [dropZones]="['source-dropZone']" 
+(onDragEnter)="onDragEnter($event)" (onDragLeave)="onDragLeave($event)" aria-disabled="true" >
+    <ul id="dropTreeView" style="list-style: none;padding: 0;">
+        <li id="div_{{dir.Label}}" *ngFor="let dir of nodes; let i = index" dnd-sortable-container [sortableData]="nodes" >
+            <div class="tree-node tree-node-content angular-ui-tree-handle" [ngClass]="{'tree-node-empty':dir.LabelName == '_emptynode_'}"
+                (onDropSuccess)="dropToChild(dir.Label)" dnd-sortable [sortableIndex]="i" [dragEnabled]="dragEnabled" [dropEnabled]="dragEnabled">
+                <img *ngIf="dir.FilterType == 'Song' " src="../../assets/images/song-icon.png">
+                <img *ngIf="dir.FilterType == 'Exercise' " src="../../assets/images/exercise-icon.png">
+                <img *ngIf="dir.FilterType == 'Video' " src="../../assets/images/vido-icon.png">
+                <a class="btn btn-success btn-xs" *ngIf="dir.length > 0 && dir.LabelName != '_emptynode_'" [ngClass]="{'tree-node-empty':dir.LabelName == '_emptynode_'}">
+                    <span class="glyphicon" [ngClass]="{'glyphicon-chevron-right': !dir.expanded,'glyphicon-chevron-down': dir.expanded}">
+                    </span>
+                </a>
+                <span *ngIf="dir.LabelName != '_emptynode_' && userType == 'Teacher' ">
+                    <label class="lblItemClass" id="lblItemName_{{dir.Label}}" (click)="labelItemClick(dir);">
+                        {{ (dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName !=
+                        '' ) ? dir.TeacherItemName : dir.LabelName }}
+                    </label>
+                    <input maxlength="50" id="txtItemName_{{dir.Label}}" (blur)="songItemNameChanged(dir);" type="text" 
+                    value="{{ (dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName != '') ? dir.TeacherItemName : dir.LabelName }}"
+                        class="editLibLabel txtItemClass" style="display:none; text-align: left;" />
+                </span>
+                <span *ngIf="dir.LabelName != '_emptynode_' && userType == 'Student' ">
+                    <label class="lblItemClass" id="lblItemName_{{dir.Label}}" (click)="labelItemClick(dir);">
+                        {{ (dir.StudentItemName != undefined && dir.StudentItemName != null && dir.StudentItemName !='' ) ?
+                           dir.StudentItemName : ((dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName !='' ) ?
+                           dir.TeacherItemName : dir.LabelName) }}
+                    </label>
+                    <input maxlength="50" id="txtItemName_{{dir.Label}}" (blur)="songItemNameChanged(dir);" type="text" value="{{ (dir.StudentItemName != undefined && dir.StudentItemName != null && dir.StudentItemName !='' ) ?
+                                        dir.StudentItemName : ((dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName !='' ) ?
+                                        dir.TeacherItemName : dir.LabelName) }}"
+                        class="editLibLabel txtItemClass" style="display:none; text-align: left;" />
+                </span>
+                <a *ngIf="dir.LabelName != '_emptynode_' && dir.LabelName != 'Drag Here!...' && !isGuidedvideofeedbackPage && !isStudentVideoConnectedPage " class="pull-right btn btn-danger btn-xs"
+                    (click)="delete(i,nodes,nodes)">
+                    <span>
+                        <img src="../../../assets/images/del-icon.png" alt="">
+                    </span>
+                </a>
+                <a *ngIf="dir.LabelName != '_emptynode_' && dir.LabelName != 'Drag Here!...' && !isGuidedvideofeedbackPage && !isStudentVideoConnectedPage" class="pull-right btn btn-primary btn-xs"
+                    (click)="add(i,dir,nodes)">
+                    <span>
+                        <img src="../../../assets/images/add-icon.png" alt="">
+                    </span>
+                </a>
+                <a *ngIf="dir.LabelName != '_emptynode_' && dir.LabelName != 'Drag Here!...' "
+                    class="pull-right btn btn-primary btn-xs" (click)="playSong(i,nodes)">
+                    <span>
+                        <img src="../../../assets/images/play-icon.png">
+                    </span>
+                </a>                
+            </div>
+            <div *ngIf="dir.expanded">
+                <tree-view [nodes]="dir.nodes" class="asdd"></tree-view>
+            </div>
+        </li>
+    </ul>
+</div>

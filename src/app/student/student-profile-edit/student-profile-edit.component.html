@@ -1,0 +1,458 @@
+<form #studentForm="ngForm">
+    <section id="teacherProfile">
+        <div class="personheader">
+            <div class="row flex-sm-row flex-lg-row flex-sm-column-reverse flex-column-reverse">
+                <div class="col-lg-8 col-sm-12 col-12">
+                    <div class="personDetails editPerDetail">
+                        <div class="personPic">
+                            <img *ngIf="commonService.isDefaultImageFlag" src="../assets/images/addImage.png" alt="" class="img-fluid">
+                            <img *ngIf="!commonService.isDefaultImageFlag" src={{commonService.userProfilePic}} alt="" class="img-fluid">
+                            <div class="edit">
+                                <i class="fa fa-pencil" (click)="openNewDialog();"></i>
+                            </div>
+                        </div>
+                        <div class="personPerDetail editContainer">
+                            <div class="personEditDetail">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6 col-12">
+                                        <div class="editName validateError">
+                                            <h2>
+                                                <i class="fa fa-asterisk"></i> display name</h2>
+                                            <span [ngClass]="{ 'editCaseError': ((fullName.dirty || fullName.touched || isFormSubmitFlag) && fullName.errors), 'editCaseSuccess':!fullName.errors}">
+                                                <input type="text" class="edit" maxlength="70" pattern="^([A-Za-z]+[',.]?[ ]?[&]?[ ]?|[A-Za-z]?)+$" required name="DisplayName"
+                                                    [(ngModel)]="studentProfile.DisplayName" rows="1" #fullName="ngModel" style="height:40px;"
+                                                    placeholder="Ronda Swanson" [ngModelOptions]="{updateOn: 'blur'}" />
+                                            </span>
+                                            <div *ngIf="((fullName.errors && (fullName.dirty || fullName.touched)) || isFormSubmitFlag)">
+                                                <div [hidden]="!fullName.errors" class="errorMessageHeader">
+                                                    Please enter your full name. We allow ' & . ,
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-12 editbtn">
+                    <div class="lessonDetail stuEditLessonDetail">
+                        <div class="editlessonBtn">
+                            <button (click)="previewChanges()" class="previewbtn" data-toggle="modal" data-target="#studentProfileModal">
+                                <i class="fa fa fa-eye"></i> Preview</button>
+                            <button (click)="saveOrUpdateStudentProfile()" class="publishbtn" type="submit">
+                                <i class="fa fa-check"></i> Publish</button>
+                        </div>
+                        <div [hidden]="studentForm.valid || !isFormSubmitFlag" class="errorMessage" style="padding-top:10px;">
+                            We would like to know you better!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /studentProfile -->
+    <!-- contentPart -->
+    <section id="contentPart">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-12 editLeftPanel">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="leftContent">
+                                <div class="stuEditLeftPanel">
+                                    <div class="validateError">
+                                        <h4 style="margin-top: 0px;">Your Zip Code</h4>
+                                        <span [ngClass]="{ 'editCaseError':((zipCode.dirty || zipCode.touched || isFormSubmitFlag) && zipCode.errors?.required), 
+                                                    'editCaseSuccess': !zipCode.errors?.required }">
+                                            <input type="text" [(ngModel)]="studentProfile.ZipCode" name="zipCode" required [ngModelOptions]="{updateOn: 'blur'}" class="edit"
+                                                #zipCode="ngModel" maxLength="5" placeholder="XXXXX" OnlyNumber="true">
+                                            <div *ngIf="(isFormSubmitFlag || (zipCode.errors?.required && (zipCode.dirty || zipCode.touched)))">
+                                                <div [hidden]="!zipCode.errors?.required" class="errorMessage">
+                                                    Please tell us your Zip code.
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="qualificationedit validateField">
+                                        <h4>Where do you want to sing?</h4>
+                                        <span [ngClass]="{ 'editCaseError':((city.dirty || city.touched || isFormSubmitFlag) && city.errors), 
+                                                        'editCaseSuccess': !city.errors }">
+                                            <input type="text" name="location" [(ngModel)]="studentProfile.WhereCurrentlySing" [ngModelOptions]="{updateOn: 'blur'}"
+                                                #city="ngModel" class="edit" placeholder="City or Venue" pattern="^([A-Za-z]+[']?[ ]?|[A-Za-z]?)+$">
+                                            <div *ngIf="(isFormSubmitFlag || (city.errors && (city.dirty || city.touched)))">
+                                                <div [hidden]="!city.errors?.pattern" class="errorMessage">
+                                                    Please enter a valid City name.
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="clr"></div>
+                                    <div class="ageSelector validateField">
+                                        <h4 style="padding-top:0;">vocal Range</h4>
+                                        <ul>
+                                            <li class="firstTD">
+                                                <span [ngClass]="{ 'errorCase': ((lowRange.dirty || lowRange.touched || isFormSubmitFlag) && lowRange.errors),
+                                              'successCase':!lowRange.errors}">
+                                                    <input type="text" maxlength="2" pattern="^([A-G][2-6])+$" #lowRange="ngModel" [(ngModel)]="studentProfile.LowVocalRange"
+                                                        class="edit" [ngModelOptions]="{updateOn: 'blur'}" name="lowVocalRange"
+                                                        placeholder="C2" style="width:46px; height:41px;">
+                                                </span>
+                                            </li>
+                                            <li class="secondTD">
+                                                <i class="fa fa-minus"></i>
+                                            </li>
+                                            <li class="thirdTD">
+                                                <span [ngClass]="{ 'errorCase': ((highRange.dirty || highRange.touched || isFormSubmitFlag) && highRange.errors),
+                                              'successCase':!highRange.errors}">
+                                                    <input type="text" maxlength="2" pattern="^([A-G][2-6])+$" [(ngModel)]="studentProfile.HighVocalRange" name="highVocalRange"
+                                                        class="edit" [ngModelOptions]="{updateOn: 'blur'}" placeholder="C6" style="width:46px; height:41px;"
+                                                        #highRange="ngModel">
+                                                </span>
+                                            </li>
+                                            <li class="fourthTD">
+                                                <button class="publishbtn" style="padding:13px 17px 15px 17px;">
+                                                    <i>
+                                                        <img src="../assets/images/range-test-icon.png" alt="">
+                                                    </i> Range Test</button>
+                                            </li>
+                                            <div class="clr"></div>
+                                        </ul>
+                                        <div *ngIf="((lowRange.errors && (lowRange.dirty || lowRange.touched)) || (highRange.errors && (highRange.dirty || highRange.touched))
+                                                      || isFormSubmitFlag)">
+                                            <div [hidden]="!lowRange.errors && !highRange.errors" class="errorMessage">
+                                                Please enter valid Vocal Range.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr"></div>
+                                <h4>vocal Styles</h4>
+                                <ul class="halfWidth editListing">
+                                    <li *ngFor="let style of studentService.vocalStyles">
+                                        <input id="{{style.name}}" class="checkbox-custom" name="{{style.name}}" type="checkbox" (click)="onStudentStyleSelection(style.style)"
+                                            [checked]="studentProfile.StudentStyles != undefined ? studentProfile.StudentStyles.indexOf(style.style) > -1 : false">
+                                        <label for="{{style.name}}" class="checkbox-custom-label">{{style.style}}</label>
+                                    </li>
+                                    <!-- <li>
+                                        <input id="vocalStyleOpera" class="checkbox-custom" name="VocalStyleOpera" type="checkbox"
+                                            [(ngModel)]="studentProfile.VocalStyleOpera">
+                                        <label for="vocalStyleOpera" class="checkbox-custom-label">Opera</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleClassical" class="checkbox-custom" name="VocalStyleClassical"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleClassical">
+                                        <label for="vocalStyleClassical" class="checkbox-custom-label">Classical</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleMusicalTheatre" class="checkbox-custom" name="VocalStyleMusicalTheater"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleMusicalTheater">
+                                        <label for="vocalStyleMusicalTheatre" class="checkbox-custom-label">Musical
+                                            Theatre</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleJazz" class="checkbox-custom" name="VocalStyleJazz" type="checkbox"
+                                            [(ngModel)]="studentProfile.VocalStyleJazz">
+                                        <label for="vocalStyleJazz" class="checkbox-custom-label">Jazz</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleFolk" class="checkbox-custom" name="VocalStyleFolk" type="checkbox"
+                                            [(ngModel)]="studentProfile.VocalStyleFolk">
+                                        <label for="vocalStyleFolk" class="checkbox-custom-label">Folk</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleGospel" class="checkbox-custom" name="VocalStyleGospel"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleGospel">
+                                        <label for="vocalStyleGospel" class="checkbox-custom-label">Gospel</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleRock" class="checkbox-custom" name="VocalStyleRock" type="checkbox"
+                                            [(ngModel)]="studentProfile.VocalStyleRock">
+                                        <label for="vocalStyleRock" class="checkbox-custom-label">Rock</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleWorld" class="checkbox-custom" name="VocalStyleWorld" type="checkbox"
+                                            [(ngModel)]="studentProfile.VocalStyleWorld">
+                                        <label for="vocalStyleWorld" class="checkbox-custom-label">World</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleHipHop" class="checkbox-custom" name="VocalStyleHipHop"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleHipHop">
+                                        <label for="vocalStyleHipHop" class="checkbox-custom-label">Hip Hop</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleHipHop" class="checkbox-custom" name="VocalStyleHipHop"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleHipHop">
+                                        <label for="vocalStyleHipHop" class="checkbox-custom-label">R&B</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleHipHop" class="checkbox-custom" name="VocalStyleHipHop"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleHipHop">
+                                        <label for="vocalStyleHipHop" class="checkbox-custom-label">Heavy Metal</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleHipHop" class="checkbox-custom" name="VocalStyleHipHop"
+                                            type="checkbox" [(ngModel)]="studentProfile.VocalStyleHipHop">
+                                        <label for="vocalStyleHipHop" class="checkbox-custom-label">Hard Rock</label>
+                                    </li> -->
+                                    <li>
+                                        <input id="vocalStyleOther" class="checkbox-custom" name="VocalStyleOther" type="checkbox" (click)="removeOtherStyle()" [(ngModel)]="otherStyleFlag">
+                                        <label for="vocalStyleOther" class="checkbox-custom-label">Other</label>
+                                    </li>
+                                </ul>
+                                <div class="clr"></div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12 stuEditgoals validateField" [hidden]="!otherStyleFlag">
+                                        <h4>Other Vocal Style</h4>
+                                        <input id="otherStyle" type="text" name="otherStyle" [(ngModel)]="studentProfile.OtherStyle" class="edit">
+                                    </div>
+                                </div>
+                                <!--<div class="clr"></div>
+                                <div>
+                                    <ul class="halfWidth editListing">
+                                        <h4>musical Worship</h4>
+                                        <li>
+                                            <input id="musicalWorshipBaptist" class="checkbox-custom" name="MusicalWorshipBaptist"
+                                                [(ngModel)]="studentProfile.MusicalWorshipBaptist" type="checkbox">
+                                            <label for="musicalWorshipBaptist" class="checkbox-custom-label">Baptist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipBuddhist" class="checkbox-custom" name="MusicalWorshipBuddhist"
+                                                [(ngModel)]="studentProfile.MusicalWorshipBuddhist" type="checkbox">
+                                            <label for="musicalWorshipBuddhist" class="checkbox-custom-label">Buddhist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipCatholic" class="checkbox-custom" name="MusicalWorshipCatholic"
+                                                [(ngModel)]="studentProfile.MusicalWorshipCatholic" type="checkbox">
+                                            <label for="musicalWorshipCatholic" class="checkbox-custom-label">Catholic</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipEpiscopal" class="checkbox-custom" name="MusicalWorshipEpiscopal"
+                                                [(ngModel)]="studentProfile.MusicalWorshipEpiscopal" type="checkbox">
+                                            <label for="musicalWorshipEpiscopal" class="checkbox-custom-label">Episcopal</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipHindi" class="checkbox-custom" name="MusicalWorshipHindi"
+                                                [(ngModel)]="studentProfile.MusicalWorshipHindi" type="checkbox">
+                                            <label for="musicalWorshipHindi" class="checkbox-custom-label">Hindi</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipJewish" class="checkbox-custom" name="MusicalWorshipJewish"
+                                                [(ngModel)]="studentProfile.MusicalWorshipJewish" type="checkbox">
+                                            <label for="musicalWorshipJewish" class="checkbox-custom-label">Jewish</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipLutheran" class="checkbox-custom" name="MusicalWorshipLutheran"
+                                                [(ngModel)]="studentProfile.MusicalWorshipLutheran" type="checkbox">
+                                            <label for="musicalWorshipLutheran" class="checkbox-custom-label">Lutheran</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipMethodist" class="checkbox-custom" name="MusicalWorshipMethodist"
+                                                [(ngModel)]="studentProfile.MusicalWorshipMethodist" type="checkbox">
+                                            <label for="musicalWorshipMethodist" class="checkbox-custom-label">Methodist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipNonDenom" class="checkbox-custom" name="MusicalWorshipNonDenom"
+                                                [(ngModel)]="studentProfile.MusicalWorshipNonDenom" type="checkbox">
+                                            <label for="musicalWorshipNonDenom" class="checkbox-custom-label">Non-Denom</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipMuslim" class="checkbox-custom" name="MusicalWorshipMuslim"
+                                                [(ngModel)]="studentProfile.MusicalWorshipMuslim" type="checkbox">
+                                            <label for="musicalWorshipMuslim" class="checkbox-custom-label">Muslim</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipPresbyterian" class="checkbox-custom" name="MusicalWorshipPresbyterian"
+                                                [(ngModel)]="studentProfile.MusicalWorshipPresbyterian" type="checkbox">
+                                            <label for="musicalWorshipPresbyterian" class="checkbox-custom-label">Presbyterian</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipUnitarian" class="checkbox-custom" name="MusicalWorshipUnitarian"
+                                                [(ngModel)]="studentProfile.MusicalWorshipUnitarian" type="checkbox">
+                                            <label for="musicalWorshipUnitarian" class="checkbox-custom-label">Unitarian</label>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-12">
+                    <div class="editRightContent">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 editTextarea">
+                                <h3>tell us a little about yourself</h3>
+                                <textarea name="Introduction" [(ngModel)]="studentProfile.Introduction" class="edit" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 editTextarea validateError">
+                                <h3> what is your voice type?</h3>
+                                <div class="stuBtnListing">
+                                    <ul>
+                                        <li *ngFor="let type of vocalTypes">
+                                            <button name="vocalType" (click)="onVocalTypeSelection(type.type)" [ngClass]="{ 'publishbtn' : true, 'active': studentProfile.VocalType===type.type }">{{type.type}}</button>
+                                        </li>
+                                        <li>
+                                            <button name="vocalType" (click)="onVocalTypeSelection('i don’t know')" [ngClass]="{ 'publishbtn' : true, 'active': studentProfile.VocalType==='i don’t know' }">i don’t know</button>
+                                        </li>
+                                        <div class="clr"></div>
+                                    </ul>
+                                </div>
+                                <div *ngIf="studentProfile.VocalType === '' && isFormSubmitFlag">
+                                    <div [hidden]="studentProfile.VocalType != ''" class="errorMessage">
+                                        Please select a Vocal Type or pick "I don't know".
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 qualificationedit">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6 col-12 validateError">
+                                        <h3>Current Level in School</h3>
+                                        <span style="margin-right: 10px;" [ngClass]="{ 'editCaseError': ((schoolLevel.dirty || schoolLevel.touched || isFormSubmitFlag) && schoolLevel.errors),
+                                            'editCaseSuccess':!schoolLevel.errors}">
+                                            <select class="edit" name="SchoolLevel" required [(ngModel)]="studentProfile.CurrentSchoolLevel" style="height:40px; margin-bottom:20px"
+                                                [ngModelOptions]="{updateOn: 'blur'}" #schoolLevel="ngModel">
+                                                <option *ngFor="let level of schoolLevels">{{level.level}}</option>
+                                            </select>
+                                            <div *ngIf="(isFormSubmitFlag || (schoolLevel.errors && (schoolLevel.dirty || schoolLevel.touched)))">
+                                                <div [hidden]="!schoolLevel.errors?.required" class="errorMessage">
+                                                    Please select a current school level.
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6 col-12" style="padding-top:5px;">
+                                        <h3>School Name</h3>
+                                        <p class="responsiveSpace" style="padding-top:0px; ">
+                                            <input type="text" name="schoolName" [(ngModel)]="studentProfile.SchoolName" maxlength="50" class="edit" placeholder="School Name">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 qualificationedit">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6 col-12 validateError">
+                                        <h3>Graduation Year</h3>
+                                        <span [ngClass]="{ 'editCaseError':((gradYear.dirty || gradYear.touched || isFormSubmitFlag) && gradYear.errors?.required), 
+                                        'editCaseSuccess': !gradYear.errors?.required }">
+                                            <p class="responsiveSpace" style="padding-top:0px; ">
+                                                <input type="text" name="GradYear" AllowOnlyNumber="true" required [(ngModel)]="studentProfile.GraduationYear" maxlength="4"
+                                                    #gradYear="ngModel" class="edit" [ngModelOptions]="{updateOn: 'blur'}" placeholder="XXXX">
+                                            </p>
+                                            <div *ngIf="(isFormSubmitFlag || (gradYear.errors?.required && (gradYear.dirty || gradYear.touched)))">
+                                                <div [hidden]="!gradYear.errors?.required" class="errorMessage">
+                                                    Please tell us your Graduation year.
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 stuEditgoals validateError">
+                                <h3>What are your goals for voice study?
+                                    <span>Select as many as you like.</span>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <button (click)="onGoalSelection(1)" [ngClass]="{'publishbtn':true, 'active' : studentService.toneQualityFlag }">Improve my tone quality</button>
+                                    </li>
+                                    <li>
+                                        <button (click)="onGoalSelection(2)" [ngClass]="{'publishbtn':true, 'active': studentService.vocalRangeFlag }">Improve my vocal range</button>
+                                    </li>
+                                    <li>
+                                        <button (click)="onGoalSelection(4)" [ngClass]="{'publishbtn':true, 'active': studentService.newSkillFlag }">Learn a new skill</button>
+                                    </li>
+                                    <li>
+                                        <button (click)="onGoalSelection(8)" [ngClass]="{'publishbtn':true, 'active': studentService.friendFamilyFlag }">Impress my friends/family</button>
+                                    </li>
+                                    <li>
+                                        <button (click)="otherGoalSelection()" [ngClass]="{'publishbtn':true, 'active': studentService.otherGoalFlag }">Other</button>
+                                    </li>
+                                    <div class="clr"></div>
+                                </ul>
+                                <div *ngIf="studentProfile.GoalsForStudy === 0 && studentProfile.OtherGoalForStudy ==='' && isFormSubmitFlag">
+                                    <div [hidden]="(studentProfile.GoalsForStudy > 0 || studentProfile.OtherGoalForStudy !='')" class="errorMessage">
+                                        Please select your goals for study or enter Other and why.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 stuEditgoals" style="padding-top:35px;">
+                                <div class="col-lg-12 col-sm-12 col-12 validateError" [hidden]="!studentService.otherGoalFlag">
+                                    <h3>Other Goal
+                                        <span>(Please specify)</span>
+                                    </h3>
+                                    <input id="otherGoal" type="text" name="otherGoal" [(ngModel)]="studentProfile.OtherGoalForStudy" class="edit">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="studentProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="teacherProfilePreview">
+                        <div class="topBar">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12" style="background: black;">
+                                        <div class="header-content">
+                                            <div class="menu-toggle menu-open">
+                                                <div class="menu-toggle-hamburger">
+                                                    <span></span>
+                                                </div>
+                                                <!-- <span class="menu-toggle-text">Menu</span> -->
+                                                <h1 class="logo">
+                                                    <a href="index.html">
+                                                        <img src="../assets/images/logo.jpg" alt="" class="img-fluid">
+                                                    </a>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <div class="headerRight">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="fa fa-comment"></i>
+                                                        <span></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="fa fa-bell"></i>
+                                                        <span></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="fa fa-user"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="close" data-dismiss="modal" aria-label="Close" style="opacity:1;">
+                                                    <i class="fa fa-times" style="text-shadow:none; color:#505661; opacity:1;"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-student-profile></app-student-profile>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,133 @@
+<header>
+    <div class="topBar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="header-content">
+                        <div class="menu-toggle menu-open">
+                            <div class="menu-toggle-hamburger">
+                                <span></span>
+                            </div>
+                        </div>
+                        <h1 *ngIf="userService.userRole === 'Teacher'" class="logo">
+                            <a [routerLink]="['/teacher/dashboard']">
+                                <img src="../assets/images/logo.jpg" alt="" class="img-fluid">
+                            </a>
+                        </h1>
+                        <h1 *ngIf="userService.userRole === 'Student'" class="logo">
+                            <a [routerLink]="['/student/dashboard']">
+                                <img src="../assets/images/logo.jpg" alt="" class="img-fluid">
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="headerRight">
+                        <ul>
+                            <li *ngIf="userService.userRole === 'Teacher'">
+                                <a href="javascript:void(0);">
+                                    <img src="../assets/images/keyboard-icon.png" alt="" id="openKeysApp" onclick="openKeysApp()">
+                                </a>
+                            </li>
+                            <li *ngIf="lessonStartTimeLeft > 0 && lessonStartTimeLeft < 61 && isStudent==1" class="lessonStartIn">
+                                <i class="glyphicon glyphicon-warning-sign" style="-webkit-text-stroke: 0.6px #000;"></i>
+                                Lesson starts in {{lessonStartTimeLeft}} minutes</li>
+                            <li>
+                            <li *ngIf="lessonStartTimeLeftforTeacher > 0 && lessonStartTimeLeftforTeacher < 61 && isStudent==0"
+                                class="lessonStartIn">
+                                <i class="glyphicon glyphicon-warning-sign" style="-webkit-text-stroke: 0.6px #000;"></i>
+                                Lesson starts in {{lessonStartTimeLeftforTeacher}} minutes</li>
+                            <li>
+                                <a href="javascript:void(0);" class="joinBtn" (click)="startLobbyLesson()">Join</a>
+                            </li>
+                            <li>
+                                <a (click)="bindLastMessage()" href="javascript:void(0);" [popover]="messageTemplate"
+                                    placement="bottom" containerClass="messagePopup" [outsideClick]="true">
+                                    <i class="glyphicon glyphicon-comment"></i>
+                                    <span></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-bell"></i>
+                                    <span></span>
+                                </a>
+                            </li>
+                            <li dropdown placement="bottom right">
+                                <a id="button-alignment" href="javascript:void(0);" dropdownToggle class="dropdown-toggle"
+                                    aria-controls="dropdown-alignment">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </a>
+                                <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                                    role="menu" aria-labelledby="button-alignment">
+                                    <li *ngIf="userService.userRole === 'Teacher'" role="menuitem">
+                                        <a style="color: #00afa8;">Logged in as Teacher</a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Teacher'" role="menuitem">
+                                        <a class="dropdown-item" routerLink="teacher/profile/edit">
+                                            <i class="fa fa-edit"></i> Edit Profile</a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Teacher'" role="menuitem">
+                                        <a class="dropdown-item" routerLink="teacher/settings">
+                                            <i class="fa fa-gear"></i> Account Settings</a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Teacher'" role="menuitem">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="linkCopiedMessage()"
+                                            ngxClipboard [cbContent]="'https://vlapp2.azurewebsites.net/#/student/teacher-invite/'+userGuid">
+                                            <i class="fa fa-link fa-flip-horizontal invite_link_icon"></i>  Student Invite Link
+                                        </a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Student'" role="menuitem">
+                                        <a style="color: #00afa8;">Logged in as Student</a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Student'" role="menuitem">
+                                        <a class="dropdown-item" routerLink="student/profile/edit">
+                                            <i class="fa fa-edit"></i> Edit Profile</a>
+                                    </li>
+                                    <li *ngIf="userService.userRole === 'Student'" role="menuitem">
+                                        <a class="dropdown-item" routerLink="student/personal-info">
+                                            <i class="fa fa-gear"></i> Account Settings</a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a class="dropdown-item" (click)="logout()" href="#">
+                                            <i class="fa fa-power-off"></i> Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-menu></app-menu>
+</header>
+
+<ng-template #messageTemplate>
+    <div class="messages_header">
+        <div class="message_header_title">MESSAGES</div>
+        <div class="message_header_icons">
+            <a href="javascript:void(0)">
+                <i class="fa fa-cog"></i>
+            </a>
+            <a href="javascript:void(0)">
+                <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    <div class="messagesContainer" malihu-scrollbar>
+        <div class="message_row" *ngFor="let item of userList">
+            <div class="user_image">
+                <img width="80" height="80" src="{{item.ImageUrl != '' ? item.ImageUrl : '../../../assets/images/user-icon.png' }}"
+                    alt="" (click)="openUser(item)">
+            </div>
+            <div class="user_message">
+                <div class="user_details">
+                    <div class="user_name">{{item.DisplayName != '' ? item.DisplayName : item.FirstName }} </div>
+                    <div class="message_date_time"> {{item.DateSent | date : 'dd.MM.dd - hh:mm a' }}</div>
+                </div>
+                <div class="message_content">
+                    <p>"{{item.LastMessage}}"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

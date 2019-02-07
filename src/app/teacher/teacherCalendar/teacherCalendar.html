@@ -1,0 +1,103 @@
+<section id="calenderSection">
+  <div class="container-fluid">
+    <div class="row">
+      <teacher-calendar-menu></teacher-calendar-menu>
+      <div class="settingsRight">
+        <app-teacher-availibilty> </app-teacher-availibilty>
+        <div class="calenderRight">
+          <p-schedule [events]="events" [header]="header" [defaultDate]="defaultDate" [eventLimit]="4" [editable]="true"
+            [slotEventOverlap]="false" (onDayClick)="onDayClick($event)" (onEventClick)="onEventClick($event)"
+            (onEventMouseover)="onEventMouseover($event)"></p-schedule>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade in" [style.display]="isDateSelected || isEditAvailability || isEditEvent ? 'block' : 'none'"></div>
+  <div class="modal" id="setSpecificAvailableHours" tabindex="-1" role="dialog" style="display: block" [style.display]="isDateSelected || isEditAvailability ? 'block' : 'none'"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body" style="padding:0;">
+          <div id="specPopup">
+            <i data-dismiss="modal" (click)="closeAvailabilityModal()" class="fa fa-times"></i>
+            <label>Specific Availabilty</label>
+            <span *ngIf="isDateSelected">Set Hours For {{selectedSpecificDate}}</span>
+            <span *ngIf="isEditAvailability">Edit Hours For {{selectedSpecificDate}}</span>
+            <br />
+            <div class="popupCon">
+              <div class="fromCol">
+                <span>From</span>
+                <div class="clr"></div>
+                <div class="input-group bootstrap-timepicker timepicker">
+                  <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimefrom" [meridian]="meridian"></ngb-timepicker>
+                </div>
+              </div>
+              <div class="untilCol">
+                <span>To</span>
+                <div class="clr"></div>
+                <div class="input-group bootstrap-timepicker timepicker" style="padding-left:0px;">
+                  <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimeTo" [meridian]="meridian"></ngb-timepicker>
+                </div>
+              </div>
+            </div>
+            <div class="clr"></div>
+            <button (click)="setSpecifiAvailibilityData(eventId);" data-dismiss="modal"><i class="fa fa-check"></i> Set
+              Hours</button>
+            <div class="clr"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="editBookingHours" tabindex="-1" role="dialog" style="display: block" [style.display]="isEditEvent ? 'block' : 'none'"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body" style="padding:0;">
+          <div id="specPopup">
+            <i data-dismiss="modal" (click)="closeEditEventModal()" class="fa fa-times"></i>
+            <label>Booking</label>
+            <div *ngIf="isCancellation">
+              <span>Are you sure you want to cancel {{selectedSpecificDate}} booking ?</span>
+              <br />
+              <div class="clr"></div>
+              <div class="actionButtons">
+                <button (click)="cancelEvent(eventId);" data-dismiss="modal"><i class="fa fa-check"></i>Yes</button>
+                <button (click)="rejectCancel();" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
+              </div>
+            </div>
+            <div *ngIf="!isCancellation">
+              <span>
+                Edit {{selectedSpecificDate}} booking to <input [(ngModel)]="selectedDate" [owlDateTimeTrigger]="dt3"
+                  [owlDateTime]="dt3" type="text" class="editBooking" data-date-format="dd-mm-yyyy">
+                <owl-date-time [pickerType]="'calendar'" #dt3 data-date-format="dd-mm-yyyy"></owl-date-time>
+              </span>
+              <br />
+              <div class="popupCon">
+                <div class="fromCol">
+                  <span>From</span>
+                  <div class="clr"></div>
+                  <div class="input-group bootstrap-timepicker timepicker">
+                    <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimefrom" [meridian]="meridian"></ngb-timepicker>
+                  </div>
+                </div>
+                <div class="untilCol">
+                  <span>To</span>
+                  <div class="clr"></div>
+                  <div class="input-group bootstrap-timepicker timepicker" style="padding-left:0px;">
+                    <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimeTo" [meridian]="meridian"></ngb-timepicker>
+                  </div>
+                </div>
+              </div>
+              <div class="clr"></div>
+              <div class="actionButtons">
+                <button (click)="cancelBooking();"><i class="fa fa-times"></i> Cancel Booking</button>
+                <button (click)="setBookingData(eventId);" data-dismiss="modal"><i class="fa fa-check"></i> Set Hours</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

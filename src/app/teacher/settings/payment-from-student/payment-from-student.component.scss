@@ -1,0 +1,160 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$runningsize: 16px;
+$lightpurpletxt: #e6d9e8;
+$lightpurple: #dfbfe4;
+$color: #fff;
+$primary: #c794c4;
+$blue: #00afa8;
+$purplrback: #90279d;
+$pinkback: #e90688;
+$fl: left;
+$fr: right;
+$bornone: none;
+$upper: uppercase; 
+$fullwidth: 100%;
+
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+        -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+
+.paymetFromStu {
+    .paymentBreadcrumb {
+        ul {
+            margin:0; padding:0 0 30px 0;
+            li {
+                font-size:$runningsize - 3; font-family:$secondaryfont; text-transform:$upper; @include position(relative, 0, left, 0); color:$primary; display:inline-block; padding-right: 16px;
+                a {
+                    color:$lightpurple;
+                    &:hover {
+                        color:$pinkback; text-decoration:none;
+                    }
+                }
+                &:after {
+                    font-family:$iconfont; font-size:$runningsize - 1; color:$primary; top:-2px; content: "\f105"; @include position(absolute, 0,right, 3px);
+                }
+                &:last-child {
+                    padding-right:0;
+                    &:after {
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+    .totalBox {
+        background:rgba(116, 17, 117, 0.4); padding:25px 35px; width:$fullwidth;
+        table {
+            width:$fullwidth;
+            td {
+                padding:10px 0 5px 0;
+                &.borderBot {
+                    border-bottom:1px solid #6d3a72 !important; padding-bottom:10px;
+                }
+                &.subtotal {
+                    font-family:$primaryfont; font-size:$runningsize - 1; color:$color;
+                }
+                &.total {
+                    font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:600;
+                }
+                &.owed {
+                    font-family:$primaryfont; font-size:$runningsize + 1; color:$color; font-weight:600;
+                }
+            }
+        }
+    }
+    .stuPayDetail {
+        width:$fullwidth;
+        table {
+            width:$fullwidth;
+            td {
+                vertical-align:top;
+                label {
+                    color:$lightpurple; font-family:$secondaryfont; font-weight:400; text-transform:$upper; padding-bottom:0; letter-spacing:1px;
+                    &.bigLabel {
+                        font-size:$runningsize - 2;
+                    }
+                    &.smallLabel {
+                        font-size:$runningsize - 3;
+                    }
+                }
+                span {
+                    font-family:$primaryfont; font-weight:400; color:$color; font-size:$runningsize; padding-bottom:15px; display:block;
+                    &.amount {
+                        font-size:$runningsize * 1.7; padding-bottom:10px;
+                        sup {
+                            font-size:$runningsize;
+                        }
+                    }
+                    &.blueStatus {
+                        float:$fl; @include position(relative, 0, left, 0); font-size:$runningsize * 1.5;
+                        &:before {
+                            @include position(absolute, 0, left, -20px); top:4px; background:$blue; width:15px; height:15px; @include border-radius(100%); font-family:$iconfont; font-size:$runningsize - 7; color:$color; content: "\f00c"; line-height:15px; text-align:center;
+                        }
+                    }
+                    &.purpleStatus {
+                        float:$fl; @include position(relative, 0, left, 0);
+                        &:before {
+                            @include position(absolute, 0, left, -20px); top:4px; background:$purplrback; width:15px; height:15px; @include border-radius(100%); font-family:$iconfont; font-size:$runningsize - 7; color:$color; content: "\f00c"; line-height:15px; text-align:center;
+                        }
+                    }
+                    &.pinkStatus {
+                        float:$fl; @include position(relative, 0, left, 0);
+                        &:before {
+                            @include position(absolute, 0, left, -20px); top:4px; background:$pinkback; width:15px; height:15px; @include border-radius(100%); font-family:$iconfont; font-size:$runningsize - 7; color:$color; content: "\f00c"; line-height:15px; text-align:center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.totalBox {
+    table {
+        tbody {
+            tr {
+                td {
+                    button {
+                        &.refund {
+                            background: #e90688; color: #fff; padding: 5px 10px 4px 10px; float: right; font-size: 12px !important; font-weight: 600; cursor: pointer;
+                            &:focus {
+                                outline: none; box-shadow: none; -webkit-box-shadow: nonoe;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+span {
+    &.pinkStatus {
+        float: $fl; @include position(relative, 0, left, 0); font-size: 24px !important; 
+        &:before {
+            @include position(absolute, 0, left, -20px); top: 4px; background: #e90688; width: 15px; height: 15px; @include border-radius(100%); font-family: $iconfont; font-size: $runningsize - 7; color: $color; content: "\f00c"; line-height: 15px; text-align: center;
+        }
+    }
+}

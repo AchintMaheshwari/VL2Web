@@ -1,0 +1,33 @@
+.padLRNone {padding-left:0; padding-right:0;}
+a.leftSpace {
+    margin-left:33px; margin-right:33px; color:#c794c4; font-size:13px; font-family: "Montserrat", sans-serif; text-transform:uppercase;
+    &:hover {
+        color:#fff; text-decoration:none;
+    }
+}
+.date-heading {padding-left:33px; padding-right:33px; padding-top:20px;}
+.regular-hours {
+    p {
+        &.intro-text-details {
+            padding-left:33px; padding-right:33px;
+        }
+    }
+    .regular-hours {
+        margin-left:33px;
+    }
+}
+.show-if-regular-hours {
+    h4 {
+        &.intro-text {
+            padding-left:33px; padding-right:33px;
+        }
+    }
+    p {
+        &.intro-text-details {
+            padding-left:33px; padding-right:33px;
+        }
+    }
+    a {
+        margin-right:33px;
+    }
+}

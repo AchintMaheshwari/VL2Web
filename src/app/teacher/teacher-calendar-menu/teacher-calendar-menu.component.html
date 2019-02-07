@@ -1,0 +1,16 @@
+<div class="calenderLeft">
+        <button (click)="updateAvailability()" >update availability</button>
+  <div class="smallCalender">
+      <jqxCalendar #vlCalendar [min]="min" [max]="max" [restrictedDates]="restrictedDates"></jqxCalendar>
+  </div>
+  <div class="calenderOption">
+      <h2>My Calendars</h2>
+      <ul>
+          <li class="voiceLessonCal">VoiceLessons.com</li>
+          <li class="googleCal">Google Calendar</li>
+          <li class="exchangeCal">Exchange Calendar</li>
+          <li class="icloudCal">iCloud Calendar</li>
+      </ul>
+      <button (click)="navigateCalendarSync()" style="cursor: pointer !important;"><i class="fa fa-refresh"></i> calendar sync</button>    
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="modalBack">
+  <div class="close" (click)="onNoClick()">
+    <i class="fa fa-times"></i>
+  </div>
+  <h2>Advanced Settings</h2>
+  <div class="advancedSeachContent">
+    <div class="row">
+      <div class="col-lg-6 col-sm-6 col-12">
+        <label>Sequence Properties</label>
+        <ul>
+          <li style="padding-bottom: 5px;">
+            <span class="input" style="position: relative;">
+              <div class="upDownValAfter" *ngIf="isAscFraction && AscendingIntervalNumber==0">
+                <sup>1</sup>&frasl;
+                <sub>2</sub>
+              </div>
+              <div class="upDownValAfter" *ngIf="isAscNumberFraction && fraction1Asc==0">
+                {{AscendingIntervalNumber}}
+              </div>
+              <div class="upDownValAfter" *ngIf="isAscNumberFraction && fraction1Asc!=0 && AscendingIntervalNumber>0">
+                {{AscendingIntervalNumber}}
+                <sup>{{fraction1Asc}}</sup>&frasl;
+                <sub>{{fraction2Asc}}</sub>
+              </div>
+              <input type="text" placeholder="0" [(ngModel)]="AscendingInterval" class="upDownValInput" style="display: none;">
+              <div class="inputArrow">
+                <button class="up" (click)="upAscendingInterval()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downAscendingInterval()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">Ascending Interval</span>
+          </li>
+          <li style="padding-bottom: 5px;">
+            <span class="input" style="position: relative;">
+              <div class="upDownValAfter" *ngIf="isDescFraction && DescendingIntervalNumber==0">
+                <sup>1</sup>&frasl;
+                <sub>2</sub>
+              </div>
+              <div class="upDownValAfter" *ngIf="isDescNumberFraction && fraction1Desc==0">
+                {{DescendingIntervalNumber}}
+              </div>
+              <div class="upDownValAfter" *ngIf="isDescNumberFraction && fraction1Desc!=0 && DescendingIntervalNumber>0">
+                {{DescendingIntervalNumber}}
+                <sup>{{fraction1Desc}}</sup>&frasl;
+                <sub>{{fraction2Desc}}</sub>
+              </div>
+              <input type="text" placeholder="12" [(ngModel)]="DescendingInternval" class="upDownValInput" style="display: none;">
+              <div class="inputArrow">
+                <button class="up" (click)="upDescendingInterval()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downDescendingInterval()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">Descending Interval</span>
+          </li>
+          <li style="padding-bottom: 5px;">
+            <span class="input" style="position: relative;">
+              <input type="text" placeholder="0" [(ngModel)]="BPM" disabled="disabled">
+              <div class="inputArrow">
+                <button class="up" (click)="upBPM()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downBPM()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">BPM</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-sm-6 col-12">
+        <label>Sequence Repetition</label>
+        <ul>
+          <li>
+            <span class="input" style="position: relative;">
+              <input type="text" placeholder="0" [(ngModel)]="Ascending" disabled="disabled">
+              <div class="inputArrow">
+                <button class="up" (click)="upAscending()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downAscending()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">Ascending</span>
+          </li>
+          <li>
+            <span class="input" style="position: relative;">
+              <input type="text" placeholder="0" [(ngModel)]="Descending" disabled="disabled">
+              <div class="inputArrow">
+                <button class="up" (click)="upDescending()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downDescending()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">Descending</span>
+          </li>
+          <li>
+            <span class="input" style="position: relative;">
+              <input type="text" placeholder="0" [(ngModel)]="BeatsBetweenRepetitions" disabled="disabled">
+              <div class="inputArrow">
+                <button class="up" (click)="upBeats()">
+                  <i class="fa fa-angle-up"></i>
+                </button>
+                <button class="down" (click)="downBeats()">
+                  <i class="fa fa-angle-down"></i>
+                </button>
+              </div>
+            </span>
+            <span class="text">Beats between repetitions</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clr"></div>
+  <button class="blueBtn" (click)="saveSettings()">
+    <i class="fa fa-check"></i> Done</button>
+  <div class="clr"></div>
+</div>

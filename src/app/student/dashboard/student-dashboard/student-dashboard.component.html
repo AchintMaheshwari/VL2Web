@@ -1,0 +1,197 @@
+<!-- contentPart -->
+<section id="contentPart">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-12 col-12 offset-lg-1 offset-md-0 offset-0 dashboardRightNew">
+                <div class="rightContent teacherDashboard" style="padding-bottom: 50px;">
+                    <div *ngIf="lessonStartTimeLeft > 0 && lessonStartTimeLeft < 61" class="row">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div *ngIf="lessonStartTimeLeft<61" class="studentLesDet">
+                                <i class="glyphicon glyphicon-warning-sign" style="-webkit-text-stroke: 0.6px #000;"></i>
+                                Your lesson with {{lessonStartTeacherName}} starts in
+                                <span>{{lessonStartTimeLeft}} minutes</span>.
+                                <a href="javascript:void(0);" (click)="startLobbyLesson()">
+                                    Join Lesson
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-12 col-12 order-lg-1 order-sm-2 order-2">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="todaySschedule">
+                                        <table class="table" cellpadding="0" cellspacing="0" border="0">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3" class="schHead">upcoming lessons</th>
+                                                    <th class="schSecHead">View Full Schedule</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let schedules of upcomingSchedules">
+                                                    <td>
+                                                        {{schedules.EventDate}}
+                                                    </td>
+                                                    <td>
+                                                        {{schedules.EventStartTime}} - {{schedules.EventEndTime}}
+                                                    </td>
+                                                    <td class="schPerName">
+                                                        <img src={{schedules.ImageUrl}} alt="" class="rounded-circle">
+                                                        <span>{{schedules.TeacherName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group" dropdown placement="bottom right">
+                                                            <button id="button-alignment" dropdownToggle type="button"
+                                                                class="btn btn-primary dropdown-toggle" aria-controls="dropdown-alignment">
+                                                                Actions
+                                                                <span class="fa fa-angle-down"></span>
+                                                            </button>
+                                                            <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                                                                role="menu" aria-labelledby="button-alignment">
+                                                                <li role="menuitem" (click)="rescheduleBooking(schedules.BookingId)">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Reschedule</a>
+                                                                </li>
+                                                                <li role="menuitem">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Cancel</a>
+                                                                </li>
+                                                                <li role="menuitem">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">Billing Details</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="recPayRecd">
+                                        <div class="table-responsive">
+                                            <table class="table" cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="schHead">Billing</th>
+                                                        <th colspan="2" class="schSecHead">View Billing History</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="hightlightRow">
+                                                        <td class="head">payment account</td>
+                                                        <td valign="middle">
+                                                            <img src="../assets/images/card-img.png" alt> Visa ending
+                                                            in
+                                                            <span>5896</span>
+                                                        </td>
+                                                        <td class="text-right">Expires 05/19</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="schPerName">
+                                                            <img src="../assets/images/phonda-pic.jpg" alt="" class="rounded-circle">
+                                                            <span>Allison Cassels</span>
+                                                        </td>
+                                                        <td class="purTxt">Monthly recurring</td>
+                                                        <td class="text-right">10/05/2017</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="schPerName">
+                                                            <img src="../assets/images/phonda-pic.jpg" alt="" class="rounded-circle">
+                                                            <span>Allison Cassels</span>
+                                                        </td>
+                                                        <td class="purTxt">Monthly recurring</td>
+                                                        <td class="text-right">09/05/2017</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="schPerName">
+                                                            <img src="../assets/images/phonda-pic.jpg" alt="" class="rounded-circle">
+                                                            <span>Allison Cassels</span>
+                                                        </td>
+                                                        <td class="purTxt">Monthly recurring</td>
+                                                        <td class="text-right">08/05/2017</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-12 order-lg-2 order-sm-1 order-1">
+                            <div class="row" style="display: flex; flex-wrap: wrap;">
+                                <div class="col-lg-12 col-sm-6 col-12 smHalfLeft">
+                                    <div class="profileCompl">
+                                        <h2>profile completion</h2>
+                                        <ul>
+                                            <li *ngIf="!profileStatusData.QuestionnaireFlag">
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.QuestionnaireFlag,'uncheck':!profileStatusData.QuestionnaireFlag}"
+                                                    [routerLink]="['/student/questionnaire']">Questionnaire</a>
+                                            </li>
+                                            <li *ngIf="profileStatusData.QuestionnaireFlag">
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.QuestionnaireFlag,'uncheck':!profileStatusData.QuestionnaireFlag}">Questionnaire
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a *ngIf="profileStatusData.VideoFlag" [ngClass]="{'dropdown-item': true, 'check':profileStatusData.VideoFlag,'uncheck':!profileStatusData.VideoFlag}">Singing
+                                                    Evaluation</a>
+                                                <a *ngIf="!profileStatusData.VideoFlag" [ngClass]="{'dropdown-item': true, 'check':profileStatusData.VideoFlag,'uncheck':!profileStatusData.VideoFlag}"
+                                                    [routerLink]="['/student/guidedvideofeedback/add-video']">Singing
+                                                    Evaluation</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.ProfileFlag,'uncheck':!profileStatusData.ProfileFlag}"
+                                                    [routerLink]="['/student/profile/edit']">Profile</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.SettingsFlag,'uncheck':!profileStatusData.SettingsFlag}"
+                                                    [routerLink]="['/student/personal-info']">Settings</a>
+                                            </li>
+                                        </ul>
+                                        <label class="progressPerc">{{profileStatusData.PercentageCompletion}}%</label>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{'width': percentage}"
+                                                aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <button *ngIf="!isProfileComplete" (click)="completeStudentProfile()" class="btn bluebtn">
+                                            Complete
+                                            Profile
+                                        </button>
+                                        <button *ngIf="isProfileComplete" class="btn bluebtn">Profile Completed !</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-6 col-12 smHalfRight">
+                                    <div class="studentsList">
+                                        <h2 style="float: none;">
+                                            Teachers
+                                            <a [routerLink]="['/student/teacher-list']">View All</a>
+                                        </h2>
+                                        <ul *ngFor="let teacher of associatedTeachersList">
+                                            <li class="online">
+                                                <span *ngIf = "teacher.ImageURL != ''">
+                                                    <img src="{{teacher.ImageURL}}" alt="">
+                                                </span>
+                                                <span *ngIf = "teacher.ImageURL === ''">
+                                                    <img src="../assets/images/user-icon.png" alt="">
+                                                </span>
+                                                <label>{{teacher.TeacherName}}</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="startPractice">
+                                <h2>Practicing daily is the fastest way to success</h2>
+                                <button class="btn pinkBtn">Start Practicing</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contentPart -->
+<!-- <ng-chat [adapter]="adapter" [userId]="userId" [historyEnabled]="false" [isCollapsed]="true"></ng-chat> -->

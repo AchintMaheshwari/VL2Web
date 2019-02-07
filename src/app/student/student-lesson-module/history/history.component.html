@@ -1,0 +1,405 @@
+<div class="lessonHistory">
+  <div class="outerTabContent">
+    <div class="dummyCSS">
+      <div class="tittleDrop">
+        <div class="btn-group" dropdown>
+          <h1>Lesson History</h1>
+          <!-- <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic" style="position: relative;">
+            {{ lessonHistoryList[0] != undefined ? (lessonHistoryList[0].Started | date: 'MM.dd.yy') : '' }}</button>  -->
+          <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic"
+            style="position: relative;">
+            {{ selectedLesson != undefined ? (selectedLesson | date: 'MM.dd.yy') : '' }}</button>
+
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <h4>Past Lessons</h4>
+            <li *ngFor="let item of lessonHistoryList; let i = index " role="menuitem">
+              <a class="dropdown-item active" href="javascript:void(0)" (click)="getStudentHistoryByLessonId(item.LessonId,item.Tags)">
+                {{item.Started | date: 'MM.dd.yy'}}</a>
+            </li>
+            <div class="clr"></div>
+            <p>
+              <a href="javascript:void(0);" class="more">More
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </p>
+          </ul>
+        </div>
+        <div class="clr"></div>
+      </div>
+      <button *ngIf="userType=='Teacher'" class="createLessonBtn" (click)="openLessonPop()">Create Lesson</button>
+      <tabset>
+        <tab heading="Lesson" id="tab1" customClass="gray">
+          <div class="innerTabContent">
+            <div class="leftContent">
+              <div id="player-container" class="player-container">
+                <div class="player-position">
+                  <div id="player" class="videoImage">
+                    <img src="../../../../assets/images/caro-video-img.jpg" alt="">
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="videoCaroContainer">
+                <owl-carousel [options]="{items: 3, dots: false, navigation: true}" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                  <div class="item" (click)="playVideo(1)">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item" (click)="playVideo(2)">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                  <div class="item">
+                    <!-- <div class="thumbnail-image" [ngStyle]="{'background': 'url('../../../../../assets/images/login-screen-bg.jpg')no-repeat scroll center center / 80px 80px'}"></div> -->
+                    <img src="../../../../assets/images/login-screen-bg.jpg" alt="">
+                    <p>
+                      <i class="material-icons">videocam</i>
+                      <span>Video 1 (1:30)</span>
+                    </p>
+                  </div>
+                </owl-carousel>
+              </div>
+            </div>
+            <div class="rightContent">
+              <h2>lesson recordings</h2>
+              <ul malihu-scrollbar>
+                <li (click)="playVideo(1)">
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li (click)="playVideo(2)">
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <li>
+                  <i class="material-icons">videocam</i> Video 1 (1:30)</li>
+                <div class="clr"></div>
+              </ul>
+            </div>
+            <div class="clr"></div>
+          </div>
+          <div class="acordionContainer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-3 col-sm-4 col-12 offset-lg-1 order-lg-9 order-sm-9">
+                </div>
+                <div class="col-lg-8 col-sm-8 col-12 order-lg-1 order-sm-1">
+                  <div class="leftAcor">
+                    <mat-accordion *ngFor="let item of lessonHistory; let i = index">
+                      <mat-expansion-panel [expanded]='item.expanded' [disabled]="true">
+                        <mat-expansion-panel-header>
+                          <i *ngIf="userType == 'Teacher'" [ngClass]="{'glyphicon glyphicon-star' : true, 'grey':!item.IsTeacherFavorite, 'green':item.IsTeacherFavorite}"
+                            (click)="upsertUserFavoriteSongsAndExercises(item)"></i>
+                          <i *ngIf="userType == 'Student'" [ngClass]="{'glyphicon glyphicon-star' : true, 'grey':!item.IsStudentFavorite, 'green':item.IsStudentFavorite}"
+                            (click)="upsertUserFavoriteSongsAndExercises(item)"></i>
+                          <label *ngIf="i<9" (click)="bindLessonQueuePlayer(item)">0{{i + 1}}</label>&nbsp;&nbsp;
+                          <label *ngIf="i>=9" (click)="bindLessonQueuePlayer(item)">{{i + 1}}</label>&nbsp;&nbsp;
+                          <div style="width: 100%;" *ngIf="this.userType == 'Teacher' ">
+                            <label id="lblItemName_{{item.Label}}" (click)="labelItemClick(item);">
+                              {{ item.TeacherItemName != undefined ? item.TeacherItemName : item.LabelName }}</label>
+                            <input id="txtItemName_{{item.Label}}" (blur)="songItemNameChanged(item);" type="text"
+                              value="{{ item.TeacherItemName != undefined ? item.TeacherItemName : item.LabelName }}"
+                              class="editLibLabel" style="display:none; text-align: left; " />
+                          </div>
+
+                          <div style="width: 100%;" *ngIf="this.userType == 'Student' ">
+                            <label id="lblItemName_{{item.Label}}" (click)="labelItemClick(item);">
+                              {{item.StudentItemName != undefined ? item.StudentItemName : ((item.TeacherItemName !=
+                              undefined && item.TeacherItemName!=
+                              null ) ? item.TeacherItemName : item.LabelName) }}</label>
+                            <input id="txtItemName_{{item.Label}}" (blur)="songItemNameChanged(item);" type="text"
+                              value="{{ item.StudentItemName != undefined ? item.StudentItemName : ((item.TeacherItemName != undefined && item.TeacherItemName != null ) ? item.TeacherItemName : item.LabelName) }}"
+                              class="editLibLabel" style="display:none; text-align: left;" />
+                          </div>
+
+                        </mat-expansion-panel-header>
+                        <div class="acordionContent">
+                          <div class="player" style="width: 100%;">
+                            <div id="audioPlayer{{item.Label}}" style="display: none;"></div>
+                            <div id="excrisePlayer{{item.Label}}" style="display: none;"></div>
+                            <div id="videoPlayer{{item.Label}}" class="videoPlayerWidget" style="display: none;"></div>
+                            <!-- <img src="../../../../assets/images/player-img.jpg" alt="" style="max-width: 100%;"> -->
+                          </div>
+                          <div *ngIf="item.FilterType == 'Song'" class="downloadBtnNew" (click)="downloadFile(item.AudioFile)">
+                            <i class="material-icons">cloud_download</i>
+                            download</div>
+                          <div class="playerTxt" *ngIf="userType == 'Student' ">
+                            <h4>Notes</h4>                            
+                            <div style="width: 100%;">
+                              <label id="lblNote_{{item.Label}}" (click)="labelNoteClick(item)">{{ (item.StudentItemNote != undefined && item.StudentItemNote != '' ) ? item.StudentItemNote : 'Please enter your notes here...'}}</label>
+                              <input id="txtNote_{{item.Label}}" (blur)="textNotesChanged(item);" type="text" value="{{ item.StudentItemNote != undefined ? item.StudentItemNote : '' }}"
+                                placeholder="{{ (item.StudentItemNote != undefined && item.StudentItemNote != '') ? item.StudentItemNote : 'Please enter your notes here...' }}"
+                                class="editLibLabel notesEditLabel" style="display:none; text-align: left;" />
+                            </div>
+                          </div>
+                          <div class="clr"></div>
+                          <div class="notesTabber" *ngIf="userType == 'Teacher' ">
+                            <tabset>
+                              <tab heading="My Notes" customClass="tabOne">
+                                <label id="lblNote_{{item.Label}}" (click)="labelNoteClick(item)">{{
+                                  (item.TeacherItemNote != undefined && item.TeacherItemNote != '' ) ?
+                                  item.TeacherItemNote : 'Please enter your notes here...'}}</label>
+                                <input id="txtNote_{{item.Label}}" (blur)="textNotesChanged(item);" type="text"
+                                  placeholder="{{ (item.TeacherItemNote != undefined && item.TeacherItemNote != '' ) ? item.TeacherItemNote : 'Please enter your notes here...' }}"
+                                  value="{{ item.TeacherItemNote != undefined ? item.TeacherItemNote : '' }}" class="editLibLabel notesEditLabel"
+                                  style="display:none; text-align: left;" />
+                              </tab>
+                              <tab heading="Student Notes" customClass="tabTwo">
+                                <label id="lblNote_{{item.Label}}" >{{
+                                  (item.StudentItemNote != undefined && item.StudentItemNote != '' ) ?
+                                  item.StudentItemNote : ''}}</label>                                
+                              </tab>
+                            </tabset>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </tab>
+
+        <tab heading="Media" customClass="purple" (select)="bindNoteFlight()">
+          <div id="dvMedia" class="tabContentNew">
+            <div class="upeerData">
+              <div class="upperDropdown">
+                <div *ngIf="isNoteFlight==true && noteFilightList.length>0" class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{noteflightTittle}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+                    [(ngModel)]="selectedNoteFlight" malihu-scrollbar style="max-height: 311px;">
+                    <li role="menuitem" *ngFor="let list of noteFilightList;let i=index" (click)="getNoteflightId(list.label,i)"
+                      [ngClass]="{'this-is-a-class': selectedNoteFlightIndex == i}">
+                      <a class="dropdown-item" href="javascript:void(0)" placement="bottom">{{list.tittle}}</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="isLyrics==true  && lyricsList.length>0" class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{lyricsTittle}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+                    [(ngModel)]="selectedLyrics" malihu-scrollbar style="max-height: 311px;">
+                    <li role="menuitem" *ngFor="let list of lyricsList;let i=index" (click)="getLyrics(list.label,i)"
+                      [ngClass]="{'this-is-a-class': selectedLyricsIndex == i}">
+                      <a class="dropdown-item" href="javascript:void(0)" placement="bottom">{{list.tittle}}</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="isTranslation==true  && translationList.length>0" class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{translationTittle}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+                    [(ngModel)]="selectedTranslation" malihu-scrollbar style="max-height: 311px;">
+                    <li role="menuitem" *ngFor="let list of translationList;let i=index" (click)="getTranslation(list.label,i)"
+                      [ngClass]="{'this-is-a-class': selectedTranslationIndex == i}">
+                      <a class="dropdown-item" href="javascript:void(0)" placement="bottom">{{list.tittle}}</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div *ngIf="isVideo==true  && videoList.length>0" class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{videoTittle}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+                    [(ngModel)]="selectedVideoUrl" malihu-scrollbar style="max-height: 311px;">
+                    <li role="menuitem" *ngFor="let list of videoList;let i=index" (click)="getVideoUrl(list.label,i)"
+                      [ngClass]="{'this-is-a-class': selectedVideoIndex == i}">
+                      <a class="dropdown-item" href="javascript:void(0)" placement="bottom">{{list.tittle}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="upperButton">
+                <button (click)="bindNoteFlight()" [ngClass]="{'active': selectedbutton == 'Score'}">SCORE</button>
+                <button (click)="bindLyrics()" [ngClass]="{'active': selectedbutton == 'Lyrics'}">LYRICS</button>
+                <button (click)="bindTranslation()" [ngClass]="{'active': selectedbutton == 'Translation'}">TRANSLATION</button>
+                <button (click)="bindVideo()" [ngClass]="{'active': selectedbutton == 'Video'}">VIDEO</button>
+              </div>
+              <div class="clr"></div>
+            </div>
+            <div class="iframeContainer" *ngIf="noteFlightURL != null && isNoteFlight==true">
+              <iframe [src]="noteFlightURL" width="100%"></iframe>
+            </div>
+            <div id='dvLyrics' *ngIf="isLyrics==true" [innerHtml]="lyricshtml"></div>
+            <div id='dvTranslation' *ngIf="isTranslation==true" [innerHtml]="translationhtml"></div>
+            <div *ngIf="trustedDashboardUrl != null && isVideo==true" class="overviewVideo">
+              <iframe [src]="trustedDashboardUrl" width="100%" frameborder="0"></iframe>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Chat" customClass="pink">
+          <div class="innerTabContent">
+            <lesson-chat></lesson-chat>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

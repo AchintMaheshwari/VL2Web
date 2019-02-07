@@ -1,0 +1,95 @@
+.modalBack {
+    background: #23272a; padding: 40px; width: 650px; position: relative;
+    .close {
+        position: absolute; right: 15px; top: 15px; font-size: 25px; font-weight: 300; color: #aeb5c3; opacity: 1; text-shadow: none;
+        i {
+            -webkit-text-stroke: 2.5px #23272a;
+        }
+    }
+    h2 {
+        color: #fff; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 25px; margin: 0; padding: 0 0 20px 0;
+    }
+    label {
+        color: #aeb5c3; font-size: 14px; font-weight: 500; font-family: 'Montserrat', sans-serif; text-transform: uppercase; cursor: text; padding-top: 10px;
+    }
+    ul {
+        margin: 0; padding: 0;
+        li {
+            list-style: none; padding: 10px 0; border-bottom: 1px solid #3e4246;
+            span {
+                &.input {
+                    width: 65px; height: 36px; display: inline-block;
+                    input[type="text"] {
+                        height: 37px; width: 44px; background: #181a1b; border: none; vertical-align: top; margin-top: 2px; text-align: center; color: #fff;
+                        &:focus {
+                            outline: none; box-shadow: none;
+                        }
+                    }
+                    .inputArrow {
+                        display: inline-block; position: relative; width: 15px; height: 36px;
+                        button {
+                            cursor: pointer; background: none; position: absolute; right: 0; padding: 0; line-height: 0; width: 15px; height: 16px !important; border: none; font-size: 17px; color: #fff; display: block;
+                            &.up {
+                                top: 0;
+                            }
+                            &.down {
+                                bottom: 0;
+                            }
+                            &:hover {
+                                color: #00afa8;
+                            }
+                            i {
+                                vertical-align: middle;
+                            }
+                        }
+                    }
+                }
+            }
+            span {
+                &.text {
+                    line-height: 37px; padding-left: 10px; vertical-align: top;
+                }
+            }
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+    button {
+        &.blueBtn {
+            background: #00afa8; color: #fff; font-family: 'Lato', sans-serif; font-weight: 500; font-size: 16px; text-transform: uppercase; border: none; float: right; cursor: pointer; margin-top: 20px;
+            i {
+                font-size: 16px; padding-right: 5px;
+            }
+        }
+    }
+}
+
+.advancedSeachContent {
+    ul {
+        li {
+            span {
+                &.input {
+                    width: 80px !important;
+                }
+            }
+            .upDownVal {
+                position: absolute; top: -2px; height: 37px; width: 59px; background: #181a1b; border: none; vertical-align: top; margin-top: 2px; text-align: center; color: #fff; font-size: 13px; padding: 7px 5px;
+            }
+            .upDownValAfter {
+                position: absolute; top: -2px; height: 37px; width: 59px; background: #181a1b; border: none; vertical-align: top; margin-top: 2px; text-align: center; color: #fff; font-size: 13px; padding: 7px 5px;
+                &:after {
+                    right: -10px; top: 5px; content: "T"; color: #fff; $primaryfont: 'Lato', sans-serif; font-size: 12px; font-weight: 400;
+                }
+            }
+            input {
+                &.upDownValInput {
+                    padding: 0 !important; height: 0 !important;
+                }
+            }
+            .inputArrow {
+                float: right !important;
+            }
+        }
+    }
+}

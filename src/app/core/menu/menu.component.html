@@ -1,0 +1,27 @@
+
+<div class="menu-wrap">
+    <div class="menu-overlay menu-close"></div>
+    <nav class="menu"style="background-color: #000000;">
+        <div class="mainSidenav" malihu-scrollbar style="height: 100%;">
+            <label>Menu</label>
+            <ul class="main-menu">
+                <li *ngFor="let menu of commonService.MenuList; let i = index">
+                    <a *ngIf="menu.subMenuItem === undefined" (click)="collapseEvent()" routerLink="{{menu.Url}}" title="{{menu.Name}}"><span>{{menu.Name}}</span></a>
+                    <a *ngIf="menu.subMenuItem != undefined" (click)="menu.isCollapsedLesson = !menu.isCollapsedLesson" [attr.aria-expanded]="!menu.isCollapsedLesson"
+                        attr.aria-controls={{menu.collapseNav}} title="{{menu.Name}}"><span>{{menu.Name}}</span></a>
+                    <ul class="main-menu" id="{{menu.collapseNav}}" *ngIf="menu.subMenuItem != undefined" [collapse]="menu.isCollapsedLesson"
+                        class="sideNavLinks">
+                        <li *ngFor="let Submenu of  menu.subMenuItem; let i = index">
+                            <a (click)="collapseEvent()" routerLink="{{Submenu.Url}}" title="{{Submenu.Name}}">{{Submenu.Name}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="menu-toggle on">
+            <div class="menu-toggle-hamburger menu-close">
+                <span></span>
+            </div>
+        </div>
+    </nav>
+</div>

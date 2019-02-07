@@ -1,0 +1,100 @@
+<section id="scheduling">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="schedulingLeft">
+            <h2 class="headingBotSpace">Schedule Lessons</h2>
+                <ul>
+                    <li class="lessonOption backActive">Personal Info</li>
+                    <li class="lessonOption backActive">Lesson options</li>
+                    <li class="selectDate backActive">Select Date(s)</li>
+                    <li class="review active">review</li>
+                    <li class="payment">payment</li>
+                </ul>
+          </div>
+          <div class="schedulingRight">
+              <div class="row">
+                  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                      <div class="backLink">
+                          <a href="javascript:void(0);" (click)="onBack()"><i class="fa fa-long-arrow-left"></i> Back</a>
+                      </div>
+                      <h3>Review Selections</h3>
+                      <div class="reviewSelection">
+                          <div class="row">
+                              <div class="col-lg-6 col-sm-6 col-12">
+                                  <div class="reviewLeft">
+                                      <ul>
+                                          <li style="padding-bottom: 10px;">
+                                              <label>Dates</label>
+                                              <span *ngIf = "schedulingService.studentScheduleObject.BookingType === 'Recurring'">
+                                                  Every {{schedulingService.recurringWeekDayName}} <a href="javascript:void(0);" (click)="onRecurringBack()">Edit</a>
+                                              </span>
+                                              <span *ngIf = "schedulingService.studentScheduleObject.BookingType != 'Recurring'">
+                                                  <ul>
+                                                      <li *ngFor="let item of scheduleList;" style="padding-bottom: 5px;">
+                                                            {{item}} <a href="javascript:void(0);" (click)="onSingleMultipleBack()">Edit</a>
+                                                      </li>
+                                                  </ul>
+                                              </span>
+                                          </li>
+                                          <li *ngIf="schedulingService.studentScheduleObject.BookingType === 'Recurring'">
+                                              <label>Lesson Time</label>
+                                              <span>{{schedulingService.recurringTimeSlot}} <a href="javascript:void(0);" (click)="onRecurringBack()">Edit</a></span>
+                                          </li>
+                                          <li>
+                                              <label>Billing Date</label>
+                                              <span>Every 7th of the month</span>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-lg-6 col-sm-6 col-12">
+                                  <div class="reviewRight">
+                                      <div class="couponBox">
+                                          <div class="productDet">
+                                              <label>{{teacherLessonRates.Duration}} minutes lesson</label>
+                                              <span>{{teacherLessonRates.Price| currency:'USD':'symbol-narrow':'1.0-2'}} x {{schedulingService.studentScheduleObject.EventsCount}}</span>
+                                              <div class="clr"></div>
+                                          </div>
+                                          <div *ngIf="!hasCoupon" class="couponLink">
+                                              <a href="javascript:void(0);" (click)="setCouponFields()">Have a coupon code?</a>
+                                          </div>
+                                          <div *ngIf="hasCoupon" class="couponLink">
+                                                <input type="text" placeholder="GET20OFF">
+                                                <input type="button" value="Apply">
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div hidden class="couponLink">
+                                                    <a (click)="removeCouponFields()">Don't have a coupon code !</a>
+                                                </div>
+                                          <hr>
+                                          <div class="subtotal">
+                                              <label>Subtotal</label>
+                                              <span>{{lessonAmount| currency:'USD':'symbol-narrow':'1.0-2'}}</span>
+                                              <div class="clr"></div>
+                                          </div>
+                                          <div *ngIf="hasCoupon" class="subtotal">
+                                                <label>Coupon</label>
+                                                <span>-$20</span>
+                                                <div class="clr"></div>
+                                            </div>
+                                          <div class="paymentDue">
+                                              <label>Payment Due</label>
+                                              <span>{{schedulingService.lessonPayableAmount| currency:'USD':'symbol-narrow':'1.0-2'}}</span>
+                                              <div class="clr"></div>
+                                          </div>
+                                      </div>
+                                      <br>
+                                      <br>                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="schedulingStepBtn">
+                          <button (click)="onSaveDataAndNext()" >Next <img src="../assets/images/long-arrow-white.png" alt=""></button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

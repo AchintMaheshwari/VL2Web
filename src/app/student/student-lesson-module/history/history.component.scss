@@ -1,0 +1,59 @@
+i.glyphicon.glyphicon-star {
+    display: inline-block;
+    margin-right: 10px;
+    padding-top: 3px;
+    cursor: pointer;
+    color:#2e3037;
+
+    &.grey{
+        color:#2e3037;
+    }
+
+    &.green{
+        color:#00afa8;
+    }
+
+}
+.acordionContainer {padding-top: 60px;}
+.rightAcor {
+    // bottom: 20px;
+    // left: 9px;
+    // padding: 7px;
+    // position: fixed;
+    // z-index: 50;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.cssText{
+    position: fixed; top: auto; bottom: 20px; right: 20px; left: auto;
+}
+.cssTextOut{
+    position: relative; top: 20px; bottom: auto; right: auto; left: 20px;
+}
+.player-minimize .player-position {
+    bottom: 187px;
+    left: 1101px;
+    padding: 7px;
+    position: fixed;
+    z-index: 50;
+}
+.player-minimize-lap .player-position {
+    bottom: 187px;
+    left: 860px;
+    padding: 7px;
+    position: fixed;
+    z-index: 50;
+}
+.player-container {
+    background-color: black;
+    height: "100%";
+    width: "100%";
+}
+
+@media only screen and (min-width: 0px) and (max-width: 520px) {
+    .lessonHistory .outerTabContent .tittleDrop {padding-bottom: 10px;}
+    .lessonHistory .outerTabContent .tittleDrop .btn-group {width: calc(100% - 15px); text-align: center; display: inline-block;}
+    .lessonHistory .outerTabContent .tittleDrop .btn-group h1,.tittleDrop .btn-group button {display: inline-block;}
+    .lessonHistory .outerTabContent .createLessonBtn {display: inherit; margin: 0 auto;}
+}

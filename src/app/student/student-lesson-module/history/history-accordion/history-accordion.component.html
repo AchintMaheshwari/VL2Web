@@ -1,0 +1,82 @@
+<div class="gray">
+  <div class="acordionContainer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="leftAcor">
+              <mat-accordion *ngFor="let item of lessonHistory; let i = index">
+                <mat-expansion-panel [expanded]='item.expanded' [disabled]="true">
+                  <mat-expansion-panel-header>
+                    <i *ngIf="userType == 'teacher'" [ngClass]="{'glyphicon glyphicon-star' : true, 'grey':!item.IsTeacherFavorite, 'green':item.IsTeacherFavorite}"
+                      (click)="upsertUserFavoriteSongsAndExercises(item)"></i>
+                    <i *ngIf="userType == 'student'" [ngClass]="{'glyphicon glyphicon-star' : true, 'grey':!item.IsStudentFavorite, 'green':item.IsStudentFavorite}"
+                      (click)="upsertUserFavoriteSongsAndExercises(item)"></i>
+                    <label *ngIf="i<9" (click)="bindLessonQueuePlayer(item)">0{{i + 1}}</label>&nbsp;&nbsp;
+                    <label *ngIf="i>=9" (click)="bindLessonQueuePlayer(item)">{{i + 1}}</label>&nbsp;&nbsp;
+                    <div style="width: 100%;" *ngIf="this.userType == 'teacher' ">
+                      <label id="lblItemName_{{item.Label}}" (click)="labelItemClick(item);">
+                        {{ item.TeacherItemName != undefined ? item.TeacherItemName : item.LabelName }}</label>
+                      <input id="txtItemName_{{item.Label}}" (blur)="songItemNameChanged(item);" type="text"
+                        value="{{ item.TeacherItemName != undefined ? item.TeacherItemName : item.LabelName }}"
+                        class="editLibLabel" style="display:none; text-align: left; " />
+                    </div>
+
+                    <div style="width: 100%;" *ngIf="this.userType == 'student' ">
+                      <label id="lblItemName_{{item.Label}}" (click)="labelItemClick(item);">
+                        {{item.StudentItemName != undefined ? item.StudentItemName : ((item.TeacherItemName !=
+                        undefined && item.TeacherItemName!=
+                        null ) ? item.TeacherItemName : item.LabelName) }}</label>
+                      <input id="txtItemName_{{item.Label}}" (blur)="songItemNameChanged(item);" type="text"
+                        value="{{ item.StudentItemName != undefined ? item.StudentItemName : ((item.TeacherItemName != undefined && item.TeacherItemName != null ) ? item.TeacherItemName : item.LabelName) }}"
+                        class="editLibLabel" style="display:none; text-align: left;" />
+                    </div>
+
+                  </mat-expansion-panel-header>
+                  <div class="acordionContent">
+                    <div class="player" style="width: 100%; display: inline-block;">
+                      <div id="audioPlayer{{item.Label}}" style="display: none;"></div>
+                      <div id="excrisePlayer{{item.Label}}" style="display: none;"></div>
+                      <div id="videoPlayer{{item.Label}}" class="videoPlayerWidget" style="display: none;"></div>
+                      <!-- <img src="../../../../assets/images/player-img.jpg" alt="" style="max-width: 100%;"> -->
+                    </div>
+                    <div *ngIf="item.FilterType == 'Song'" class="downloadBtnNew" (click)="downloadFile(item.AudioFile)">
+                      <i class="material-icons">cloud_download</i>
+                      download</div>
+                    <div class="playerTxt" *ngIf="userType == 'student' ">
+                      <h4>Notes</h4>                            
+                      <div style="width: 100%;">
+                        <label id="lblNote_{{item.Label}}" (click)="labelNoteClick(item)">{{ (item.StudentItemNote != undefined && item.StudentItemNote != '' ) ? item.StudentItemNote : 'Please enter your notes here...'}}</label>
+                        <input id="txtNote_{{item.Label}}" (blur)="textNotesChanged(item);" type="text" value="{{ item.StudentItemNote != undefined ? item.StudentItemNote : '' }}"
+                          placeholder="{{ (item.StudentItemNote != undefined && item.StudentItemNote != '') ? item.StudentItemNote : 'Please enter your notes here...' }}"
+                          class="editLibLabel notesEditLabel" style="display:none; text-align: left;" />
+                      </div>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="notesTabberTwo" *ngIf="userType == 'teacher' ">
+                      <tabset>
+                        <tab heading="My Notes" customClass="tabOneOne">
+                          <label id="lblNote_{{item.Label}}" (click)="labelNoteClick(item)">{{
+                            (item.TeacherItemNote != undefined && item.TeacherItemNote != '' ) ?
+                            item.TeacherItemNote : 'Please enter your notes here...'}}</label>
+                          <input id="txtNote_{{item.Label}}" (blur)="textNotesChanged(item);" type="text"
+                            placeholder="{{ (item.TeacherItemNote != undefined && item.TeacherItemNote != '' ) ? item.TeacherItemNote : 'Please enter your notes here...' }}"
+                            value="{{ item.TeacherItemNote != undefined ? item.TeacherItemNote : '' }}" class="editLibLabel notesEditLabel"
+                            style="display:none; text-align: left;" />
+                        </tab>
+                        <tab heading="Student Notes" customClass="tabTwoTwo">
+                          <label id="lblNote_{{item.Label}}" >{{
+                            (item.StudentItemNote != undefined && item.StudentItemNote != '' ) ?
+                            item.StudentItemNote : ''}}</label>                                
+                        </tab>
+                      </tabset>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clr"></div>
+  </div>
+</div>

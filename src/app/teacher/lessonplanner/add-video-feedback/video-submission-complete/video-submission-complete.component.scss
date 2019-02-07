@@ -1,0 +1,89 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$lightpurpletxt: #e6d9e8;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$pinkback: #e90688;
+$lightpurple: #dfbfe4;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+  
+.confirmModal {
+    background: #4b0747; padding: 25px; max-width: 350px; overflow: hidden;
+    h2 {
+        font-family:$secondaryfont; font-size:$runningsize * 1.63; font-weight:500; color:$color; margin:0; padding:0 0 25px 0;
+    }
+    p {
+        font-size: $smallsize; font-family: $secondaryfont; font-weight: 300;
+    }
+    button {
+        &.purpleBtn {
+            text-align: center; background: $pinkback; color: $color; font-size: $runningsize; font-family: $secondaryfont; font-weight: 500; text-transform: $upper; width: calc(50% - 5px); float: left; margin-right: 5px; height: auto !important; border: none;
+        }
+        &.blueBtn {
+            text-align: center; background: $blue; color: $color; font-size: $runningsize; font-family: $secondaryfont; font-weight: 500; text-transform: $upper; width: calc(50% - 5px); float: right; margin-left: 5px; height: auto !important; border: none;
+        }
+    }
+}
+
+.videoSubComplete {
+    padding: 30px; background: #23272a; text-align: center; max-width: 600px; margin: 0 auto;
+    .logo {
+        margin: 0 0 40px 0; padding: 0;
+    }
+    .vidIcon {
+        margin: 0 0 25px 0; padding: 0;
+    }
+    h2 {
+        font-size: $runningsize + 6; font-weight: 500; font-family: $secondaryfont; margin: 0; padding: 0 0 10px 0;
+    }
+    p {
+        font-size: $runningsize; font-weight: 300; font-family: $secondaryfont; margin: 0; padding: 0 0 10px 0;
+    }
+    a {
+        color: $blue; font-size: 14px; text-decoration: none; font-weight: 400; font-family: $secondaryfont;
+        &:hover {
+            color: $pinkback;
+        }
+    }
+}
+
+.outer {
+    display: table; width: 100%; height: 100%; text-align: center; background: rgba(0, 0, 0, 0.5); z-index: 2; position: absolute; top: 0;
+    .inner {
+        display: table-cell; vertical-align: middle; padding: 15px;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 639) {
+    .videoSubComplete .logo img {height: 90% !important;}
+    .videoSubComplete .vidIcon img {width: 40%;}
+}

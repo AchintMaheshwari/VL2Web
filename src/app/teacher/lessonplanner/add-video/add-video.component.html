@@ -1,0 +1,103 @@
+<form #addVideo="ngForm" class="addVideo">
+  <h2></h2>
+  <h2 *ngIf="videoService.videoId === 0">Add Video</h2>
+  <h2 *ngIf="videoService.videoId > 0">Edit Video</h2>
+  <div malihu-scrollbar style="height: calc(100% - 50px); padding-bottom: 20px;">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12 col-12">
+        <div class="recordonkeyboard" (click)="checkPreviousVideoChange()">
+          <img src="../../../../assets/images/video-camera-icon.png" style="max-height: 65px;" alt="">
+          <span>Record on
+            <br />Webcam</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-sm-12 col-12">
+        <div class="drop-container dropFile" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)"
+          [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+          <div class="drop-zone">
+            <div class="content">
+              <img src="../../assets/images/drop-file-icon.png" alt="">
+              <!-- <h1>Drag &amp; Drop</h1> -->
+              <span>...or add video file
+                <br />
+                <label>Drag or
+                  <label class="upload-button">
+                    <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                      [uploadInput]="uploadInput" multiple>
+                  </label>
+                  <!-- <button type="button" class="start-upload-btn" (click)="startUpload()">Start Upload</button> -->click
+                  to upload</label>
+              </span>
+              <div class="clr"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lessonPlannerForm">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12 validateField">
+          <label class="required">Title</label>
+          <span [ngClass]="{ 'editCaseError': ((videoName.dirty || videoName.touched || isAddVideoFlag) && videoName.errors), 'editCaseSuccess':!videoName.errors}">
+            <input required type="text" name="VideoName" [(ngModel)]="videoModel.VideoName" #videoName="ngModel"
+              (change)="restrictWhiteSpace()">
+            <div *ngIf="(isAddVideoFlag || (videoName.errors && (videoName.dirty || videoName.touched)))">
+              <div [hidden]="!(videoName.errors?.required)" class="errorMessage">Please enter a valid Video title.</div>
+            </div>
+          </span>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12 validateField">
+          <label>Video URL</label>
+          <span [ngClass]="{ 'editCaseError': videoUrl.errors?.pattern , 'editCaseSuccess':!videoUrl.errors && videoService.inputVideoURL != ''}">
+            <input type="text" name="VideoURL" [(ngModel)]="videoService.inputVideoURL" #videoUrl="ngModel" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+              (click)="checkVideoChange()" (change)="setVideoURL()">
+            <div *ngIf="videoUrl.errors">
+              <div [hidden]="!videoUrl.errors?.pattern" class="errorMessage">Please enter a valid video link.</div>
+            </div>
+          </span>
+        </div>
+      </div>
+
+      <!-- <progress-bar *ngIf="loaderService.percent>0 && loaderService.percent<100" [class]="progress" [progress]="percent" [color]="'#7F2473'"></progress-bar>  -->
+     
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12 validateField">
+          <label>Other</label>
+          <span [ngClass]="{ 'editCaseError': otherUrl.errors?.pattern , 'editCaseSuccess':!otherUrl.errors && videoService.otherVideoUrl != ''}">
+            <textarea rows="5" cols="50" type="text" name="OtherUrl" [(ngModel)]="videoService.otherVideoUrl" #otherUrl="ngModel"
+              (click)="checkOtherVideoChange()" (change)="setOtherUrl()"></textarea>
+            <div *ngIf="otherUrl.errors">
+              <div [hidden]="!otherUrl.errors?.pattern" class="errorMessage">Please enter a valid video link.</div>
+            </div>
+          </span>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12">
+          <label class="required">Tags</label>
+          <mat-form-field class="demo-chip-list">
+            <mat-chip-list #chipList>
+              <input placeholder="" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+              <mat-chip *ngFor="let tags of videoTags" [selectable]="selectable" [removable]="removable" (removed)="remove(tags)">
+                {{tags.name}}
+                <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+          <div style="position: relative;">
+            <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b !important" switchColor="#00afa8"
+              color="#32353b" [checked]="videoModel.AccessType === 'Public'" (change)="onAccessChange($event)"></ui-switch>
+            <label style="margin: 0;position: absolute; left: 40px; top: 3px;">{{videoModel.AccessType}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-12">
+          <div class="genButton">
+            <button (click)='upsertVideo()'>
+              <img src="../assets/images/generate-btn-icon.png" alt=""> Generate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

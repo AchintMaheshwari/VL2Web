@@ -1,0 +1,228 @@
+<section id="teacherProfile">
+    <div class="personheader">
+        <div class="sharebtn">
+            <!-- <i class="fa fa-share-alt" aria-hidden="true"></i> Share -->
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-sm-7 col-12">
+                <div class="personDetails">
+                    <div class="personPic">
+                        <img *ngIf="commonService.isDefaultImageFlag" src="../assets/images/addImage.png" alt="" class="img-fluid">
+                        <img *ngIf="!commonService.isDefaultImageFlag" src={{commonService.userProfilePic}} alt=""
+                            class="img-fluid">
+                    </div>
+                    <div class="personPerDetail">
+                        <h2>{{teacherProfile.DisplayName}}</h2>
+                        <h2>{{teacherProfile.StudioName}}</h2>
+                        <h3>{{teacherProfile.City}}</h3>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" />
+                            <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star4half" name="rating" value="4 and a half" />
+                            <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" />
+                            <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" id="star3half" name="rating" value="3 and a half" />
+                            <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" />
+                            <label class="full" for="star3" title="Meh - 3 stars"></label>
+                            <input type="radio" id="star2half" name="rating" value="2 and a half" />
+                            <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" />
+                            <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                            <input type="radio" id="star1half" name="rating" value="1 and a half" />
+                            <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" />
+                            <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                            <input type="radio" id="starhalf" name="rating" value="half" />
+                            <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-5 col-12">
+                <div class="lessonDetail">
+                    <div class="lessonBtn">
+                        <button *ngIf="commonService.isStudentUser" class="chatbtn">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="commonService.isStudentUser" (click)="booklesson()" class="booklessonbtn">Book
+                            Lesson</button>
+                        <div class="clr"></div>
+                        <label *ngIf="teacherProfile.AvailabilityAcceptingNew">Accepting new students</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview" role="tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#courses" role="tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-bookmark" aria-hidden="true"></i> Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#review" role="tab" data-toggle="tab">
+                            <i class="fa fa-comments" aria-hidden="true"></i> Reviews</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contentPart -->
+<section id="contentPart">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-4 col-12 leftPanel">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="leftContent profileContentNew">
+                            <h2>{{teacherProfile.ShortIntroduction}}</h2>
+                            <ul>
+                                <h3>availability</h3>
+                                <li *ngIf="teacherProfile.AvailabilityAcceptingNew">Accepting new students</li>
+                                <li *ngIf="teacherProfile.AvailabilityAutoAccept">Auto-accept new requests</li>
+                                <li *ngIf="teacherProfile.AcceptingAgeHigh && teacherProfile.AcceptingAgeLow != null">
+                                    Ages {{teacherProfile.AcceptingAgeLow}} - {{teacherProfile.AcceptingAgeHigh}}</li>
+                                <li *ngIf="teacherProfile.AcceptingAgeHigh == null && teacherProfile.AcceptingAgeLow != null">
+                                    Ages {{teacherProfile.AcceptingAgeLow}}+</li>
+                                <li *ngIf="teacherProfile.AcceptingAgeHigh != null && teacherProfile.AcceptingAgeLow == null">
+                                    Ages {{teacherProfile.AcceptingAgeHigh}}-</li>
+                                <li *ngIf="teacherProfile.AvailabilityOfferSolo">Offers solo lessons</li>
+                                <li *ngIf="teacherProfile.AvailabilityOfferGroup">Offers group lessons</li>
+                            </ul>
+                            <ul class="disclisting halfWidth">
+                                <h3>vocal Styles</h3>
+                                <li *ngIf="teacherProfile.VocalStylePop">Pop</li>
+                                <li *ngIf="teacherProfile.VocalStyleOpera">Opera</li>
+                                <li *ngIf="teacherProfile.VocalStyleClassical">Classical</li>
+                                <li *ngIf="teacherProfile.VocalStyleJazz">Jazz</li>
+                                <li *ngIf="teacherProfile.VocalStyleMusicalTheater">Musical Theatre</li>
+                                <li *ngIf="teacherProfile.VocalStyleFolk">Folk</li>
+                                <li *ngIf="teacherProfile.VocalStyleGospel">Gospel</li>
+                                <li *ngIf="teacherProfile.VocalStyleRock">Rock</li>
+                                <li *ngIf="teacherProfile.VocalStyleHipHop">Hip Hop/R&B</li>
+                                <li *ngIf="teacherProfile.VocalStyleWorld">World</li>
+                            </ul>
+                            <div class="clr"></div>
+                            <div class="width60">
+                                <h3>vocal Type</h3>
+                                <p>{{teacherProfile.VocalType}}</p>
+                            </div>
+                            <div class="width40">
+                                <h3>musical Worship</h3>
+                                <ul class="halfWidth padLeftNone">
+                                    <li *ngIf="teacherProfile.MusicalWorshipBaptist">Baptist</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipBuddhist">Buddhist</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipCatholic">Catholic</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipEpiscopal">Episcopal</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipHindi">Hindi</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipJewish">Jewish</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipLutheran">Lutheran</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipMethodist">Methodist</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipNonDenom">Non-Denom</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipMuslim">Muslim</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipPresbyterian">Presbyterian</li>
+                                    <li *ngIf="teacherProfile.MusicalWorshipUnitarian">Unitarian</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-sm-8 col-12">
+                <div class="rightContent">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active show" id="overview">
+                                    <!-- <app-teacher-overview></app-teacher-overview> -->
+                                    <div role="tabpanel" class="tab-pane fade in active show" id="overview">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-6 col-12">
+                                                <h3>Introduction</h3>
+                                                <p>{{teacherProfile.Introduction}}</p>
+                                            </div>
+                                            <div class="col-lg-6 colsm-6 col-12 overviewVideo">
+                                                <iframe [src]="trustedDashboardUrl" frameborder="0" class="img-fluid"></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 colsm-12 col-12">
+                                                <h3>repertoir</h3>
+                                                <p>{{teacherProfile.Repertoir}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 col-xs-8 col-12">
+                                                <h3>qualifications</h3>
+                                                <ul class="qualificationTxt">
+                                                    <li *ngFor="let Qualificaton of teacherProfile.TeacherQualifications">
+                                                        <label>{{Qualificaton.Date}}</label>
+                                                        <span>{{Qualificaton.Description}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-4 col-xs-4 col-12">
+                                                <h3>Follow</h3>
+                                                <ul class="socialLinks">
+                                                    <li *ngIf="(teacherProfile.SocialMediaFacebook!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaFacebook}}" target="_blank">
+                                                            <i class="fa fa-facebook-official"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li *ngIf="(teacherProfile.SocialMediaTwitter!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaTwitter}}" target="_blank">
+                                                            <i class="fa fa-twitter-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li *ngIf="(teacherProfile.SocialMediaInstagram!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaInstagram}}"
+                                                            target="_blank">
+                                                            <i class="fa fa-instagram"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li *ngIf="(teacherProfile.SocialMediaLinkedIn!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaLinkedIn}}" target="_blank">
+                                                            <i class="fa fa-linkedin-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li *ngIf="(teacherProfile.SocialMediaYouTube!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaYouTube}}" target="_blank">
+                                                            <i class="fa fa-youtube-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li *ngIf="(teacherProfile.SocialMediaPinterest!='')">
+                                                        <a href="https://{{teacherProfile.SocialMediaPinterest}}"
+                                                            target="_blank">
+                                                            <i class="fa fa-pinterest-square"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Website</h3>
+                                                <a href="https://{{teacherProfile.WebsiteUrl}}" target="_blank" class="websiteLink">{{teacherProfile.WebsiteUrl}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="courses">
+                                    <app-teacher-courses></app-teacher-courses>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="review">
+                                    <app-teacher-reviews></app-teacher-reviews>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contentPart -->

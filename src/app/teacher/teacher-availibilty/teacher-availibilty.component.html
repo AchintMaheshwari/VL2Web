@@ -1,0 +1,147 @@
+<div class="">
+<div class="container-fluid" *ngIf="calendarService.isAvailabilitySetting">
+    <div class="row">        
+        <div class="col-lg-12 col-sm-12 col-12 padLRNone">  
+            <a href="javascript:void(0);" (click)="onBack()" class="leftSpace"><i class="fa fa-long-arrow-left"></i> Back</a>      
+            <div class="date-heading">
+                <input id="weekly" (click)="showWeeklyAvailibility($event);" class="checkbox-custom" name="weeklyHours" checked type="checkbox">
+                <label for="weekly" class="checkbox-custom-label">I have regular weekly hours</label>
+            </div>
+            <div *ngIf="showRegAvailDatalist" class="regular-hours" data-preview-warn-change="">
+                <p class="intro-text-details">Click a day below and enter window(s) of time , like “9:00am-5:00pm”,  or “9:00am-12:00pm, 1:00pm-6:00pm”.</p>
+                <table class="big-calendar">
+                    <tbody>
+                        <tr class="availability-row date-hours">
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Sunday')">
+                                <div class="day-of-week" >Sunday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let sunavailable of sundaySlot">{{sunavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Monday')">
+                                <div class="day-of-week">Monday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let monavailable of mondaySlot">{{monavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Tuesday')">
+                                <div class="day-of-week">Tuesday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let Tuesavailable of tuesdaySlot">{{Tuesavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Wednesday')">
+                                <div class="day-of-week">Wednesday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let wedavailable of wednesdaySlot">{{wedavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Thursday')">
+                                <div class="day-of-week">Thursday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let thursavailable of thursdaySlot">{{thursavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Friday')">
+                                <div class="day-of-week">Friday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let fridavailable of fridaySlot">{{fridavailable}}</label>
+                            </td>
+                            <td data-toggle="modal" data-target="#selecttime" class="availability-col" (click)="closeDialog('Saturday')">
+                                <div class="day-of-week">Saturday</div>
+                                <label style="cursor: pointer !important;" *ngFor="let Satavailable of saturdaySlot">{{Satavailable}}</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input (click)="updateRegularAvailibility();" class="btn btn-default save-hours-btn margin-right margin-bottom regular-hours" value="Save Regular Hours" style="display:block" type="submit">
+            </div>
+            <div class="show-if-regular-hours">
+                <div class="keyline"></div>
+                <h4 class="intro-text"> Availability for Specific Days</h4>
+                <p class="intro-text-details">Select a specific date to set, change or override your hours. Click a date below and enter window(s) of time , like “9:00am-5:00pm”, or “9:00am-12:00pm, 1:00pm-6:00pm”.</p>
+                <a class="btn btn-inverse btn-bordered detail-nav-link btn-block-time pull-right" data-toggle="modal" data-target="#setblockHours" >
+                    <i class="fa fa-ban fa-flip-horizontal"></i> Block<span class="hidden-xs"> Off Time</span>
+                </a>                          
+            </div>
+        </div>
+    </div>
+</div>
+<div data-toggle="modal" id="selecttime" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="Showpop" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <i data-dismiss="modal" class="fa fa-times"></i>
+                <h2>Set Regular Hours</h2>
+                <div class="fromNew">
+                    <h3>From</h3>
+                    <ngb-timepicker allowintegerOnly="true" [(ngModel)]="timefrom"  [meridian]="meridian"></ngb-timepicker>
+                </div>
+                <div class="toNew">
+                        <h3>To</h3>
+                        <ngb-timepicker allowintegerOnly="true" [(ngModel)]="timeto" OnlyNumber="true" [meridian]="meridian"></ngb-timepicker>
+                </div>
+                <div class="clr"></div>
+                <button (click)="setRegAvailibilityfun()" class="setHours" data-dismiss="modal"><i class="fa fa-check"></i> Set Hours</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Block Off Time -->
+<div class="modal fade" id="setblockHours" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-body">
+            <div id="belockedPopup">
+                    <i data-dismiss="modal" class="fa fa-times"></i>
+                    <label>Block Off Time</label>
+                    <div class="popupCon">
+                        <div class="fromCol">
+                            <span>From</span>
+                            <div id="from">
+                            <input [(ngModel)]="FromBlockOfTimeDate" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" type="text"  data-date-format="dd-mm-yyyy">
+                            <owl-date-time [pickerType]="'calendar'" #dt3  data-date-format="dd-mm-yyyy"></owl-date-time>
+                            </div>
+                            <div class="clr"></div>
+                            <div class="input-group bootstrap-timepicker timepicker">
+                            <ngb-timepicker allowintegerOnly="true" [(ngModel)]="blockOfftimefrom" [meridian]="meridian"></ngb-timepicker>
+                            </div>
+                        </div>
+                        <div class="untilCol">
+                            <span>Until</span>
+                            <div id="until">
+                             <input [(ngModel)]="ToBlockOfTimeDate" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" type="text">
+                             <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+                            </div>
+                            <div class="clr"></div>
+                            <ngb-timepicker allowintegerOnly="true" [(ngModel)]="blockOfftimeTo" [meridian]="meridian"></ngb-timepicker>
+                            <div class="input-group bootstrap-timepicker timepicker" style="padding-left:0px;">
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                        <div class="allDayCol">
+                            <input id="allday" [(ngModel)]="chkBlockAllday" (click)="blockChkEvent($event)" class="index-checkbox-custom" name="allday" type="checkbox">
+                            <label for="allday" class="index-checkbox-custom-label">All Day</label>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                    <div class="tittle">
+                        <span>title (optional)</span>
+                        <input [(ngModel)]="optionalBlockOffTitile"type="text">
+                    </div>
+                    <button (click)="blockTeacherSpecificTime();" data-dismiss="modal"><i class="fa fa-check"></i> Done</button>
+                    <div class="clr"></div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#sethoures').timepicker();
+                        $('#belocked').timepicker();
+                        $('#belockedFrom').timepicker();
+                        $('#belockedUntil').timepicker();
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#from input').datepicker({
+                        });
+                        $('#until input').datepicker({
+                        });
+                    });
+
+                </script>
+      </div>
+  </div>
+  <div>
+  </div>
+  </div>
+</div>

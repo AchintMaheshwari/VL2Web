@@ -1,0 +1,69 @@
+<div class="connectedLeft">
+    <div class="librarySearch">
+      <input type="text" [(ngModel)]="searchText" placeholder="Search for a title or keyword">
+    </div>
+    <div class="libraryFilter">
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">Filter by type
+          <span class="fa fa-angle-down"></span>
+        </button>
+        <!-- <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">           -->
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+           <li role="menuitem">
+              <input id="exercise" class="checkbox-custom" name="exercise" type="checkbox"  [(ngModel)]="checkedExercise">
+              <label for="exercise" class="checkbox-custom-label" (click)="onChange('Exercise',checkedExercise)"><img src="../../assets/images/exercise-icon.png" alt="">Exercise</label>
+            </li>
+            <li role="menuitem">
+              <input id="songs" class="checkbox-custom" name="songs" type="checkbox" [(ngModel)]="checkedSong">
+              <label for="songs" class="checkbox-custom-label" (click)="onChange('Song',checkedSong)"><img src="../../assets/images/song-icon.png" alt="">Songs</label>
+            </li>
+            <li role="menuitem">
+                <input id="videos" class="checkbox-custom" name="videos" type="checkbox" [(ngModel)]="checkedVideo">
+                <label for="videos" class="checkbox-custom-label" (click)="onChange('Video',checkedVideo)"><img src="../../assets/images/vido-icon.png" alt="">Videos</label>
+              </li>
+            <li role="menuitem">
+              <input id="lesson" class="checkbox-custom" name="lesson" type="checkbox"  [(ngModel)]="checkedLesson">
+              <label for="lesson" class="checkbox-custom-label" (click)="onChange('Lesson',checkedLesson)"><img src="../../assets/images/drop-library-icon.png" alt="">Lesson</label>
+            </li>
+            <li role="menuitem">
+              <input id="mine" class="checkbox-custom" name="mine" type="checkbox"  [(ngModel)]="checkedMine">
+              <label for="mine" class="checkbox-custom-label" (click)="onChange('Mine',checkedMine)"><img src="../../assets/images/mine-icon.png" alt="">Mine</label>
+            </li>
+            <li role="menuitem5">
+              <input id="library" class="checkbox-custom" name="library" type="checkbox"  [(ngModel)]="checkedLibrary">
+              <label for="library" class="checkbox-custom-label" (click)="onChange('Library',checkedLibrary)"><img src="../../assets/images/drop-library-icon.png" alt="">Library</label>
+            </li> 
+        </ul>
+      </div>
+    </div>
+    <div class="clr"></div>
+    <div id="libraryData" malihu-scrollbar dnd-sortable-container [sortableData]="songsDatalist" [dropZones]="['source-dropZone']" style="height:100%;">      
+      <div class="panel-body">
+        <table width="100%" align="" cellpadding="0" cellspacing="0" border="0" >
+          <thead>
+            <tr>
+              <th width="65%">Title</th>
+              <th width="27%">Composer</th>
+              <th class="owner" width="8%">Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let songdata of songsDatalist | filterlibrary : searchText; let x = index" 
+            dnd-sortable [sortableIndex]="x" [dragEnabled]="true" [dropEnabled]="false"
+            [dragData]="songdata">
+              <td class="tittle">                
+                  <img *ngIf="songdata.FilterType=='Exercise'" alt="" src="../../assets/images/exercise-icon.png"/>      
+                  <img *ngIf="songdata.FilterType=='Song'" alt=""  src="../../assets/images/song-icon.png" /> 
+                  <img *ngIf="songdata.FilterType=='Video'" alt=""  src="../../assets/images/vido-icon.png" /> 
+                  <img *ngIf="songdata.FilterType=='Lesson'" alt=""  src="../../assets/images/drop-library-icon.png" />                        
+                {{songdata.LabelName}}</td>
+              <td>{{songdata.Artist}}</td>
+              <td class="owner">
+                <img src="../../assets/images/mine-icon.png" alt="">
+              </td>
+            </tr>
+          </tbody>
+        </table>        
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,28 @@
+<div mat-dialog-content>
+  <div class="addStudenModal">
+    <div class="dialogClose" (click)="onNoClick()">
+      <i class="material-icons">close</i>
+    </div>
+    <!-- <h2>Assing Lesson</h2> -->
+    <div class="search col-lg-12 col-sm-12 col-12">
+      <div class="searchStudent">
+        <input type="text" [(ngModel)]="filterLessonByName" placeholder="Search by Name...">
+      </div>
+    </div>
+        <div class="addStuList" id="divOne" malihu-scrollbar style="max-height: 231px;">
+          <div class="row">
+              <div class="col-lg-12 col-sm-12 col-12">
+                <ul>
+                  <li *ngFor="let list of LessonList | filterLesson:filterLessonByName; let x = index" 
+                  (click)="selectLesson(list.LessonId,x)" 
+                  [ngClass]="{'current': selected === list.LessonId}">
+                    <a>{{list.LessonName}}</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </div>
+        <button class="blueBtn" (click)="assignLesson()">Assign Lesson</button>
+        <div class="clr"></div>
+  </div>
+</div>

@@ -1,0 +1,191 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$purple: #90279d;
+$lightpurpletxt: #e6d9e8;
+$pinkback: #e90688;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.connectedBack {
+    background:url(../../../assets/images/teacher-lobby-bg.jpg) no-repeat fixed center center; background-size:cover; width:$fullwidth; height:calc(100% - 66px); @include position(absolute, 0, left, 0);
+    .innerConnected {
+        background:rgba(0, 0, 0, 0.7); width:$fullwidth; height:$fullwidth; display:flex; /*align-items:center; justify-content:center;*/
+        .connectedLeft {
+            width:60%; /*max-width:623px; margin:0 auto;*/ float:left; padding: 0 0 40px 0;
+            .headTag {
+                margin: 0 80px; background:rgba(116, 17, 117, 0.2); float:left; color:$graybg; font-size:$smallsize - 2; font-family:$secondaryfont; text-transform:$upper; padding:15px 15px 13px 35px; @include position(relative, 0, left, 0);
+                &:before {
+                    @include position(absolute, 0, left, 15px); top:19px; width:10px; height:10px; @include border-radius(100%); background:$blue; content:"";
+                }
+            }
+            .video {
+                width:$fullwidth; padding-bottom:22px; padding-left: 80px; padding-right: 80px;
+            }
+            #vidyoConnector {
+                padding: 0 80px;
+            }
+            .LessonDetail {
+                padding: 0 80px;
+                .LessonLeft {
+                    float:left; font-size:$runningsize + 3; font-weight:500; font-family:$secondaryfont; color:$color; @include position(relative, 0, left, 0);
+                    i {
+                        margin-left:5px; /*text-stroke: 0.2px $purple;*/ -webkit-text-stroke:0.2px $purple; background:$purple; width:15px; height:15px; font-size:12px; padding-left:3px; line-height:14px;
+                    }
+                }
+                .LessonRight {
+                    float:right;
+                    ul {
+                        li {
+                            display:inline-block; width:32px; height:32px; line-height:32px; text-align:center;
+                            a {
+                                color:$color;
+                            }
+                            &.blue {
+                                background:$blue;
+                            }
+                            &.purple {
+                                background:$purple
+                            }
+                            &.pink {
+                                background:$pinkback;
+                            }
+                            &.gray {
+                                background:#454e61;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .connectedRight {
+            .lessonQueue {
+                ul {
+                    display:flex;
+                    li {
+                        list-style:none; width:50%; align-items: end; display:inline-flex; color:#878787; font-size:$smallsize - 1; font-family:$secondaryfont; text-transform:$upper;     font-weight: 600;
+                        &:last-child {
+                            text-align:right; justify-content: flex-end;
+                        }
+                        ui-switch {
+                            display:inline-block; margin-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+app-lesson-queue {
+    width: 50%;
+}
+
+#playerContainer {
+    max-width: 100% !important;
+}
+
+@media only screen and (min-width:0px) and (max-width: 525px) {
+    #videoPlayer #playerContainer iframe {width: 100% !important; height: 100% !important;}
+}
+
+
+
+
+
+
+
+
+
+
+
+/**** css for student feedback ****/
+.studentFeedback {
+    background: #111;
+    .stuFeedWrapper {
+        max-width: 730px; margin: 0 auto; padding: 60px 0;
+        iframe {
+            width: 100%; height: 400px; margin-bottom: 30px;
+        }
+        .treeViewNew {
+            .lessonQueue {
+                ul {
+                    margin: 0; padding: 0; list-style: none;
+                    li {
+                        padding-bottom: 20px;
+                        &:first-child {
+                            float: left;
+                        }
+                    }
+                    li {
+                        &:last-child {
+                            float: right;
+                        }
+                    }
+                }
+            }
+        }
+        #excrisePlayer {
+            .exercisePlayer {
+                max-width: 100% !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 380px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 164px;}
+}
+
+@media only screen and (min-width: 381px) and (max-width: 420px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 196px;}
+}
+
+@media only screen and (min-width: 421px) and (max-width: 479px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 219px;}
+}
+
+@media only screen and (min-width: 480px) and (max-width: 559px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 253px;}
+}
+
+@media only screen and (min-width: 560px) and (max-width: 639px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 300px;}
+}
+
+@media only screen and (min-width: 640px) and (max-width: 719px) {
+    .studentFeedback .stuFeedWrapper iframe {height: 345px;}
+}
+
+app-gvl-payment {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+}

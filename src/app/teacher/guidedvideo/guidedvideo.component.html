@@ -1,0 +1,317 @@
+<div class="form-group">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8 col-sm-12 col-12 offset-lg-2 offset-sm-2 offset-0">
+        <div class="sortByStu">
+          <div class="space"></div>
+           <label>Filter By</label>
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{selectedClaim}}</button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" (click)="getClaimedGuidedList(2)">
+                <a class="dropdown-item" href="javascript:void(0);">All</a>
+              </li>
+              <li role="menuitem" (click)="getClaimedGuidedList(1)">
+                <a class="dropdown-item" href="javascript:void(0);">Claimed</a>
+              </li>
+              <li role="menuitem" (click)="getClaimedGuidedList(0)">
+                <a class="dropdown-item" href="javascript:void(0);">UnClaimed</a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group" *ngIf="isClaimSelected" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{selectedClaimStatus}}</button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" (click)="SortByClaim('All')">
+                <a class="dropdown-item" href="javascript:void(0);">All</a>
+              </li>
+              <li role="menuitem" (click)="SortByClaim('New')">
+                <a class="dropdown-item" href="javascript:void(0);">New</a>
+              </li>
+              <li role="menuitem" (click)="SortByClaim('Viewed')">
+                <a class="dropdown-item" href="javascript:void(0);">Viewed</a>
+              </li>
+              <li role="menuitem" (click)="SortByClaim('Completed')">
+                <a class="dropdown-item" href="javascript:void(0);">Completed</a>
+              </li>
+            </ul>
+          </div>
+          <button (click)='upsertClaimedbyTeacher()' class="claimBtn">Claim Selected</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-sm-12 col-12 offset-lg-2 offset-sm-2 offset-0">
+        <div class="teacherList">
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-6">
+              <h2>New Students</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-9 col-sm-8 col-12">
+              <div class="search">
+                <input type="text" placeholder="Search for a student by Name, Country, Postal Code" class="form-control" [(ngModel)]="inputName"
+                  (keyup)="FilterByName()">
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-4 col-12">
+              <div class="sortByStu">
+                <!--   <div class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{selectedOrder}}</button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" (click)="SortAscending()">
+                      <a class="dropdown-item" href="javascript:void(0);">A-Z</a>
+                    </li>
+                    <li role="menuitem" (click)="SortDescending()">
+                      <a class="dropdown-item" href="javascript:void(0);">Z-A</a>
+                    </li>
+                  </ul>
+                </div>  -->
+
+                <!--   <div class="btn-group" dropdown>
+                    <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">
+                      {{selectedDateOrder}}</button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                      <li role="menuitem" (click)="SortByDateDescending()">
+                        <a class="dropdown-item" href="javascript:void(0);">Oldest to Newest</a>
+                      </li>
+                      <li role="menuitem" (click)="SortByDateAscending()">
+                        <a class="dropdown-item" href="javascript:void(0);">Newest to Oldest</a>
+                      </li>
+                    </ul>
+                  </div>  -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12 addStuTab">
+              <div>
+                <tabset>
+                  <tab id="tab1">
+                    <ng-template tabHeading>
+                      <i class="material-icons" (click)="setListView()">view_list</i>
+                    </ng-template>
+                    <div class="tabContentGuiVid">
+                      <div class="sortableData table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Claim</th>
+                              <th>Video</th>
+                              <th (click)="sortByName()" [ngClass]="{'up': selectedOrder == 'A-Z', 'down': selectedOrder == 'Z-A'}" class="sorting">Name</th>
+                              <th>Country</th>
+                              <th>Location</th>
+                              <th (click)="sortByDate()" [ngClass]="{'up': selectedDateOrder == 'Oldest to Newest', 'down': selectedDateOrder == 'Newest to Oldest'}"
+                                class="sorting">Date Upload</th>
+                              <th colspan="2">Status</th>
+                            </tr>
+                          </thead>
+                          <tr *ngFor="let item of items; let i = index;">
+                            <td valign="top">
+                              <input class="checkbox-custom" id="chkKey_{{item.VideoSubmissionId}}" name="chkClain" type="checkbox" value="item.VideoSubmissionId"
+                                [(ngModel)]="item.IsClaim" (change)="setClaim(item.VideoSubmissionId,item.IsClaim,item.TeacherVideoClaimsMapId)">
+                              <label class="checkbox-custom-label" for="chkKey_{{item.VideoSubmissionId}}"></label>
+                            </td>
+                            <td valign="top">
+                              <div class="listImg" id="videoDiv_{{item.rowIndex}}">
+                                <iframe style="width: 190px !important; max-height: 120px !important" src=''></iframe>
+                                <!-- <img src="../../../assets/images/small-video-img.png" alt="" style="max-width: 141px;" /> -->
+                              </div>
+                            </td>
+                            <td valign="top">
+                              <span>{{item.Name}}</span>
+                            </td>
+                            <td valign="top">
+                              <span>{{item.Country}}</span>
+                            </td>
+                            <td valign="top">
+                              <span>{{item.PostalCode}}</span>
+                            </td>
+                            <td valign="top">{{item.Created}}</td>
+                            <td valign="top">
+                              <span *ngIf="item.LessonId !=0 && item.ClaimStatus==1">Viewed</span>
+                              <span *ngIf="item.LessonId !=0 && item.ClaimStatus==2">Completed</span>
+                              <span *ngIf="item.LessonId ==0">New</span>
+                            </td>
+                            <td>
+                              <div class="dropMenuNew">
+                                <div class="btn-group" dropdown placement="bottom right">
+                                  <button id="button-alignment" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-alignment">
+                                    <i class="material-icons">more_vert</i>
+                                  </button>
+                                  <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-alignment">
+                                    <li *ngIf="item.TeacherVideoClaimsMapId != 0 && item.ClaimStatus === 1" role="menuitem" (click)="PlanGuidedLesson(item.VideoSubmissionId,item.TeacherVideoClaimsMapId)">
+                                      <a class="dropdown-item" href="javascript:void(0);">Plan a Guided Lesson</a>
+                                    </li>
+                                    <li *ngIf="item.TeacherVideoClaimsMapId != 0 && item.ClaimStatus === 1" role="menuitem" (click)="openDialogAssignExistingLesson(item.TeacherVideoClaimsMapId,item.VideoSubmissionId,item.UserId)">
+                                      <a class="dropdown-item" href="javascript:void(0);">Assign a Existing Lesson</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                        <div class="pagination">
+                          <ul>
+                            <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}">
+                              <a (click)="prevPage()" href="javascript:void(0)">
+                                <i class="fa fa-angle-left"></i>Prev</a>
+                            </li>
+                            <li *ngFor="let page of pagesIndex" [ngClass]="{'current': (currentIndex == page)}">
+                              <a (click)="setPage(page)" href="javascript:void(0)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}">
+                              <a (click)="nextPage()" href="javascript:void(0)">Next
+                                <i class="fa fa-angle-right"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </tab>
+                  <tab id="tab2">
+                    <ng-template tabHeading>
+                      <i class="material-icons" (click)="setGridView()">view_module</i>
+                    </ng-template>
+                    <div class="tabContentGuiVid">
+                      <div class="table-responsive addStuGridView">
+                        <table class="table">
+                          <tbody>
+                            <tr *ngFor="let item of itemsGrid">
+                              <td>
+                                <div class="content">
+                                  <img *ngIf="item.VideoUrl1==undefined" src="../../../assets/images/large-video-img.png" alt="" style="width: 100%;">
+                                  <div class="listImg" id="gridVideoDiv_{{item.RowIndex1}}"></div>
+                                  <div class="clr"></div>
+                                  <ul class="videoOptions">
+                                    <li style="float:left;">
+                                      <input class="checkbox-custom" id="chkClaimGrid1_{{item?.VideoSubmissionId1}}" name="chkVideoClaimGrid1" type="checkbox"
+                                        [(ngModel)]="item.IsClaim1" value="item?.VideoSubmissionId1" (change)="setClaim(item?.VideoSubmissionId1,item.IsClaim1,item.TeacherVideoClaimsMapId1)">
+                                      <label class="checkbox-custom-label" for="chkClaimGrid1_{{item?.VideoSubmissionId1}}"></label>
+                                    </li>
+                                    <li class="middle">
+                                      <img *ngIf="item.TeacherVideoClaimsMapId1 != 0 && item.ClaimStatus1==1" src="../../../assets/images/icon.png" alt="" style="max-width: 141px;"
+                                      />
+                                    </li>
+                                    <li class="dropMenuNew" style="float:right;">
+                                      <div class="btn-group" dropdown placement="bottom right">
+                                        <a attr.id="button-alignment" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-alignment">
+                                          <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul attr.id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-alignment">
+                                          <li *ngIf="item.TeacherVideoClaimsMapId1 != 0 && item.ClaimStatus1 === 1" role="menuitem" (click)="PlanGuidedLesson(item.VideoSubmissionId1,item.TeacherVideoClaimsMapId1)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Plan a Guided Lesson</a>
+                                          </li>
+                                          <li *ngIf="item.TeacherVideoClaimsMapId1 != 0 && item.ClaimStatus1 === 1" role="menuitem" (click)="openDialogAssignExistingLesson(item.TeacherVideoClaimsMapId1,item.VideoSubmissionId1,item.UserId1)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Assign a Existing Lesson</a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </li>
+                                    <div class="clr"></div>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td *ngIf="item.VideoSubmissionId2!=undefined">
+
+                                <div class="content">
+                                 <img *ngIf="item.VideoUrl2==undefined" src="../../../assets/images/large-video-img.png" alt="" style="width: 100%;">
+                                  <div class="listImg" id="gridVideoDiv_{{item.RowIndex2}}"></div>
+                                  <div class="clr"></div>
+                                  <ul class="videoOptions">
+                                    <li style="float: left;">
+                                      <input class="checkbox-custom" id="chkClaimGrid2_{{item?.VideoSubmissionId2}}" name="chkVideoClaimGrid2" type="checkbox"
+                                        [(ngModel)]="item.IsClaim2" value="item?.VideoSubmissionId2" (change)="setClaim(item?.VideoSubmissionId2,item.IsClaim2,item.TeacherVideoClaimsMapId2)">
+                                      <label class="checkbox-custom-label" for="chkClaimGrid2_{{item?.VideoSubmissionId2}}"></label>
+                                    </li>
+                                    <li class="middle">
+                                      <img *ngIf="item.TeacherVideoClaimsMapId2 != 0 && item.ClaimStatus2==1" src="../../../assets/images/icon.png" alt="" style="max-width: 141px;"
+                                      />
+                                    </li>
+                                    <li class="dropMenuNew" style="float:right;">
+                                      <div class="btn-group" dropdown placement="bottom right">
+                                        <a attr.id="button-alignment2" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-alignment2">
+                                          <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul attr.id="dropdown-alignment2" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-alignment2">
+                                          <li *ngIf="item.TeacherVideoClaimsMapId2 != 0 && item.ClaimStatus2 === 1" role="menuitem" (click)="PlanGuidedLesson(item.VideoSubmissionId2,item.TeacherVideoClaimsMapId2)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Plan a Guided Lesson</a>
+                                          </li>
+                                          <li *ngIf="item.TeacherVideoClaimsMapId2 != 0 && item.ClaimStatus2 === 1" role="menuitem" (click)="openDialogAssignExistingLesson(item.TeacherVideoClaimsMapId2,item.VideoSubmissionId2,item.UserId2)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Assign a Existing Lesson</a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </li>
+                                    <div class="clr"></div>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td *ngIf="item.VideoSubmissionId3!=undefined">
+                                <div class="content">
+                                   <img *ngIf="item.VideoUrl3==undefined" src="../../../assets/images/large-video-img.png" alt="" style="width: 100%;"> 
+                                  <div class="listImg" id="gridVideoDiv_{{item.RowIndex3}}"></div>
+                                  <div class="clr"></div>
+                                  <ul class="videoOptions">
+                                    <li style="float: left;">
+                                      <input class="checkbox-custom" id="chkClaimGrid3_{{item?.VideoSubmissionId3}}" name="chkVideoClaimGrid3" type="checkbox"
+                                        [(ngModel)]="item.IsClaim3" value="item?.VideoSubmissionId3" (change)="setClaim(item?.VideoSubmissionId3,item.IsClaim3,item.TeacherVideoClaimsMapId3)">
+                                      <label class="checkbox-custom-label" for="chkClaimGrid3_{{item?.VideoSubmissionId3}}"></label>
+                                    </li>
+                                    <li class="middle">
+                                      <img *ngIf="item.TeacherVideoClaimsMapId3 != 0 && item.ClaimStatus3==1" src="../../../assets/images/icon.png" alt="" style="max-width: 141px;"
+                                      />
+                                    </li>
+                                    <li class="dropMenuNew" style="float:right;">
+                                      <div class="btn-group" dropdown placement="bottom right">
+                                        <a attr.id="button-alignment3" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-alignment3">
+                                          <i class="material-icons">more_vert</i>
+                                        </a>
+                                        <ul attr.id="dropdown-alignment3" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-alignment3">
+                                          <li *ngIf="item.TeacherVideoClaimsMapId3 != 0 && item.ClaimStatus3 === 1" role="menuitem" (click)="PlanGuidedLesson(item.VideoSubmissionId3,item.TeacherVideoClaimsMapId3)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Plan a Guided Lesson</a>
+                                          </li>
+                                          <li *ngIf="item.TeacherVideoClaimsMapId3 != 0 && item.ClaimStatus3 === 1" role="menuitem" (click)="openDialogAssignExistingLesson(item.TeacherVideoClaimsMapId3,item.VideoSubmissionId3,item.UserId3)">
+                                            <a class="dropdown-item" href="javascript:void(0);">Assign a Existing Lesson</a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </li>
+                                    <div class="clr"></div>
+                                  </ul>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="pagination">
+                          <ul>
+                            <li [ngClass]="{'disabled': (currentIndexGrid == 1 || pageNumberGrid == 0)}">
+                              <a (click)="prevPageGrid()" href="javascript:void(0)">
+                                <i class="fa fa-angle-left"></i>Prev</a>
+                            </li>
+                            <li *ngFor="let page of pagesIndexGrid" [ngClass]="{'current': (currentIndexGrid == page)}">
+                              <a (click)="setPageGrid(page)" href="javascript:void(0)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{'disabled': (currentIndexGrid == pageNumberGrid || pageNumberGrid == 0)}">
+                              <a (click)="nextPageGrid()" href="javascript:void(0)">Next
+                                <i class="fa fa-angle-right"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

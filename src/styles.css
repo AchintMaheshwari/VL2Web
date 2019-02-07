@@ -1,0 +1,75 @@
+@import url(../src/assets/css/font-awesome.css);
+@import url(../src/assets/css/glyphicons.css);
+/* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
+@import url(~ng-pick-datetime/assets/style/picker.min.css);
+@import "https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css";
+@import url(../src/assets/css/libraryplayer.css);
+
+
+
+.popover {
+    background-color: #16181b;
+    border-top:2px solid #e90688;
+    border-radius:0px;
+    color: #a7aebc;
+  }
+  .popover>.arrow:after {
+    border-bottom-color: #e90688;
+  }
+  .messages_header{
+    display:flex;
+    line-height: 48px;
+    padding: 0 15px;
+    flex-wrap:wrap;
+    justify-content: space-between;
+  }
+  .headerRight ul li .message_header_icons a {
+    color: #a7aebc;
+    text-decoration: none;
+}
+
+.headerRight ul li .message_header_icons a:hover{color: #fff;}
+
+  .message_header_title{
+    display:inline-flex;
+    color:#a7aebc;
+    font-size:12px;
+  }
+  .popover.messagePopup {
+    min-width: 423px;
+    max-width: 423px;
+    left: -330px !important;
+    padding: 0;
+}
+
+.messagePopup .popover-body
+{
+    padding: 0;
+}
+
+.messagePopup .popover-arrow{left: 80% !important;}
+
+.message_row{
+    cursor: pointer;
+    display: flex;
+    border-bottom: 1px solid #20242b;
+}
+
+.message_row:hover{background: #23272b;}
+
+.user_details{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_message{
+    padding: 0 23px;
+    padding: 0 23px;
+    color: #a0a6b3;
+}
+
+.message_row:hover .user_message{color:#fff; }
+
+.message_content p{
+margin: 0;
+}

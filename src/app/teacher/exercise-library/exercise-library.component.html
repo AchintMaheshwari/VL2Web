@@ -1,0 +1,287 @@
+<!-- contentPart -->
+<section id="contentPart" class="exerciseLibrarycontainer" style="height: calc(100% - 65px);">
+    <div class="container-fluid" style="height: 100%;">
+        <div class="row" style="height: 100%;">
+            <div class="col-lg-2 col-sm-4 col-12 leftPanel">
+                <h4>Filter results</h4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header collapsedHeight="30px" expandedHeight="30px">
+                            <mat-panel-title>Key</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="exerciseLibraryList">
+                            <ul *ngFor="let Key of KeyList">
+                                <li>
+                                    <input class="checkbox-custom" id="chkKey_{{Key.Keys}}" name="chkKey" type="checkbox"
+                                        value="Key.Keys" [(ngModel)]="Key.Checked" (change)="getCheckKey(Key.Keys,Key.Checked)">
+                                    <label class="checkbox-custom-label" for="chkKey_{{Key.Keys}}">{{Key.Keys}}
+                                        ({{Key.KeysCount}})</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header collapsedHeight="30px" expandedHeight="30px">
+                            <mat-panel-title>skill level</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="exerciseLibraryList">
+                            <ul *ngFor="let skill of lessonService.skillList;let i = index">
+                                <li *ngIf="i>0">
+                                    <input class="checkbox-custom" id="chkSkill_{{skill.value}}" name="chkSkill" type="checkbox"
+                                        value="skill.value" [(ngModel)]="skill.checked" (change)="getCheckSkill(skill.value,skill.checked)">
+                                    <label class="checkbox-custom-label" for="chkSkill_{{skill.value}}">{{skill.skill}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header collapsedHeight="30px" expandedHeight="30px">
+                            <mat-panel-title>vocal type</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="exerciseLibraryList">
+                            <ul *ngFor="let vocal of lessonService.vocalList">
+                                <li>
+                                    <input class="checkbox-custom" id="chkVocal_{{vocal.item_id}}" name="chkVocal" type="checkbox"
+                                        value="vocal.item_id" [(ngModel)]="vocal.checked" (change)="getCheckVocal(vocal.item_id,vocal.checked)">
+                                    <label class="checkbox-custom-label" for="chkVocal_{{vocal.item_id}}">{{vocal.item_text}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div class="col-lg-10 col-sm-8 col-12" style="height: 100%;">
+                <div class="rightContent" style="height: 100%;">
+                    <div class="rightNav">
+                        <ul *ngIf="userType === 'Teacher'">
+                            <li class="active">
+                                <a href="javascript:void(0);" [routerLink]="['/teacher/exercise-library']">
+                                    <img src="../../assets/images/exercise-icon.png" alt="">Exercises</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/teacher/song-library']">
+                                    <img src="../../assets/images/song-icon.png" alt="">Songs</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/teacher/lesson-library']">
+                                    <img src="../../assets/images/lesson-history-icon.png" alt="">Lessons</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/teacher/video-library']">
+                                    <img src="../../assets/images/vido-icon.png" alt="">Videos</a>
+                            </li>
+                        </ul>
+                        <ul *ngIf="userType === 'Student'">
+                            <li class="active">
+                                <a href="javascript:void(0);" [routerLink]="['/student/exercise-library']">
+                                    <img src="../../assets/images/exercise-icon.png" alt="">Exercises</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/student/song-library']">
+                                    <img src="../../assets/images/song-icon.png" alt="">Songs</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/student/lesson-library']">
+                                    <img src="../../assets/images/lesson-history-icon.png" alt="">Lessons</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/student/playlist-library']">
+                                    <img src="../../assets/images/lesson-history-icon.png" alt="">Playlist</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" [routerLink]="['/student/video-library']">
+                                    <img src="../../assets/images/vido-icon.png" alt="">Videos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clr"></div>
+                    <h2>
+                        <span>exercise</span> library</h2>
+                    <div class="clr"></div>
+                    <div class="exerciseSearch">
+                        <input type="text" id="search" name="search" [(ngModel)]="filterExercise">
+                        <div class="btn-group" dropdown>
+                            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                                aria-controls="dropdown-basic">Source
+                                <span class="fa fa-angle-down"></span>
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                                <li role="menuitem" (click)="roleFilterListing('All')">
+                                    <a class="dropdown-item" href="javascript:void(0);">All</a>
+                                </li>
+                                <li role="menuitem" (click)="roleFilterListing('All')">
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <img src="../../assets/images/doller-icon.png" alt="">Purchased
+                                    </a>
+                                </li>
+                                <li role="menuitem" (click)="roleFilterListing('Made by me')">
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <img src="../../assets/images/drop-user-icon.png" alt="">Made by me
+                                    </a>
+                                </li>
+                                <li role="menuitem" (click)="roleFilterListing('All')">
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <img src="../../assets/images/free-icon.png" alt="">Free
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exerciseSearchBtn">
+                        <button class="purple">
+                            <img src="../../assets/images/doller-icon.png" alt=""> Purchase</button>
+                        <button class="blue" (click)="upsertExercise(0,'')">
+                            <img src="../../assets/images/plus-icon.png" alt=""> Add New</button>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="rightAcordion" malihu-scrollbar style="height: calc(100% - 204px);">
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let exercise of exerciseLibraryService.exerciseList  | filterExerciselibrary:filterExercise">
+                                <mat-expansion-panel-header collapsedHeight="25px" expandedHeight="25px">
+                                    <mat-panel-title class="col-lg-4" style="margin-right: 0; padding-left: 0;">
+                                        <i class="material-icons">play_circle_outline</i> {{exercise.ExerciseName}}
+                                    </mat-panel-title>
+                                    <mat-panel-description class="col-lg-8" style="padding-left: 10px;">
+                                        <!--  <div class="trackInfo col-lg-8">
+                                           <ul>
+                                             <li class="col-lg-8">{{exercise.Artist}}</li>
+                                             <li class="col-lg-2">2:47</li>
+                                           </ul>
+                                         </div> -->
+
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!--  <ul class="acordionRightHead">
+                                    <li>
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                    </li>
+                                    <li>
+                                        <button mat-button [matMenuTriggerFor]="menu">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="upsertExercise(exercise.ExerciseId, exercise.Tags)">
+                                                <img src="../../assets/images/edit-icon.png" alt="">Edit
+                                            </button>
+                                            <button mat-menu-item (click)="cloneExercise(exercise)">
+                                                <img src="../../assets/images/duplicate-icon.png" alt="">Duplicate
+                                            </button>
+                                            <button *ngIf="exercise.CreatedBy === userId" mat-menu-item (click)="opendeleteDialog(exercise.ExerciseId, exercise.ExerciseName)">
+                                                <img src="../../assets/images/delete-icon.png" alt="">Delete
+                                            </button>
+                                        </mat-menu>
+                                    </li>
+                                </ul> -->
+                                <ul *ngIf="exercise.IsUserCreated" class="acordionRightHead" style="width: 120px;">
+                                    <li #inputTarget>
+                                        <button class="btn-default" [class.btn-success]="isCopied1" type="button"
+                                            (click)="linkCopiedMessage()" ngxClipboard [cbContent]="'https://vlapp2.azurewebsites.net/#/user/exercise-share/'+exercise.ExerciseGuid"
+                                            style="margin:0; padding:0; background:none; line-height:17px;">
+                                            <i class="fa fa-link fa-flip-horizontal"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="dropMenuNew">
+                                        <button mat-button [matMenuTriggerFor]="menu"><i class="material-icons">more_vert</i></button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="upsertExercise(exercise.ExerciseId, exercise.Tags)"><img
+                                                    src="../../assets/images/edit-icon.png" alt="">Edit</button>
+                                            <button mat-menu-item (click)="cloneExercise(exercise)"><img src="../../assets/images/duplicate-icon.png"
+                                                    alt="">Duplicate</button>
+                                            <button *ngIf="exercise.CreatedBy === userId" mat-menu-item (click)="opendeleteDialog(exercise.ExerciseId, exercise.ExerciseName)"><img
+                                                    src="../../assets/images/delete-icon.png" alt="">Delete</button>
+                                        </mat-menu>
+                                    </li>
+                                </ul>
+                                <ul *ngIf="(!exercise.IsUserCreated && exercise.AccessType === 'Public')" class="acordionRightHead"
+                                    style="width: 120px;">
+                                    <li #inputTarget>
+                                        <button class="btn-default" [class.btn-success]="isCopied1" type="button"
+                                            (click)="linkCopiedMessage()" ngxClipboard [cbContent]="'https://vlapp2.azurewebsites.net/#/user/exercise-share/'+exercise.ExerciseGuid"
+                                            style="margin:0; padding:0; background:none; line-height:17px;">
+                                            <i class="fa fa-link fa-flip-horizontal"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="dropMenuNew">
+                                        <button mat-button [matMenuTriggerFor]="menu">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item *ngIf="!exercise.IsReadonly" (click)="upsertExercise(exercise.ExerciseId, exercise.Tags)"><img
+                                                    src="../../assets/images/edit-icon.png" alt="">Edit</button>
+                                            <button mat-menu-item (click)="cloneExercise(exercise)"><img src="../../assets/images/duplicate-icon.png"
+                                                    alt="">Duplicate</button>
+                                        </mat-menu>
+                                    </li>
+                                </ul>
+                                <ul *ngIf="(!exercise.IsUserCreated && exercise.AccessType === 'Private')" class="acordionRightHead"
+                                    style="width: 69px;">
+                                    <li>
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                    </li>
+                                    <li class="dropMenuNew">
+                                        <button mat-button [matMenuTriggerFor]="menu">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="cloneExercise(exercise)"><img src="../../assets/images/duplicate-icon.png"
+                                                    alt="">Duplicate</button>
+                                        </mat-menu>
+                                    </li>
+                                </ul>
+                                <div class="rightAcordionContent">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-6 col-12">
+                                            <ul>
+                                                <li>
+                                                    <label>key(s)</label>
+                                                    <span>{{exercise.KeyName}}</span>
+                                                </li>
+                                                <li>
+                                                    <label>vocal type</label>
+                                                    <span>{{exercise.Vocal}}</span>
+                                                </li>
+                                                <li>
+                                                    <label>skill level</label>
+                                                    <span>{{exercise.Skill}}</span>
+                                                </li>
+                                                <li>
+                                                    <label>file type</label>
+                                                    <span>{{exercise.FileType}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6 col-12">
+                                            <div class="tagsContent">
+                                                <label>tags</label>
+                                                <p>{{exercise.Tags}}</p>
+                                                <ul>
+                                                    <li>
+                                                        <button class="downloadBtn" (click)="downloadFile(song.AudioFile)"
+                                                            style="cursor: pointer;">
+                                                            <i class="material-icons">cloud_download</i> Download MP3
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="viewAssetsBtn">
+                                                            <i class="material-icons">queue_music</i> View Assets
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

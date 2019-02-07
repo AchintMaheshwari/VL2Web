@@ -1,0 +1,156 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$lightpurpletxt: #e6d9e8;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$pinkback: #e90688;
+$lightpurple: #dfbfe4;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+        -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+.stuList {
+	padding-bottom:35px;
+}
+.studentList {
+    padding:50px 0; width:$fullwidth;
+    h2 {
+        font-family:$secondaryfont; color:$color;  text-transform:$upper; font-size:$runningsize + 5; margin:0; padding:0 0 25px 0;
+    }
+    .search {
+        @include position(relative, 0, left, 0);
+        input[type="text"] {
+            font-family:$primaryfont; color:#a06b9d; font-size:$runningsize + 2; font-weight:400; padding:8px 15px 8px 50px; background:rgba(116, 17, 117, 0.4); border:none; @include border-radius(0);
+            &:focus {
+                outline:none; box-shadow:none;
+            }
+        }
+        &:before {
+            content: "\f002"; color:#a06b9d; font-family:$iconfont; font-size:$runningsize + 2; @include position(absolute, 0, left, 20px); top:7px;
+        }
+    }
+    .sortableData {
+		margin:0; padding:0;
+		table {
+			width:$fullwidth;
+			thead {
+				tr {
+					th {
+						color:#a97da9; text-transform:$upper; font-family:$secondaryfont; font-size:$smallsize - 2; font-weight:400; border-bottom:1px solid rgba(223, 191, 228, 0.2); padding-bottom:15px;
+					}
+				}
+			}
+			tbody {
+				tr {
+					td {
+						font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:500; border-bottom:1px solid rgba(223, 191, 228, 0.2);
+						&.studentName {
+							padding-top:10px;
+							label {
+								display:inline-block; width:35px;
+								img {
+									max-width:$fullwidth; -webkit-border-radius:$fullwidth; -moz-border-radius:$fullwidth; border-radius:$fullwidth;
+								}
+							}
+							span {
+								display:inline-block; font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:600; padding-left:14px;
+							}
+						}
+						&.nxtLesson {
+							i {
+								color:$pinkback; margin-left:10px;
+							}
+						}
+						.btn-group {
+							float:right;
+							button {
+								background:none; color:$color; font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:500; border:none;
+								&:focus {
+									outline:none;
+								}
+							}
+						}
+						.dropdown-menu {
+							li {
+								a {
+									padding:10px 20px;
+									&:hover {
+										color:$color;
+									}
+								}
+								i {
+									padding-right:8px;
+								}
+							}
+						}
+						.dropdown-toggle {
+							&:after {
+								display:none;
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+}
+
+.studntLstngBtn{
+	width: 165px;
+	float: right;
+	margin-top: 0px !important;
+	margin-bottom: 10px;
+}
+
+.invite_link_icon{
+    padding-right: 0 !important;
+    padding-left: 5px;
+}
+
+::-webkit-input-placeholder {color:#a06b9d;}
+::-moz-placeholder {color:#a06b9d;}
+:-ms-input-placeholder {color:#a06b9d;}
+:-moz-placeholder {color:#a06b9d;}

@@ -1,0 +1,121 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$lightpurpletxt: #e6d9e8;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$pinkback: #e90688;
+$lightpurple: #dfbfe4;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+  }
+
+.addStudenModal {
+    min-width:730px; width:$fullwidth; background: #731174; /*background:rgba(116,17, 117, 0.4);*/ padding:50px; margin:0 auto; position: relative;
+    h2 {
+        font-family:$secondaryfont; font-size:$runningsize + 5; font-weight:500; color:$color; margin:0; padding:0 0 25px 0;
+    }
+    .search {
+        position: relative; z-index: 99999; padding: 0;
+        .searchStudent {
+            input {
+                background: #911b93; color: #c894c4; padding-left: 33px;
+                ::-webkit-input-placeholder {color: #c894c4 !important;}
+                ::-moz-placeholder {color: #c894c4 !important;}
+                :-ms-input-placeholder {color: #c894c4 !important;}
+                :-moz-placeholder {color: #c894c4 !important;}
+            }
+            &:before {
+                @include position(absolute, 0, left, 10px); top: 6px; font-size: $runningsize; color: #c894c4; font-family: 'FontAwesome'; content: "\f002";
+            }
+        }
+    }
+    .addStuList {
+        background: #630d64; padding: 15px; max-width: 630px;;
+        .addStubox {
+            min-height: 63px !important; padding: 10px; -webkit-transition:all 0.4s ease-in-out; -moz-transition:all 0.4s ease-in-out; -o-transition:all 0.4s ease-in-out; transition:all 0.4s ease-in-out;
+            span {
+                float: left;
+            }
+            label {
+                margin-left: 54px;
+                h5 {
+                    font-size: $runningsize; font-family: $primaryfont; color: $color; font-weight: 500;
+                }
+                p {
+                    font-size: $smallsize - 2; font-family: $secondaryfont; color: #c894c5; font-weight: 400; margin: 0; padding: 0;
+                }
+            }
+            &:hover {
+                background: $pinkback;
+            }
+        }
+    }
+    label {
+        font-family:$secondaryfont; font-size:$smallsize - 1; color:$color; text-transform:$upper; width:$fullwidth; line-height:10px; margin-bottom:10px; display:block;
+        span {
+            color:$pinkback;
+        }
+    }
+    input[type="text"] {
+        width:$fullwidth; background:rgba(116, 17, 117, 0.6); border:none; margin-bottom:21px; padding:8px 13px; font-family:$primaryfont; font-size:$runningsize - 1; font-weight:400; color:$lightpurple;
+        &:focus {
+            outline:none;
+        }
+    }
+    button {
+        &.blueBtn {
+            cursor: pointer; float: right; background: $blue; color: $color; font-size: $runningsize; font-family: $secondaryfont; font-weight: 600; text-transform: $upper; border: none; margin: 15px 0 0 0; height: auto !important; padding: 4px 25px;
+            &:focus {
+                outline:none;
+            }
+        }
+    }
+}
+
+.mat-form-field {width:$fullwidth; padding-bottom:24px;}
+input.mat-chip-input {width:$fullwidth; background:rgba(116, 17, 117, 0.6); border:none; margin-bottom:11px; margin-left:0; margin-right:0; margin-left:0px !important; padding:11px 13px; font-family:$primaryfont; font-size:$runningsize - 1; font-weight:400; color:$lightpurple;}
+
+::-webkit-input-placeholder {color:$lightpurple;}
+::-moz-placeholder {color:$lightpurple;}
+:-ms-input-placeholder {color:$lightpurple;}
+:-moz-placeholder {color:$lightpurple;}
+
+@media only screen and (min-width:0px) and (max-width:639px) {
+    .createLesson {padding:15px;}
+}
+
+.dialogClose {
+    position: absolute; top: 15px; right: 15px; font-size: 15px; cursor: pointer; opacity: 0.6; cursor: pointer;
+    &:hover {
+        opacity: 1;
+    }
+}

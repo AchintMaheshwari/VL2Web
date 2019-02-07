@@ -1,0 +1,53 @@
+<div *ngIf="!settingService.showPaymentBreakup" class="row">
+  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+    <h1>Payment</h1>
+    <div class="paymetNotRecd">
+      <button><i class="fa fa-check"></i> Connected</button>
+      <div class="accountNumber">
+        <label>Stripe Account :</label>
+        <p>{{userData.Teacher[0].StripeUserId}}</p>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="paymentHistory">
+      <h2>Payment History <span>({{paymentHistoryArr?.length}})</span></h2>
+      <div class="searchPayHistory">
+        <form>
+          <input type="text" [(ngModel)]="searchText" placeholder="Search payment history" [ngModelOptions]="{standalone: true}">
+        </form>
+      </div>
+      <div class="clr"></div>
+      <div class="paymentTable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="10%">Date</th>
+              <th width="60%">Student</th>
+              <th width="15%">Amount</th>
+              <th width="10%" class="text-right">Status</th>
+            </tr>
+          </thead>
+        <tbody>
+           <tr *ngFor="let paymentArr of settingService.paymentHistoryArr | filter:searchText">
+              <td>{{paymentArr.PaymentDate}}</td>
+              <td class="studentName"><a href="javascript:void(0);" (click)="showPaymentBreakup(paymentArr)" >{{paymentArr.Name}}</a></td>
+              <td>{{paymentArr.Amount | currency:'USD':'symbol-narrow':'1.0-2'}}</td>
+              <td *ngIf="paymentArr.Status =='succeeded'">
+                  <div class="blue">Sent</div>
+              </td>
+              <td *ngIf="paymentArr.Status =='failed'">
+                  <div class="purple">Sent</div>
+              </td>
+              <td *ngIf="paymentArr.Status =='refund'">
+                  <div class="pink">Refunded</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="settingService.showPaymentBreakup">
+  <app-payment-from-student></app-payment-from-student>
+</div>

@@ -1,0 +1,118 @@
+<form #addExs="ngForm" class="addExecercise">
+  <h2 *ngIf="exerciseService.exerciseId === 0">Add an Exercise</h2>
+  <h2 *ngIf="exerciseService.exerciseId > 0">Edit an Exercise</h2>
+  <div malihu-scrollbar style="height: calc(100% - 50px);">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12 col-12">
+        <div class="recordonkeyboard">
+          <img src="../../assets/images/lesson-planner-keyboard-icon.png" alt="">
+          <span>Record on
+            <br />keyboard</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-sm-12 col-12">
+        <div class="drop-container dropFile" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)"
+          [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+          <div class="drop-zone">
+            <div class="content">
+              <img src="../../assets/images/drop-file-icon.png" alt="">
+              <!-- <h1>Drag &amp; Drop</h1> -->
+              <span>...or add a midi file
+                <br />
+                <label>Drag or
+                  <label class="upload-button">
+                    <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                      [uploadInput]="uploadInput" multiple>
+                  </label>
+                  <!-- <button type="button" class="start-upload-btn" (click)="startUpload()">Start Upload</button> -->click
+                  to upload</label>
+              </span>
+              <div class="clr"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lessonPlannerForm">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12 validateField">
+          <label class="required">Title</label>
+          <span [ngClass]="{ 'editCaseError': ((exName.dirty || exName.touched || isAddExFlag) && exName.errors),
+                  'editCaseSuccess':!exName.errors}">
+            <input required type="text" name="ExerciseName" [(ngModel)]="exerciseModel.ExerciseName" #exName="ngModel"
+              (change)="restrictWhiteSpace()">
+            <div *ngIf="(isAddExFlag || (exName.errors && (exName.dirty || exName.touched)))">
+              <div [hidden]="!(exName.errors?.required)" class="errorMessage">
+                Please enter a valid exercise title.
+              </div>
+            </div>
+          </span>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12 validateField">
+          <label>Video URL</label>
+          <span [ngClass]="{ 'editCaseError': videoUrl.errors?.pattern , 'editCaseSuccess':!videoUrl.errors && exerciseModel.VideoURL != ''}">
+            <input type="text" name="VideoURL" [(ngModel)]="exerciseModel.VideoURL" #videoUrl="ngModel" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+              [ngModelOptions]="{updateOn: 'blur'}">
+            <div *ngIf="videoUrl.errors">
+              <div [hidden]="!videoUrl.errors?.pattern" class="errorMessage">
+                Please enter a valid video link for the exercise.
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12">
+          <label>Vocal Type</label>
+          <ng-multiselect-dropdown [placeholder]="" [data]="lessonSer.vocalList" [(ngModel)]="selectedVocal" [settings]="lessonSer.dropdownSettings"
+            (onSelect)="onSelect($event,'Vocal')" (onSelectAll)="onSelectAll($event,'Vocal')" (onDeSelect)="onDeSelect($event,'Vocal')"
+            (onDeSelectAll)="clearAll($event,'Vocal')" name="drpvocalList">
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12">
+          <label>Keys</label>
+          <ng-multiselect-dropdown [placeholder]="" [data]="lessonSer.keyList" [(ngModel)]="selectedKey" [settings]="lessonSer.dropdownKeySettings"
+            (onSelect)="onSelect($event,'Key')" (onSelectAll)="onSelectAll($event,'Key')" (onDeSelect)="onDeSelect($event,'Key')"
+            (onDeSelectAll)="clearAll($event,'Key')" name="drpKeyList">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12">
+          <label>Skill Level</label>
+          <mat-select name="drpSkill" placeholder="Select Skill Level" [(ngModel)]=skillLevel (change)="skillSelection($event.value)">
+            <mat-option *ngFor="let skill of lessonSer.skillList" [value]="skill.value">{{skill.skill}}</mat-option>
+          </mat-select>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12">
+          <label class="required">Tags</label>
+          <mat-form-field class="demo-chip-list">
+            <mat-chip-list #chipList>
+              <input placeholder="" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+              <mat-chip *ngFor="let tags of exerciseTags" [selectable]="selectable" [removable]="removable" (removed)="remove(tags)">
+                {{tags.name}}
+                <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-12">
+          <div class="createLesSwitchContaiuner">
+            <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b !important" switchColor="#00afa8"
+              color="#32353b" [checked]="exerciseModel.AccessType === 'Public'" (change)="onAccessChange($event)"></ui-switch>
+            <label style="margin: 0;position: absolute; left: 61px; top: 2px;">{{exerciseModel.AccessType}}</label>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-12">
+          <div class="genButton">
+            <button [disabled]="!this.form.valid" (click)='upsertExerciseData()'>
+              <img src="../assets/images/generate-btn-icon.png" alt=""> Generate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

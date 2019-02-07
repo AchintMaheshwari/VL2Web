@@ -1,0 +1,38 @@
+.gray {
+    padding-left: 0 !important; padding-right: 0 !important;
+    background: #111111; padding: 40px 121px; min-height: 100%;
+    .leftAcor {
+        .mat-expansion-panel {
+            border-bottom: 1px solid #303235;
+            .mat-expansion-panel-header {
+                font-size: 19px; font-family: "Montserrat", sans-serif; font-weight: 500; color: #dadfe9; height: auto !important; padding-left: 0px; padding-right: 0px;
+                span {
+                    &.mat-content {
+                        padding: 20px 0 !important;
+                    }
+                }
+            }
+            .mat-expansion-panel-content {
+                .mat-expansion-panel-body {
+                    .acordionContent {
+                        .player {
+                            display: inline-block !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+i.glyphicon.glyphicon-star {
+    display: inline-block; margin-right: 10px; padding-top: 25px; padding-bottom: 15px; cursor: pointer; color:#2e3037;
+    &.grey{
+        color:#2e3037;
+    }
+    &.green{
+        color:#00afa8;
+    }
+}
+label {
+    display: inline-block; padding-top: 23px; padding-bottom: 15px;
+}

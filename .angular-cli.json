@@ -1,0 +1,115 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "vl2"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../src/assets/css/player.css",
+        "../src/assets/css/excerisePlayer.css",
+        "../node_modules/fullcalendar/dist/fullcalendar.min.css",
+        "../src/assets/css/aaaaaaaa.css",
+        "../src/assets/scss/style.scss",
+        "styles.css",
+        "../node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css",
+        "../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+        "../node_modules/owl.carousel/dist/assets/owl.carousel.css",
+        "../node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+        "../node_modules/ngx-toastr/toastr.css",
+        "../src/assets/css/loaders.min.css",
+        "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+        "../node_modules/froala-editor/css/froala_style.min.css"
+      ],
+      "scripts": [
+        "../src/assets/js/jquery-3.2.1.min.js",
+        "../src/assets/js/jquery-ui.js",        
+        "../node_modules/moment/moment.js",
+        "../src/assets/js/fullcalendar.js",
+        "../src/assets/js/popper.min.js",
+        "../src/assets/js/bootstrap.min.js",
+        "../src/assets/js/sidenav.js",
+        "../src/assets/js/custom.js",
+        "../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+        "../node_modules/owl.carousel/dist/owl.carousel.js",
+        "../src/assets/js/XSockets/xsockets.latest.min.js",
+        "../src/assets/js/XSockets/LivePlayer.js",
+        "../src/assets/js/XSockets/ScoketService.js",
+        "../src/assets/js/vidyoIOPlayer.js",
+        "../src/assets/js/voicelessonsPlayer.js",
+        "../src/assets/js/voicelessonsExercisePlayer.js",
+        "../src/assets/js/voicelessonsVideoPlayer.js", 
+        "../src/assets/js/VoicelessonsGuidedVideoPlayer.js",                
+        "../src/assets/js/vexflow/vexflow-min.js",
+        "../src/assets/js/vexflow/svg-pan-zoom.min.js",
+        "../src/assets/js/MidiJS/inc/shim/Base64.js",
+        "../src/assets/js/MidiJS/inc/shim/Base64binary.js",
+        "../src/assets/js/MidiJS/inc/shim/WebAudioAPI.js",
+        "../src/assets/js/MidiJS/inc/jasmid/stream.js",
+        "../src/assets/js/MidiJS/inc/jasmid/midifile.js",
+        "../src/assets/js/MidiJS/inc/jasmid/replayer.js",
+        "../src/assets/js/MidiJS/js/midi/audioDetect.js",
+        "../src/assets/js/MidiJS/js/midi/gm.js",
+        "../src/assets/js/MidiJS/js/midi/loader.js",
+        "../src/assets/js/MidiJS/js/midi/plugin.webaudio.js",
+        "../src/assets/js/MidiJS/js/midi/player.js",
+        "../src/assets/js/MidiJS/js/util/dom_request_xhr.js",
+        "../src/assets/js/MidiJS/js/util/dom_request_script.js",
+        "../src/assets/js/MidiJS/examples/soundfont/acoustic_grand_piano-ogg.js",
+        "../src/assets/js/songPlayer.js",
+        "../src/assets/js/commonJSMethods.js" ,
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {},
+    "build": {
+      "showCircularDependencies": false
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="outer">
+  <div class="inner">
+    <div class="modalBack">
+      <div class="selectionLogo">
+        <img src="../../assets/images/VL-logo.png" alt="">
+      </div>
+      <h2>Login as...</h2>
+      <div class="row flex">
+        <div class="col-lg-6 col-sm-6 col-12 inlineFlex seprator">
+          <div class="content">
+              <label>
+                <img src="../../assets/images/login-student-icon.png" alt="">
+              </label>
+              <h3>I’m a Student</h3>
+              <p>Your student account let's you join and take lessons from teachers on the platform. You can also review past lessons to practice and grow.</p>
+              <div class="btn">
+                <button class="loginBtn" (click)="userTypeStudent()">Continue</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-12 inlineFlex">
+          <div class="content">
+            <label>
+                <img src="../../assets/images/login-teacher-icon.png" alt="">
+            </label>
+            <h3>I’m a Teacher</h3>
+            <p>Your teacher account let's you control your online studio including settings for your calendar, rates, and payment. You can also create, plan, and assign lessons plans for upcoming lessons, as well as review past lessons and organize your library.</p>
+            <div class="btn">
+              <button class="loginBtn" (click)="userTypeTeacher()">Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

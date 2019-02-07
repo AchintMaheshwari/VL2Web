@@ -1,0 +1,41 @@
+<div class="studentFeedback">
+  <app-gvl-payment *ngIf="guidedvideoService.PaymentTime=='PayBeforeViewResult' && guidedvideoService.Price != 0 && guidedvideoService.IsPaid == false"></app-gvl-payment>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 col-12">
+        <div class="stuFeedWrapper">
+          <label style="width: 100%;">
+            <span>Video feedback from {{teacherName}}</span>
+            <button (click)="openShare()" class="shareBtn"><i class="fa fa-share-square"></i></button>
+          </label>
+          <!-- <div id="defaultVideoPlayer"></div> -->
+          <iframe id="defaultVideoPlayer" src="" frameborder="0" allowfullscreen=""></iframe>
+          <div>
+            <div id="songplayer">
+              <div id="audioPlayer" style="display: none;"></div>
+              <div id="excrisePlayer" style="display: none;"></div>
+              <div id="videoPlayer" style="display: none;"></div>
+              <!-- <iframe id="videoPlayer" frameborder="0" allowfullscreen=""></iframe> -->
+            </div>
+            <div class="treeViewNew" id="divlessonQueue">
+              <div class="lessonQueue">
+                <ul style="padding-top: 30px;">
+                  <li>Lesson Queue</li>
+                  <li style="display: inline-block;">
+                    Autoplay
+                    <ui-switch (change)="onAutoPlayChange($event)" size="small" defaultBgColor="#32353b" defaultBoColor="#32353b"
+                      switchColor="#00afa8"></ui-switch>
+                  </li>
+                </ul>
+                <div class="clr"></div>
+              </div>
+              <div malihu-scrollbar id="customScroll" style="height: 80%;">
+                <tree-view id="tree1" [nodes]="nodes"></tree-view>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

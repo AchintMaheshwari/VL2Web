@@ -1,0 +1,76 @@
+.addStudentDialog {
+    background: #631153; padding: 50px; max-width: 750px;
+    h2 {
+        font-family: "Montserrat", sans-serif; font-size: 26px; font-weight: 400; color: #fff; margin: 0; padding: 0 0 25px 0;
+    }
+    p {
+        font-family: "Montserrat", sans-serif; font-size: 16px; font-weight: 400; color: #cbb0cf; margin: 0; padding: 0 0 25px 0;
+    }
+    .formFields {
+        display: block;
+        ul {
+            margin: 0; padding: 0; list-style: none;
+            li {
+                display: inline-block; padding-right: 5px; width: calc(33.333334% - 8px);
+                label {
+                    display: block; color: #fff; font-size: 12px; font-family: "Montserrat", sans-serif; font-weight: 500; text-transform: uppercase;
+                }
+                input {
+                    background: #741664; color: #cbb0cf; font-size: 14px; font-family: "Montserrat", sans-serif; width: 100%; border: none; padding: 8px 10px;
+                    &:focus {
+                        outline: none;
+                    }
+                    ::-webkit-input-placeholder {
+                        color: #fff !important;
+                    }
+                    ::-moz-placeholder {
+                        color: #fff !important;
+                    }
+                    :-ms-input-placeholder {
+                        color: #fff !important;
+                    }
+                    :-moz-placeholder {
+                        color: #fff !important;
+                    }
+                    &:focus {
+                        outline:none !important;
+                    }
+                }
+                &:last-child {
+                    width: 33.33334%; padding-right: 0;
+                }
+            }
+        }
+    }
+    button {
+        &.blueBtn {
+            background: #00afa8; color: #fff; font-size: 16px; font-weight: 600; text-transform: uppercase; float: right; margin: 20px 8px 0 0; border: none; height: auto !important; padding: 4px 25px;
+        }
+        i {
+            color: #fff; padding-right: 5px;
+        }
+    }
+}
+
+.validateError {
+    h4 {
+        font-size: 13px; text-transform: uppercase; font-family: "Montserrat", sans-serif; margin-bottom: 10px;
+    }
+    span {
+        &.editCaseError {
+            input {
+                border: 1px solid #e90688 !important;
+            }
+        }
+    }
+}
+.errorMessageHeader {
+    font-size: 12px; font-family: "Montserrat", sans-serif; font-weight: 500;
+}
+
+.dialogClose {
+    position: absolute; top: 15px; right: 15px; font-size: 15px; cursor: pointer; opacity: 0.6;
+    &:hover {
+        opacity: 1;
+    }
+}

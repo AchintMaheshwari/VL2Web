@@ -1,0 +1,108 @@
+<form #quizForm="ngForm">
+  <div class="studentQuiz">
+    <h1>Quiz</h1>
+    <div class="quizForm validateError">
+      <label>Age</label>
+      <span [ngClass]="{ 'editCaseError': age.errors?.pattern,  
+                        'editCaseSuccess':(!age.errors?.pattern && quizData.Age != '')}">
+        <input type="text" name="Age" maxlength="3" [(ngModel)]="quizData.Age" placeholder="XXX" pattern="^([1-9]||[1-9][0-9]||[1-9][0-9][0-9])+$"
+          #age="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+        <div *ngIf="age.errors" style="position: relative;">
+          <div [hidden]="!age.errors?.pattern" class="errorMessage">
+            Please enter a valid age.
+          </div>
+        </div>
+      </span>
+      <label>What style(s) of singing are you interested in studying?<br />
+        <span>Choose as many as you like</span></label>
+      <div class="quizBtn">
+        <button *ngFor="let style of questionService.vocalStyles" [ngClass]="{ 'active': studentStyles.indexOf(style.style) > -1 }"
+          (click)="onStudentStyleSelection(style.style)" name="Style">{{style.style}}
+        </button>
+        <button name="Style" [ngClass]="{ 'active': otherStyleFlag }" (click)="onOtherStyleSelection()">Other</button>
+      </div>
+      <div class="row" *ngIf="otherStyleFlag">
+        <div class="col-lg-12 col-sm-12 col-12 stuEditgoals">
+          <div class="col-lg-12 col-sm-12 col-12 validateError">
+            <h4>Other Style
+              <span>(Please specify)</span>
+            </h4>
+            <input id="otherStyle" type="text" name="otherStyle" [(ngModel)]="quizData.OtherStyle" class="edit">
+          </div>
+        </div>
+      </div>
+      <label>What is your student level?*</label>
+      <div class="stuLabelBtn validateError">
+        <span>
+          <button [ngClass]="{ 'active': quizData.StudentLevel === level.level }" (click)="onStudentLevelSelection(level.level)"
+            *ngFor="let level of questionService.studentLevels" name="StudentProfessionalLevel">{{level.level}}</button>
+        </span>
+      </div>
+      <div *ngIf="quizData.StudentLevel === '' && isFormSubmit" style="position: relative;">
+        <div [hidden]="quizData.StudentLevel != ''" class="errorMessage">
+          Please select a student level.
+        </div>
+      </div>
+      <label>Have you taken voice lessons before?*</label>
+      <ul class="radio" >
+        <li>
+          <input id="yes" value=true class="radio-custom" name="Lessonsbefore" [(ngModel)]="quizData.TakenVoiceLessonsBefore"
+            type="radio">
+          <label for="yes" class="radio-custom-label">yes</label>
+        </li>
+        <li>
+          <input id="no" value=false class="radio-custom" name="Lessonsbefore" (click)="quizData.HowLongTakeLessons = ''"
+            [(ngModel)]="quizData.TakenVoiceLessonsBefore" type="radio">
+          <label for="no" class="radio-custom-label">No</label>
+        </li>
+      </ul>
+      <div *ngIf="quizData.TakenVoiceLessonsBefore === '' && isFormSubmit" style="position: relative;">
+        <div [hidden]="quizData.TakenVoiceLessonsBefore != ''" class="errorMessage">
+          Please select an option.
+        </div>
+      </div>
+      <div *ngIf="quizData.TakenVoiceLessonsBefore==='true'">
+        <label>If YES, how long did you take lessons before?</label>
+        <mat-form-field>
+          <mat-select [(ngModel)]="quizData.HowLongTakeLessons" name="HowLongTakeLessons">
+            <mat-option value="">Select Duration</mat-option>
+            <mat-option value="Less than 1 month">Less than 1 month</mat-option>
+            <mat-option value="2-3 months">2-3 months</mat-option>
+            <mat-option value="4-6 months">4-6 months</mat-option>
+            <mat-option value="6-12 months">6-12 months</mat-option>
+            <mat-option value="1-2 years">1-2 years</mat-option>
+            <mat-option value="2+ years">2+ years</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="quizData.HowLongTakeLessons === '' && isFormSubmit" style="position: relative;">
+          <div [hidden]="quizData.HowLongTakeLessons != ''" class="errorMessage">
+            Please select a valid duration.
+          </div>
+        </div>
+      </div>
+      <label>What are your goals for voice study?</label>
+      <input type="text" name="GoalsForVoiceStudy" [(ngModel)]="quizData.GoalsForVoiceStudy" />
+      <label>How often do you practice vocal scales and/or exercises?</label>
+      <div class="practiceBtns">
+        <button [ngClass]="{ 'active': quizData.HowOftenPractice === practise.option }" (click)="onStudentPractiseSelection(practise.option)"
+          *ngFor="let practise of questionService.studentPractiseOptions" name="StudentPractise">{{practise.option}}</button>
+        <button name="StudentPractise" [ngClass]="{ 'active': otherPractiseFlag }" (click)="onOtherPractiseSelection()">Other</button>
+      </div>
+      <div class="row" *ngIf="otherPractiseFlag">
+        <div class="col-lg-12 col-sm-12 col-12 stuEditgoals" style="padding-top:35px;">
+          <div class="col-lg-12 col-sm-12 col-12 validateError">
+            <h4>Other Practise
+              <span>(Please specify)</span>
+            </h4>
+            <input id="practiseOther" type="text" name="practiseOther" [(ngModel)]="quizData.HowOftenPractice" class="edit">
+          </div>
+        </div>
+      </div>
+      <label>What do you want to be able to do with your voice that you cannot do today?</label>
+      <input type="text" name="WhatDoYouWant" [(ngModel)]="quizData.WhatDoYouWant" />
+      <div class="submitBtn">
+        <button type="button" class="blueBtn" (click)="upsertStudentQuizData()">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>

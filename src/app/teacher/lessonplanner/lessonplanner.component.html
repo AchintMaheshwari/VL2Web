@@ -1,0 +1,172 @@
+<div class="connectedBack">
+  <div class="innerConnected">
+    <div class="connectedLeft">
+      <h2>Add an Exercise</h2>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-12">
+          <div class="recordonkeyboard">
+            <img src="../../assets/images/lesson-planner-keyboard-icon.png" alt="">
+            <span>Record on
+              <br />keyboard</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12">
+          <div class="dropFile">
+            <div class="center">
+              <file-drop (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                <img src="../../assets/images/drop-file-icon.png" alt="">
+                <span>...or add a midi file
+                  <br />
+                  <label>Drag or click to upload</label>
+                </span>
+              </file-drop>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lessonPlannerForm">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12 col-12">
+            <label>Tittle</label>
+            <input type="text">
+          </div>
+          <div class="col-lg-6 col-sm-12 col-12">
+            <label>Video URL</label>
+            <input type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-12">
+            <label>Tags</label>
+            <mat-form-field class="demo-chip-list">
+              <mat-chip-list #chipList>
+                <input placeholder="" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" />
+                <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                  {{tag.name}}
+                  <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="genButton">
+              <button>
+                <img src="../assets/images/generate-btn-icon.png" alt=""> Generate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="connectedRight">
+      <div>
+        <tabset>
+          <tab heading="Lesson" customClass="gray">
+            <div class="lobbyTabContent">
+              <h2>Amazing Grace - Traditional</h2>
+              <div class="clr"></div>
+              <ul class="trackBreakPoint">
+                <li>
+                  <span>Jump To</span>
+                </li>
+                <li>
+                  <label>0:43 - Verse 2</label>
+                </li>
+                <li>
+                  <label>1:52 - Chorus</label>
+                </li>
+                <li>
+                  <label>2:15 - Bridge</label>
+                </li>
+                <li>
+                  <label>3:37 - Rehearsal B</label>
+                </li>
+              </ul>
+              <div class="player">
+                <img src="../../../assets/images/player-img.png" alt="" style="width:100%;">
+              </div>
+              <div class="lessonQueue">
+                <ul style="padding-top: 30px;">
+                  <li>Lesson Queue</li>
+                  <li style="display: inline-block;">
+                    Autoplay
+                    <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b" switchColor="#00afa8"></ui-switch>
+                  </li>
+                </ul>
+              </div>
+              <accordion>
+                <accordion-group heading="12 3 Tone - 1, 2, 3, 2, 1 - La">
+                  <p>This content is straight in the template.</p>
+                </accordion-group>
+                <accordion-group heading="13 C Major Scale - 5 Note - 1, 2, 3, 4, 5, 4, 3, 2, 1">
+                  <p>Content 1</p>
+                </accordion-group>
+                <accordion-group heading="14 5 Tone - 1, 2, 3, 4, 5, 4, 3, 2, 1 - La">
+                  <ul>
+                    <li>
+                      <i class="fa fa-enter"></i> 15 Hum</li>
+                    <li>
+                      <i class="fa fa-enter"></i> 16 Ha</li>
+                    <li>
+                      <i class="fa fa-enter"></i> 17 Me</li>
+                  </ul>
+                </accordion-group>
+                <accordion-group heading="Celine Dion - My Heart Will Go On 02:34">
+                  <p>Content 2</p>
+                </accordion-group>
+                <accordion-group heading="19 8 Tone - 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1 - La">
+                  <p>Content 2</p>
+                </accordion-group>
+              </accordion>
+            </div>
+          </tab>
+          <tab heading="Media" customClass="purple">bbb</tab>
+          <!-- <tab heading="Chat" customClass="pink">bbb</tab> -->
+        </tabset>
+      </div>
+    </div>
+    <div class="bottomStrip">
+      <div class="stripLeft">
+        <ul>
+          <li>
+            <a href="javascript:void(0);">
+              <img src="../../../assets/images/recommended-icon.png" alt=""> Recommended</a>
+          </li>
+          <li>
+            <a href="javascript:void(0);">
+              <img src="../../../assets/images/bot-library-icon.png" alt=""> Library</a>
+          </li>
+          <li>
+            <div class="btn-group" dropdown [dropup]="isDropup">
+              <button id="button-dropup" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-dropup">
+                <i class="fa fa-plus-square"></i> Add New</button>
+              <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/exercise-icon.png" alt="">Exercise</a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/song-icon.png" alt="">Song</a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/vido-icon.png" alt="">Video</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="stripRight">
+        <label>
+          <span>Lesson:</span> beginner warmup basics</label>
+        <button>
+          <i class="fa fa-floppy-o"></i> Save & Exit</button>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>

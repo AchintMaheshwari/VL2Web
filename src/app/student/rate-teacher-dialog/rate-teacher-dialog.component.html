@@ -1,0 +1,32 @@
+<div class="rateYourTeacher">
+  <button class="closeModal" (click)="onNoClick()">X</button>
+  <div class="clr"></div>
+  <div class="teacherImg">
+    <img *ngIf="imageURL == ''" src="../../assets/images/teacher-pic.jpg" alt="">
+    <img *ngIf="imageURL != ''" src={{imageURL}} alt="">
+  </div>
+  <h1>How was your lesson with {{teacherName}}?</h1>
+  <form #reviewForm="ngForm">
+    <div class="startRatingRate">
+      <star-rating-comp [starType]="'svg'" [showHalfStars]="true" (click)="clickRating($event)" (onClick)="onClickRating($event)" 
+      [size]="'large'" rating="{{rateTeacherService.TeacherReviewModel.Rating}}" [staticColor]="'default'"></star-rating-comp>
+    </div>
+    <div class="starRateing">
+    </div>
+    <!-- <img src="../../assets/images/star-rate.jpg" alt=""> -->
+    <span [ngClass]="{ 'editCaseError': ((comment.dirty || comment.touched || isFormSubmitFlag) && comment.errors), 
+    'editCaseSuccess':!comment.errors}">
+      <textarea type="text" placeholder="Write a review" rows="4" required name="Comment" [(ngModel)]="rateTeacherService.TeacherReviewModel.Comment"
+        #comment="ngModel"></textarea>
+    </span>
+    <div *ngIf="(isFormSubmitFlag || (comment.errors && (comment.dirty || comment.touched)))">
+      <div [hidden]="!comment.errors" class="errorMessageHeaderReview" style="bottom:4px;">
+        Please enter comment.
+      </div>
+      </div>
+
+    <!-- <textarea placeholder="Write a review" rows="4" [(ngModel)]="rateTeacherService.TeacherReviewModel.Comment"></textarea> -->
+    <button class="rateBlueBtn" [disabled]="isFormProcessing" (click)="upsertReview()">
+      <i class="fa fa-check"></i> Submit Review</button>
+  </form>
+</div>

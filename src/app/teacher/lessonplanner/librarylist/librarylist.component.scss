@@ -1,0 +1,177 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$purple: #90279d;
+$lightpurpletxt: #e6d9e8;
+$pinkback: #e90688;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.drop-zone {
+    border-radius:0px;
+}
+
+.innerConnected {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+    .connectedLeft {
+        height: $fullwidth; width:$fullwidth; /*max-width:623px; margin:0 auto;*/ float:left; padding:30px 30px 0 30px;
+        h2 {
+            font-size: $smallsize * 2 - 3; font-family: $secondaryfont; color: $color;
+        }
+        .librarySearch {
+            width: calc(100% - 175px); float: left; @include position(relative, 0, left, 0);
+            input[type="text"] {
+                background: rgba(116, 17, 117, 0.4); width: $fullwidth; border: none; font-family: $primaryfont; color: #c794c4; font-size: $runningsize - 1; font-weight:400; padding: 7px 12px 7px 38px; margin-bottom: 20px; resize: none;
+                &:focus {
+                    outline: none;
+                }
+            }
+            &:before {
+                font-family: 'FontAwesome'; font-size: $runningsize; color: #c794c4; content: "\f002"; @include position(absolute, 0, left, 10px); top: 5px;
+            }
+        }
+        .libraryFilter {
+            float: right; width: 160px;
+            .btn-group {
+                width: $fullwidth;
+                button {
+                    background: rgba(116, 17, 117, 0.4); border: none; width: $fullwidth; font-size: $runningsize; font-family: $primaryfont; color: #e6d9e8;
+                    &:after {
+                        display: none;
+                    }
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    span {
+                        &.fa {
+                            padding-left: 5px;
+                        }
+                    }
+                }
+                .dropdown-menu {
+                    background: #6d165f; margin-top: 0px !important;
+                    li {
+                        padding: 4px 24px 4px 5px; border-bottom: 1px solid #87247c; font-size: $runningsize; font-family: $primaryfont; font-weight: 400;
+                        label {
+                            &.checkbox-custom-label {
+                                padding-left: 10px;
+                                img {
+                                    padding-right: 10px;
+                                }
+                                &:hover {
+                                    color: $color;
+                                }
+                                &:before {
+                                    background-color: #87247c;
+                                }
+                                &:checked + .checkbox-custom-label:before {
+                                    background:url(../../../../assets/images/blue-check-icon.png) no-repeat #87247c !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #libraryData {
+            max-height:calc(100% - 38px);
+            table {
+                thead {
+                    tr {
+                        th {
+                            font-size: $smallsize - 2; font-family: $primaryfont; color: #9e739e; text-transform: $upper; padding: 12px 0;
+                            &.owner {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+                tbody {
+                    tr {
+                        td {
+                            border-bottom: 1px solid #442242; font-size: $runningsize - 1; font-family: $secondaryfont; color: $color; font-weight: 400; padding: 12px 0;
+                            &.tittle {
+                                font-weight: 500;
+                                img {
+                                    padding-right: 10px;
+                                }
+                            }
+                            &.owner {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .connectedRight {
+        .lessonQueue {
+            padding-top: 50px;
+            ul {
+                display:flex;
+                li {
+                    list-style:none; width:50%; align-items: end; display:inline-flex; color:#878787; font-size:$smallsize - 1; font-family:$secondaryfont; text-transform:$upper;     font-weight: 600;
+                    &:last-child {
+                        text-align:right; justify-content: flex-end;
+                    }
+                    ui-switch {
+                        display:inline-block; margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+::-webkit-input-placeholder {
+    color: #c794c4;
+}
+::-moz-placeholder {
+    color: #c794c4;
+}
+:-ms-input-placeholder {
+    color: #c794c4;
+}
+:-moz-placeholder {
+    color: #c794c4;
+}
+
+app-librarylist {
+    .connectedLeft {
+        #libraryData {
+            max-height: 100% !important;
+        }
+    }
+}

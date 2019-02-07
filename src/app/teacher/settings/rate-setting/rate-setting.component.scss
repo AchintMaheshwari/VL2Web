@@ -1,0 +1,53 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$runningsize: 16px;
+$upper: uppercase;
+$darkgray: #23272a;
+$blue: #00afa8;
+$lightpurple: #dfbfe4;
+$color: #fff;
+$bornone: none;
+$upper: uppercase;
+$fl: left;
+$fr: right;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+
+.lessonrate {
+    th {
+        padding-left:0px; color:#9e739e; font-size:$runningsize - 4; font-family:$secondaryfont; text-transform:$upper; font-weight:400; border:$bornone; padding-top:0;
+    }
+    td {
+        padding-left:0px; border-top:$bornone; border-bottom:1px solid #532956; font-size:$runningsize - 1; font-family:$primaryfont; font-weight:400;
+        ul {
+            @include position(absolute, 0, right, 0); right:0; top:12px;
+            li {
+                display:inline-block; color:$lightpurple; font-size:$runningsize - 3; padding:0 0 0 10px; cursor:pointer;
+            }
+        }
+    }
+    button {
+        background:$blue; color:$color; padding:10px 20px; text-align:center; width:auto; float:$fl; border:$bornone; margin-top:25px; text-transform:$upper; font-family:$secondaryfont; font-size:$runningsize; font-weight:500; @include position(relative, 0, left, 0);
+        i {
+            -webkit-text-stroke:2px $blue !important; left:15px; right:auto;
+        }
+        &:focus {
+            outline:none;
+        }
+    }
+}

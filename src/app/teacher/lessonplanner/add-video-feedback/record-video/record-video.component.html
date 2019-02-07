@@ -1,0 +1,15 @@
+<div class="recordVideoModal">
+  <h2>Recording</h2>
+  <div class="videoContainer">
+    <video #video class="video"></video>
+    <div class="videoBtns">
+      <ul>
+        <li><button class="blue" (click)="startRecording()" title="Record"><i class="fa fa-play"></i></button></li>
+        <li><button class="lightPurple" (click)="stopRecording()" title="Stop"><i class="fa fa-stop-circle"></i></button></li>
+        <li><button class="purple" (click)="pauseRecording()" title="Pause"><i class="fa fa-pause"></i></button></li>
+        <li><button class="lightPurple" (click)="restartRecording()" title="Restart"><i class="fa fa-repeat"></i></button></li>
+        <li><button class="pink" (click)="upload()" title="Upload"><i class="fa fa-cloud-upload"></i></button></li>
+      </ul>
+    </div>
+  </div>
+</div>

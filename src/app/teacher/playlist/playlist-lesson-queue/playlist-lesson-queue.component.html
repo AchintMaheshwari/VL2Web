@@ -1,0 +1,125 @@
+<div class="connectedRight" style="width: 100%;">
+  <tabset>
+    <tab heading="Lesson" customClass="gray">
+      <div class="tabcontent widget active">
+        <div class="music-descr">
+          <div class="tools-line" id="current-music">
+            <ul class="tools" id="current-tempo"></ul>
+            <ul id="tranposeRepetitions" class="keys"></ul>
+            <div id="exercise"></div>
+          </div>
+        </div>
+        <div id="lesson-history-container" style="display:none;">
+          <br>
+          <h4 class="title">Previously This Lesson: </h4>
+          <div class="jcf-scrollable-wrapper" style="position: relative; width: 100px; height: 700px;">
+            <div id="history-music" class="jcf-scrollable frame" style="overflow: scroll; width: 700px; height: 689px;">
+            </div>
+            <div class="jcf-scrollbar jcf-scrollbar-vertical" style="touch-action: pan-x; position: absolute; height: 689px;">
+              <div class="jcf-scrollbar-dec"></div>
+              <div class="jcf-scrollbar-slider" style="position: relative; height: 689px;">
+                <div class="jcf-scrollbar-handle" style="touch-action: none; position: absolute; top: 688px;"></div>
+              </div>
+              <div class="jcf-scrollbar-inc jcf-inactive"></div>
+            </div>
+            <div class="jcf-scrollbar jcf-scrollbar-horizontal" style="touch-action: pan-y; position: absolute; width: 89px;">
+              <div class="jcf-scrollbar-dec"></div>
+              <div class="jcf-scrollbar-slider" style="position: relative; width: 61px;">
+                <div class="jcf-scrollbar-handle" style="touch-action: none; position: absolute; left: 61px;"></div>
+              </div>
+              <div class="jcf-scrollbar-inc jcf-inactive"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="songplayer" class="lobbyTabContent" style="height: 250px; padding:0;">
+        <div id="audioPlayer" class="" style="display: none;"></div>
+        <div id="excrisePlayer" class="" style="display: none;"></div>
+      </div>
+      <div class="treeViewNew">
+          <div class="lessonQueue">
+              <ul style="padding-top: 30px;">
+                <li>Lesson Queue</li>
+                <li style="display: inline-block;">
+                  Autoplay
+                  <ui-switch (change)="onAutoPlayChange($event)" size="small" defaultBgColor="#32353b" defaultBoColor="#32353b" switchColor="#00afa8"></ui-switch>
+                </li>
+              </ul>
+            </div>
+        <div malihu-scrollbar style="height: 80%;">
+        <app-playlist-tree-view id="tree1" [nodes]="nodes"></app-playlist-tree-view> 
+        </div>
+      </div>
+    </tab>
+    <tab heading="Media" customClass="purple" (select)="bindNoteFlight()">
+      <div id="dvMedia" class="tabContentNew">
+        <div class="upeerData">
+          <div class="upperDropdown">
+
+            <div *ngIf="isNoteFlight==true && noteFilightList.length>0"  class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                {{noteflightTittle}}
+                <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" [(ngModel)]="selectedNoteFlight" malihu-scrollbar style="max-height: 311px;">
+                <li role="menuitem" *ngFor="let list of noteFilightList;let i=index" (click)="getNoteflightId(list.label,i)" [ngClass]="{'this-is-a-class': selectedNoteFlightIndex == i}">
+                  <a class="dropdown-item" href="javascript:void(0)" tooltip="{{list.tittle}}" placement="bottom">{{list.tittle}}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="isLyrics==true  && lyricsList.length>0" class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                {{lyricsTittle}}
+                <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" [(ngModel)]="selectedLyrics" malihu-scrollbar style="max-height: 311px;">
+                <li role="menuitem" *ngFor="let list of lyricsList;let i=index" (click)="getLyrics(list.label,i)" [ngClass]="{'this-is-a-class': selectedLyricsIndex == i}">
+                  <a class="dropdown-item" href="javascript:void(0)" tooltip="{{list.tittle}}" placement="bottom">{{list.tittle}}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="isTranslation==true  && translationList.length>0" class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                {{translationTittle}}
+                <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" [(ngModel)]="selectedTranslation" malihu-scrollbar style="max-height: 311px;">
+                <li role="menuitem" *ngFor="let list of translationList;let i=index" (click)="getTranslation(list.label,i)" [ngClass]="{'this-is-a-class': selectedTranslationIndex == i}">
+                  <a class="dropdown-item" href="javascript:void(0)" tooltip="{{list.tittle}}" placement="bottom">{{list.tittle}}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="isVideo==true  && videoList.length>0" class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                {{videoTittle}}
+                <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic" [(ngModel)]="selectedVideoUrl" malihu-scrollbar style="max-height: 311px;">
+                <li role="menuitem" *ngFor="let list of videoList;let i=index" (click)="getVideoUrl(list.label,i)" [ngClass]="{'this-is-a-class': selectedVideoIndex == i}">
+                  <a class="dropdown-item" href="javascript:void(0)" tooltip="{{list.tittle}}" placement="bottom">{{list.tittle}}</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <div class="upperButton">
+          <button (click)="bindNoteFlight()" [ngClass]="{'active': selectedbutton == 'Score'}">SCORE</button>
+          <button (click)="bindLyrics()" [ngClass]="{'active': selectedbutton == 'Lyrics'}">LYRICS</button>
+          <button (click)="bindTranslation()" [ngClass]="{'active': selectedbutton == 'Translation'}">TRANSLATION</button>
+          <button (click)="bindVideo()" [ngClass]="{'active': selectedbutton == 'Video'}">VIDEO</button>
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="iframeContainer" *ngIf="noteFlightURL != null && isNoteFlight==true">
+        <iframe [src]="noteFlightURL | safe" width="100%"></iframe>
+      </div>
+      <div id='dvLyrics' *ngIf="isLyrics==true" [innerHtml]="lyricshtml"></div>
+      <div id='dvTranslation' *ngIf="isTranslation==true" [innerHtml]="translationhtml"></div>
+      <div *ngIf="trustedDashboardUrl != null && isVideo==true" class="overviewVideo">
+        <iframe [src]="trustedDashboardUrl | safe" width="100%" frameborder="0"></iframe>
+      </div>
+    </div>
+  </tab>
+</tabset>

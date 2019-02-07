@@ -1,0 +1,77 @@
+<section id="scheduling">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="schedulingLeft">
+                <h2 class="headingBotSpace">Schedule Lessons</h2>
+                <ul>
+                    <li class="lessonOption backActive">Personal Info</li>
+                    <li class="lessonOption backActive">Lesson options</li>
+                    <li class="selectDate active">Select Date(s)</li>
+                    <li class="review">review</li>
+                    <li class="payment">payment</li>
+                </ul>
+            </div>
+            <div class="schedulingRight">
+                <div class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div *ngIf="!schedulingService.isReschedule" class="backLink">
+                            <a href="javascript:void(0);" (click)="onBack()"><i class="fa fa-long-arrow-left"></i> Back</a>
+                        </div>
+                        <h3 *ngIf="schedulingService.studentScheduleObject?.BookingType === 'Multiple'">
+                            Select up to {{noOfLesson}} Dates
+                        </h3>
+                        <h3 *ngIf="schedulingService.studentScheduleObject?.BookingType === 'Single'">
+                            Select a Date
+                        </h3>
+                        <div class="select-Date">
+                            <ul>
+                                <li *ngFor="let item of schedulingService.allSelectedDateObject">
+                                    <button (click)="removeLink(item.monthNameWithDay,item.selectStartDate)">{{item.monthNameWithDay}}<i
+                                            class="fa fa-close"></i></button>
+                                </li>
+                                <div class="clr"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="step3DayView">
+                    <div class="calenderRight">
+                        <p-schedule [events]="events" [header]="header" [defaultDate]="defaultDate" [eventLimit]="4"
+                            [editable]="true" (onViewRender)="onViewRender($event)" (onDayClick)="onDayClick($event)"></p-schedule>
+                    </div>
+
+
+                    <div *ngIf="isTimeSelect" class="row">
+                        <div class="col-lg-10 col-sm-12 col-12 offset-lg-1 offset-sm-0 offset-0">
+
+                            <h3>Select a Time</h3>
+                            <div class="selectTimeBtns">
+                                <ul>
+                                    <li *ngFor="let item of items;">
+                                        <button name="time" (click)="onTimeSelection(item)" [ngClass]="{ 'selected' : timeSlot === item}">{{item}}</button>
+                                    </li>
+                                    <div class="clr"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="!schedulingService.isReschedule" class="row">
+                    <div class="col-lg-10 col-sm-12 col-12 offset-lg-1 offset-sm-0 offset-0">
+                        <div class="schedulingStepBtn">
+                            <button (click)="onNextClick()">Next <img src="../assets/images/long-arrow-white.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="schedulingService.isReschedule" class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div class="schedulingStepBtn">
+                            <button (click)="onReschedule()">Reschedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

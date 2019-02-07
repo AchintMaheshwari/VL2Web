@@ -1,0 +1,108 @@
+.stuEditLeftPanel {padding-top: 40px;}
+.stuEditLeftPanel .ageSelector ul {margin: 0; padding: 0;}
+.stuEditLeftPanel .ageSelector ul li {list-style: none; display: inline-flex; padding: 0;}
+.stuEditLeftPanel .ageSelector ul li.firstTD {width: 50px;}
+.stuEditLeftPanel .ageSelector ul li.secondTD {width: 30px; text-align: center;}
+.stuEditLeftPanel .ageSelector ul li.thirdTD {width: 50px;}
+.stuEditLeftPanel .ageSelector ul li.fourthTD {width: 170px; position: relative; z-index: 0; left: 0; height: 41px;}
+.stuEditLeftPanel .ageSelector ul li.fourthTD button {position: absolute; z-index: 0; left: 0; top: 3px;}
+.stuEditLeftPanel .ageSelector ul li:before {display: none;}
+.validateError span.successCase input {border:none;}
+.validateError span.successCase:before {display:none;}
+.validateError span.successCase:after {font-size:14px; top:13px; right:10px; color:#00afa8; position:absolute;}
+.validateError span.errorCase input {border:2px solid #e90688;}
+.validateError span.errorCase:before {display:none;} 
+.validateError span.errorCase:after{font-size:14px; top:13px; right:10px; color:#e90688; position:absolute;}
+.validateError p span.editCaseError input {border:none;}
+.validateError p span.editCaseError:before {display:none;}
+.validateError p span.editCaseError:after {font-size:14px; top:13px; right:10px; color:#00afa8; position:absolute;}
+.validateError p span.editCaseSuccess input {border:2px solid #e90688;}
+.validateError p span.editCaseSuccess:before {display:none;} 
+.validateError p span.editCaseSuccess:after{font-size:14px; top:13px; right:10px; color:#e90688; position:absolute;}
+
+.validateField h3:before {font-size:8px; position:absolute; left:13px; top:4px;}
+.validateField span.successCase input {border:none;}
+.validateField span.successCase:before {display:none;}
+.validateField span.successCase:after {font-size:14px; top:13px; right:10px; color:#00afa8; position:absolute;}
+.validateField span.errorCase input {border:2px solid #e90688;}
+.validateField span.errorCase:before {display:none;} 
+.validateField span.errorCase:after{font-size:14px; top:13px; right:10px; color:#e90688; position:absolute;}
+
+@media (max-width: 370px) and (min-width: 0px) {
+  .stuEditLeftPanel .ageSelector ul li.thirdTD {margin-right:30px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {margin-left:0px; margin-top:15px;}
+}
+
+@media (max-width: 767px) and (min-width: 0px) {
+  .stuEditLeftPanel ul {width: 100%;}
+  .stuEditLeftPanel .ageSelector ul li.secondTD {position: relative; z-index: 0; left: 0; width: 30px; height: 40px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD button {width: 100%; padding-left: 0; padding-right: 0; text-align: center;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {max-width: 200px; width: calc(100% - 135px);}
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .stuEditLeftPanel .ageSelector ul li.secondTD {position: relative; z-index: 0; left: 0; width: 30px; height: 30px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {margin-top:15px; margin-left:0px;}
+  .stuEditLeftPanel .ageSelector ul li.secondTD i {position: absolute; z-index: 0; left: 0; top: 0;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {padding-top: 15px;}
+  .stuEditLeftPanel .ageSelector ul li.thirdTD {margin-right:30px;}
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {padding-top: 15px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {padding-top: 15px;}
+  .stuEditLeftPanel .ageSelector ul li.thirdTD {margin-right:30px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {margin-left:0px; margin-top:15px;}
+}
+
+@media (max-width: 1399px) and (min-width: 1200px) {
+  .editLeftPanel {padding:0 15px;}
+  .stuEditLeftPanel .ageSelector ul li.thirdTD {margin-right:30px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {margin-left:0px; margin-top:15px;}
+}
+
+@media (max-width: 1439px) and (min-width: 1400px) {
+  .editLeftPanel {padding:0 15px;}
+  .stuEditLeftPanel .ageSelector ul li.thirdTD {margin-right:30px;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {margin-left:0px; margin-top:15px;}
+}
+
+@media (max-width: 1639px) and (min-width: 1440px) {
+  .editLeftPanel {padding:0 15px;}
+}
+
+@media (max-width: 1899px) and (min-width: 1801px) {
+  .editLeftPanel {padding:0 40px;}
+}
+
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .stuEditLeftPanel ul.halfWidth li {width: 100%;}
+  .stuEditLeftPanel .ageSelector ul li.fourthTD {padding-top: 15px;}
+}
+
+// .modal-open {
+	
+// }
+
+.teacherProfilePreview {
+	background:url(../../../assets/images/bg-tile.jpg) no-repeat fixed; color:#fff;
+}
+
+.modal-body {
+  padding:0 !important;				
+}
+
+.modal-dialog {
+  max-width:95% !important;
+}
+
+.modal {
+  padding-right:0px !important; background:rgba(192, 192, 192, 0.8);
+}
+
+.editListing{
+  display: flex;
+  flex-wrap: wrap;
+
+  li{width: 50%;}
+}

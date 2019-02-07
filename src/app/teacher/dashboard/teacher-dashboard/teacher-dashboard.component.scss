@@ -1,0 +1,85 @@
+.profileCompl ul{list-style: none; padding: 1rem 0 0;}
+.profileCompl .dropdown-item{padding: 0.25rem 0; color: #ffffff;}
+.profileCompl .dropdown-item:hover{background: rgb(142, 29, 142);}
+// .profileCompl .dropdown-item.uncheck{padding-left:31px;}
+.check:before{
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 15px;
+    color: #00afa8;
+}
+
+.uncheck:before{
+    content: "\f00d";
+    font-family: 'FontAwesome';
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 15px;
+    color: #e90688;
+}
+
+.todaySschedule button.desktop {display:block;}
+.todaySschedule button.mobile {display:none;}
+
+.teacherDashboard .todaySschedule td.schPerName img, .teacherDashboard .recPayRecd td.schPerName img {float: left;}
+
+@media only screen and (min-width: 0px) and (max-width: 1366px) {
+    .dashboardLeftNew {display: none;}
+}
+
+@media only screen and (min-width:0px) and (max-width:540px) {
+    .todaySschedule button.desktop {display:none;}
+    .todaySschedule button.mobile {display:block;}
+    .teacherDashboard .teacherEarning .monthEarning, .teacherDashboard .teacherEarning .yearEarning {text-align: center; padding:15px;}
+    .teacherDashboard .teacherEarning .monthEarning .icon, .teacherDashboard .teacherEarning .yearEarning .icon {float: none; margin-right: 0; padding-bottom: 10px; width: 100%;}
+    .teacherDashboard .teacherEarning .monthEarning .content, .teacherDashboard .teacherEarning .yearEarning .content {width: 100%;}
+    .teacherDashboard .dashTestimonial h2.heading {padding-left: 0 !important; letter-spacing: 1px;}
+}
+
+@media only screen and (min-width:541px) and (max-width:767px) {
+    .teacherDashboard .teacherEarning .monthEarning, .teacherDashboard .teacherEarning .yearEarning {padding:22px;}
+    .teacherDashboard .teacherEarning .monthEarning .icon, .teacherDashboard .teacherEarning .yearEarning .icon {margin-right: 9px;}
+}
+
+@media only screen and (min-width:0px) and (max-width:767px) {
+    .teacherDashboard .todaySschedule th:first-child, .teacherDashboard .recPayRecd th:first-child {padding-left: 10px;}
+    .teacherDashboard .todaySschedule th:last-child, .teacherDashboard .recPayRecd th:last-child {padding-right: 10px; position: relative !important; right: 0 !important;}
+    .teacherDashboard table td:first-child {padding-left: 10px;}
+    .teacherDashboard table td:last-child {padding-right: 10px;}
+    .teacherDashboard table td {padding: 5px;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .teacherDashboard {padding: 40px 0;}
+    .smHalfLeft {padding-right:8px; display: inline-flex; flex-wrap: wrap;}
+    .smHalfRight {padding-left:8px; display: inline-flex; flex-wrap: wrap;}
+    .profileCompl, .studentsList {width: 100%;}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .dashboardRightNew {width: 100%; max-width: 100%;}
+    .dashboardRightNew .teacherDashboard {padding: 50px 15px;}
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    .dashboardRightNew {width: 100%; max-width: 100%;}
+}
+
+.modal {
+    #specPopup {
+        .actionButtons {
+            text-align: right;
+            button {
+                float: none; display: inline-block; margin-left: 5px;
+            }
+        }
+    }
+}
+
+.teacherDashboard .todaySschedule tr.lessonStart, .teacherDashboard .recPayRecd tr.lessonStart {background: none !important;}
+
+@media only screen and (max-width: 1599px) and (min-width: 1200px) {
+    .rightContent, .editRightContent {padding: 30px 50px;}
+}

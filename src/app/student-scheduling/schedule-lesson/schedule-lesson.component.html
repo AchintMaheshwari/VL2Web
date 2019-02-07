@@ -1,0 +1,78 @@
+<section id="scheduling">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="schedulingLeft">
+            <h2 class="headingBotSpace">Schedule Lessons</h2>
+            <ul> 
+                <li class="lessonOption backActive">Personal Info</li>             
+                <li class="lessonOption active">Lesson options</li>
+                <li class="selectDate">Select Date(s)</li>
+                <li class="review">review</li>
+                <li class="payment">payment</li>
+            </ul>
+          </div>
+          <div class="schedulingRight">
+              <div class="row">
+                  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div class="backLink">
+                            <a href="javascript:void(0);" (click)="onBack()"><i class="fa fa-long-arrow-left"></i> Back</a>
+                        </div>
+                      <h3>My Schedule</h3>
+                      <div class="lessonOptionContent">
+                          <h4>lesson type</h4>
+                          <ul>
+                              <li>
+                                  <button name="LessonType" (click)="onLessonTypeSelection('Solo')" 
+                                  [ngClass]="{ 'selected' : schedulingService.studentScheduleObject?.LessonType === 'Solo'}" >
+                                  <img src="../assets/images/user-icon.png" alt=""><br>Solo</button>
+                              </li>
+                              <li>
+                                  <button name="LessonType" (click)="onLessonTypeSelection('Group')" 
+                                  [ngClass]="{ 'selected' : schedulingService.studentScheduleObject?.LessonType === 'Group'}" >
+                                  <img src="../assets/images/users-icon.png" alt=""><br>Group</button>
+                              </li>
+                              <div class="clr"></div>
+                          </ul>
+                      </div>
+                      <div class="lessonOptionContent">
+                          <h4>Booking type</h4>
+                          <ul>
+                              <li>
+                                  <button name="BookingType" (click)="onBookingTypeSelection('Recurring')" 
+                                  [ngClass]="{ 'selected' : schedulingService.studentScheduleObject?.BookingType === 'Recurring'}">
+                                  <img src="../assets/images/recurring-icon.png" alt=""><br>Recurring<br><span>(billed monthly)</span></button>
+                              </li>
+                              <li>
+                                  <button name="BookingType" (click)="onBookingTypeSelection('Multiple')" 
+                                  [ngClass]="{ 'selected' : schedulingService.studentScheduleObject?.BookingType === 'Multiple'}">
+                                  <img src="../assets/images/multiple-icon.png" alt=""><br>Multiple<br><span>(billed once)</span></button>
+                              </li>
+                              <li>
+                                  <button name="BookingType" (click)="onBookingTypeSelection('Single')" 
+                                  [ngClass]="{ 'selected' : schedulingService.studentScheduleObject?.BookingType === 'Single'}">
+                                  <img src="../assets/images/single-icon.png" alt="">
+                                  <br>Single<br><span>(billed once)</span></button>
+                              </li>
+                              <div class="clr"></div>
+                          </ul>
+                      </div>
+                      <div class="lessonOptionContent" style="border-bottom:none;">
+                          <h4>LESSON LENGTH</h4>
+                          <ul>
+                              <li *ngFor="let item of schedulingService.ratesArray;">
+                                  <button name="LengthType" (click)="onLessonRateSelection(item)" 
+                                  [ngClass]="{ 'selected' : schedulingService.rateId === item.RateId }">
+                                  <label>{{item.Duration}} Mins</label><br><span>{{item.Price| currency:'USD':'symbol-narrow':'1.0-2'}}</span></button>
+                              </li>
+                              <div class="clr"></div>
+                          </ul>
+                      </div>
+                      <div class="schedulingStepBtn">
+                          <button (click)="onNextClick()" [disabled]="buttonDisabled" >Next <img src="../assets/images/long-arrow-white.png" alt=""></button>
+                      </div>
+                  </div>
+                </div>             
+          </div>
+      </div>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+<form #addStudentForm="ngForm">
+  <div class="addStudentDialog" style="position: relative;">
+    <div class="dialogClose" (click)="onNoClick()"><i class="material-icons">close</i></div>
+    <h2>Add a Student</h2>
+    <p>Submitting this form will add a student to your Voice Lessons Student Index, and send the student an invitation to set
+      up their Voice Lessons account.</p>
+    <div class="formFields">
+      <ul>
+        <li>
+          <div class="validateError">
+            <h4>First Name</h4>
+            <span [ngClass]="{ 'editCaseError': ((firstName.dirty || firstName.touched || isFormSubmitFlag) && firstName.errors), 'editCaseSuccess':!firstName.errors}">
+              <input type="text" class="edit" maxlength="70" required name="FirstName" [(ngModel)]="TeacherInvite.UserFirstName" rows="1" #firstName="ngModel" style="height:40px;" placeholder="First Name" [ngModelOptions]="{updateOn: 'blur'}" />
+            </span>
+          </div>
+          <div *ngIf="((firstName.errors && (firstName.dirty || firstName.touched)) || isFormSubmitFlag)">
+            <div [hidden]="!firstName.errors" class="errorMessageHeader">
+              Please enter your first name.
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="validateError">
+            <h4>Last Name</h4>
+            <span [ngClass]="{ 'editCaseError': ((lastName.dirty || lastName.touched || isFormSubmitFlag) && lastName.errors),
+             'editCaseSuccess':!lastName.errors}">
+              <input type="text" class="edit" maxlength="70" required name="LastName" [(ngModel)]="TeacherInvite.UserLastName" rows="1" 
+              #lastName="ngModel" style="height:40px;" placeholder="Last Name" [ngModelOptions]="{updateOn: 'blur'}" />
+            </span>
+          </div>
+          <div *ngIf="((lastName.errors && (lastName.dirty || lastName.touched)) || isFormSubmitFlag)">
+            <div [hidden]="!lastName.errors" class="errorMessageHeader">
+              Please enter your last name.
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="validateError">
+            <h4>Email Address</h4>
+            <span [ngClass]="{ 'editCaseError': ((email.dirty || email.touched || isFormSubmitFlag) && email.errors), 'editCaseSuccess':!email.errors}">
+              <input type="text" class="edit" maxlength="70" required pattern="^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="Email" [(ngModel)]="TeacherInvite.UserEamil" rows="1" #email="ngModel" style="height:40px;" placeholder="Email" [ngModelOptions]="{updateOn: 'blur'}" />
+            </span>
+          </div>
+          <div *ngIf="((email.errors && (email.dirty || email.touched)) || isFormSubmitFlag)">
+            <div [hidden]="!email.errors" class="errorMessageHeader">
+              Please enter valid Email Address.
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <button class="blueBtn" style="margin-top: 35px; cursor: pointer;" [disabled]="isInvitationProcessing" (click)="inviteStudent()">
+      <i class="fa fa-paper-plane"></i> Send Invitation</button>
+    <div class="clr"></div>
+  </div>
+</form>

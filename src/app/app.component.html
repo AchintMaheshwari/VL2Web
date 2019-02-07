@@ -1,0 +1,30 @@
+<div *ngIf="loaderService.processloader" class="sk-circle-outer loaderParent">
+  <div class="loaders" style="height: 100%;">
+    <div class="outer">
+      <div class="inner">
+        <div class="loader">
+          <div class="line-scale-pulse-out-rapid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loaderService.percent>0 && loaderService.percent<100" class="sk-circle-outer loaderParent">
+  <div class="loaders" style="height: 100%;">
+    <div class="outer">
+      <div class="inner">
+        <progress-bar  [class]="progress" [progress]="loaderService.percent" [color]="'#7F2473'"></progress-bar> 
+      </div>
+    </div>
+  </div>
+</div>
+<app-header *ngIf="this.isHeader"></app-header>
+<router-outlet (activate)="changeOfRoutes()"></router-outlet>
+<ng-chat #ngChatInstance *ngIf="!isChatWindow && isLogin" [adapter]="adapter" [userId]="userId" [title]="friendUserType"
+  [historyEnabled]="true" [isCollapsed]="true" ></ng-chat>

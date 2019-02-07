@@ -1,0 +1,83 @@
+<section id="scheduling">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="schedulingLeft">
+                <h2 class="headingBotSpace">Schedule Lessons</h2>
+                <ul>
+                    <li class="lessonOption backActive">Personal Info</li>
+                    <li class="lessonOption backActive">Lesson options</li>
+                    <li class="selectDate active">Select Date(s)</li>
+                    <li class="review">review</li>
+                    <li class="payment">payment</li>
+                </ul>
+            </div>
+            <div class="schedulingRight">
+                <div class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div *ngIf="!schedulingService.isReschedule" class="backLink">
+                            <a href="javascript:void(0);" (click)="onBack()"><i class="fa fa-long-arrow-left"></i> Back</a>
+                        </div>
+                        <h3>
+                            Select Day of the Week
+                            <div class="check">
+                            </div>
+                        </h3>
+                        <div class="step3DayView">
+                            <ul>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Sunday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Sunday'}">Sun</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Monday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Monday'}">Mon</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Tuesday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Tuesday'}">Tues</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Wednesday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Wednesday'}">Wed</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Thursday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Thursday'}">Thurs</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Friday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Friday'}">Fri</button>
+                                </li>
+                                <li>
+                                    <button name="WeekDay" (click)="onWeekdaySelection('Saturday')" [ngClass]="{ 'selected' : schedulingService.recurringWeekDayName === 'Saturday'}">Sat</button>
+                                </li>
+                                <div class="clr"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="schedulingService.isRecurringDaySelected" class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <h3>Select a Time</h3>
+                        <div class="selectTimeBtns">
+                            <ul>
+                                <li *ngFor="let item of timeSlotsForRecur;">
+                                    <button name="time" (click)="onTimeSelection(item)" [ngClass]="{ 'selected' : this.schedulingService.recurringTimeSlot === item}">{{item}}</button>
+                                </li>
+                                <div class="clr"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!schedulingService.isReschedule" class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div  class="schedulingStepBtn">
+                            <button (click)="onNextClick()">Next <img src="../assets/images/long-arrow-white.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="schedulingService.isReschedule" class="row">
+                    <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+                        <div  class="schedulingStepBtn">
+                            <button (click)="onReschedule()">Reschedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

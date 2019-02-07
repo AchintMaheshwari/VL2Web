@@ -1,0 +1,70 @@
+<div class="form-group">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-sm-12 col-12 offset-lg-1 offset-sm-0 offset-0">
+                <div class="teacherList">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-6">
+                            <h2>Video Feedback</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12 addStuTab">
+                            <div class="sortableData table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Video Sent</th>
+                                            <th>Video Received</th>
+                                            <th>Date Sent</th>
+                                            <th>Date Received</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let item of items; let i = index;">
+                                        <td valign="top">
+                                            <div class="listImg" id="videoDiv_{{item.rowIndex}}">
+                                                <!-- {{item.VideoUrl}} -->
+                                                <iframe></iframe>
+                                            </div>
+                                        </td>
+                                        <td valign="top">
+                                            <div class="listImg" id="teacherVideoDiv_{{item.rowIndex}}">
+                                                <!-- {{item.TeacherVideoUrl}} -->
+                                                <iframe></iframe>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align: middle;"><span>{{item.Created}}</span></td>
+                                        <td style="vertical-align: middle;" *ngIf="item.DateReceived!='Invalid date'"><span>{{item.DateReceived}}</span></td>
+                                        <td style="vertical-align: middle;" *ngIf="item.DateReceived=='Invalid date'"><span></span></td>
+                                        <td style="vertical-align: middle;"><span>{{item.FeedbackStatus}}</span></td>
+                                        <td style="vertical-align: middle;"><span>{{item.PostalCode}}</span></td>
+                                        <td style="vertical-align: middle;" *ngIf="item.LessonId!=0 && item.ClaimStatus==2">
+                                            <button class="rateBlueBtn" (click)='getfeedbackdata(item.Source,item.LessonGuidId, item.VideoSubmissionId, item.TeacherId, item.LessonId,item.IsPaid)'><i class="fa fa-check"></i> View Feedback</button>
+                                        </td>
+                                        <td style="vertical-align: middle;" *ngIf="item.LessonId==0 || (item.LessonId !=0 && item.ClaimStatus==1)">
+                                            <button class="rateBlueBtn"><i class="fa fa-check"></i> View Feedback</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="pagination">
+                                    <ul>
+                                        <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}">
+                                            <a (click)="prevPage()" href="javascript:void(0)"><i class="fa fa-angle-left"></i>Prev</a>
+                                        </li>
+                                        <li *ngFor="let page of pagesIndex" [ngClass]="{'current': (currentIndex == page)}">
+                                            <a (click)="setPage(page)" href="javascript:void(0)">{{page}}</a>
+                                        </li>
+                                        <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}">
+                                            <a (click)="nextPage()" href="javascript:void(0)">Next <i class="fa fa-angle-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

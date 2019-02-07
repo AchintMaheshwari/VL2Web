@@ -1,0 +1,200 @@
+<section id="contentPart" class="exerciseLibrarycontainer" style="height: calc(100% - 66px);">
+  <div class="container-fluid" style="height: 100%;">
+    <div class="row" style="height: 100%;">
+      <div class="col-lg-2 col-sm-4 col-12 leftPanel">
+      </div>
+      <div class="col-lg-10 col-sm-8 col-12" style="height: 100%;">
+        <div class="rightContent" style="height: 100%;">
+          <div class="rightNav">
+            <ul *ngIf="userType === 'Teacher'">
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/teacher/exercise-library']">
+                  <img src="../../assets/images/exercise-icon.png" alt="">Exercises</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/teacher/song-library']">
+                  <img src="../../assets/images/song-icon.png" alt="">Songs</a>
+              </li>
+              <li class="active">
+                <a href="javascript:void(0);" [routerLink]="['/teacher/lesson-library']">
+                  <img src="../../assets/images/lesson-history-icon.png" alt="">Lessons</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/teacher/video-library']">
+                  <img src="../../assets/images/vido-icon.png" alt="">Videos</a>
+              </li>
+            </ul>
+            <ul *ngIf="userType === 'Student'">
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/student/exercise-library']">
+                  <img src="../../assets/images/exercise-icon.png" alt="">Exercises</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/student/song-library']">
+                  <img src="../../assets/images/song-icon.png" alt="">Songs</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/student/lesson-library']">
+                  <img src="../../assets/images/lesson-history-icon.png" alt="">Lessons</a>
+              </li>
+              <li class="active">
+                <a href="javascript:void(0);" [routerLink]="['/student/playlist-library']">
+                  <img src="../../assets/images/lesson-history-icon.png" alt="">Playlist</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/student/video-library']">
+                  <img src="../../assets/images/vido-icon.png" alt="">Videos</a>
+              </li>
+            </ul>
+          </div>
+          <div class="clr"></div>
+          <h2>
+            <span>Playlist</span> library</h2>
+          <div class="clr"></div>
+          <div class="exerciseSearch">
+            <input type="text" id="search" name="search" [(ngModel)]="filterDashboard">
+            <div class="btn-group" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn-primary dropdown-toggle" aria-controls="dropdown-basic">Source
+                <span class="fa fa-angle-down"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);" (click)="onChange('All')">All</a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);" (click)="onChange('Purchased')">
+                    <img src="../../assets/images/doller-icon.png" alt="">Purchased</a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);" (click)="onChange('Made by me')">
+                    <img src="../../assets/images/drop-user-icon.png" alt="">Made by me</a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0);" (click)="onChange('Free')">
+                    <img src="../../assets/images/free-icon.png" alt="">Free</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="exerciseSearchBtn">
+            <button class="purple">
+              <img src="../../assets/images/doller-icon.png" alt=""> Purchase</button>
+            <button class="blue" (click)="openCreateDialog()">
+              <img src="../../assets/images/plus-icon.png" alt=""> Add New</button>
+          </div>
+          <div class="clr"></div>
+          <div class="rightAcordion" malihu-scrollbar style="height: calc(100% - 204px);">
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let lesson of lessonService.lessonsList | filterDashboardlibrary:filterDashboard">
+                <mat-expansion-panel-header collapsedHeight="25px" expandedHeight="25px">
+                  <mat-panel-title class="col-lg-4" style="margin-right: 0; padding-left: 0;">{{lesson.LessonName}}</mat-panel-title>
+                  <mat-panel-description class="col-lg-8" style="padding-left: 10px;">
+                    <div class="trackInfo col-lg-8">
+                      <ul>
+                        <li class="col-lg-2">{{lesson.Started}}</li>
+                      </ul>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul *ngIf="lesson.IsUserCreated" class="acordionRightHead" style="width: 120px;">
+                  <li #inputTarget>
+                    <button class="btn-default" [class.btn-success]="isCopied1" type="button" (click)="linkCopiedMessage()"
+                      ngxClipboard [cbContent]="commonService.appEndpoint + '/#/user/lesson-share/'+lesson.LessonGuid"
+                      style="margin:0; padding:0; background:none; line-height:17px;">
+                      <i class="fa fa-link fa-flip-horizontal"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                  </li>
+                  <li class="dropMenuNew">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="GetIndivisualLessondata(lesson.LessonId, lesson.LessonName, lesson.Tags, lesson.Users,'Edit')">
+                        <img src="../../assets/images/edit-icon.png" alt="">Edit</button>
+                      <button mat-menu-item (click)="GetIndivisualLessondata(lesson.LessonId, lesson.LessonName, lesson.Tags, lesson.Users,'Duplicate')">
+                        <img src="../../assets/images/duplicate-icon.png" alt="">Duplicate</button>
+                      <button mat-menu-item (click)="opendeleteDialog(lesson.LessonId, lesson.LessonName)">
+                        <img src="../../assets/images/delete-icon.png" alt="">Delete</button>
+                    </mat-menu>
+                  </li>
+                </ul>
+                <ul *ngIf="(!lesson.IsUserCreated && lesson.LessonAccessType === 'Public')" class="acordionRightHead"
+                  style="width: 120px;">
+                  <li #inputTarget>
+                    <button class="btn-default" [class.btn-success]="isCopied1" type="button" (click)="linkCopiedMessage()"
+                      ngxClipboard [cbContent]="commonService.appEndpoint + '/#/user/lesson-share/'+lesson.LessonGuid"
+                      style="margin:0; padding:0; background:none; line-height:17px;">
+                      <i class="fa fa-link fa-flip-horizontal"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                  </li>
+                  <li class="dropMenuNew">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item *ngIf="!lesson.IsReadonly" (click)="GetIndivisualLessondata(lesson.LessonId, lesson.LessonName, lesson.Tags, lesson.Users,'Edit')">
+                        <img src="../../assets/images/edit-icon.png" alt="">Edit</button>
+                      <button mat-menu-item (click)="GetIndivisualLessondata(lesson.LessonId, lesson.LessonName, lesson.Tags, lesson.Users,'Duplicate')">
+                        <img src="../../assets/images/duplicate-icon.png" alt="">Duplicate</button>
+                    </mat-menu>
+                  </li>
+                </ul>
+                <ul *ngIf="(!lesson.IsUserCreated && lesson.LessonAccessType === 'Private')" class="acordionRightHead"
+                  style="width: 69px;">
+                  <li>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                  </li>
+                  <li class="dropMenuNew">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="GetIndivisualLessondata(lesson.LessonId, lesson.LessonName, lesson.Tags, lesson.Users, 'Duplicate')">
+                        <img src="../../assets/images/duplicate-icon.png" alt="">Duplicate</button>
+                    </mat-menu>
+                  </li>
+                </ul>
+                <div class="rightAcordionContent">
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-12">
+                      <ul style="padding: 0;">
+                        <li>
+                          <label>created on</label>
+                          <span>{{lesson.CreatedOn}}</span>
+                        </li>
+                        <li>
+                          <label>vocal type</label>
+                          <span>{{lesson.Vocal}}</span>
+                        </li>
+                        <li>
+                          <label>skill level</label>
+                          <span>{{lesson.SkillLevel}}</span>
+                        </li>
+                        <li>
+                          <label>tracks</label>
+                          <span>12</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-12">
+                      <div class="tagsContent">
+                        <label>tags</label>
+                        <p>{{lesson.Tags}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

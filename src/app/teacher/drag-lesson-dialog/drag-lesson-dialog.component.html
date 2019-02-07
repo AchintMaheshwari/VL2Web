@@ -1,0 +1,19 @@
+<div class="dragLessonDialog">
+  <div class="dialogClose" (click)="onNoClick()"><i class="material-icons">close</i></div>
+  <h2>Select How To Add Lesson:</h2>
+  <ul>
+    <li>
+      <input id="optionOne" class="radio-custom" name="options" type="radio" value="bottom" [(ngModel)]="dragLesson">
+      <label for="optionOne" class="radio-custom-label">Add Lesson to Bottom of Lesson Queue</label>
+    </li>
+    <li>
+      <input id="optionTwo" class="radio-custom" name="options" type="radio" value="overWrite" [(ngModel)]="dragLesson">
+      <label for="optionTwo" class="radio-custom-label">Overwrite Lesson Queue</label>
+    </li>
+  </ul>
+  <div class="btn-group">
+    <button class="pinkBtn" (click)="AddLesson()">Yes</button>
+    <button class="blueBtn" (click)="CloseLessonModal()">No</button>
+    <div class="clr"></div>
+  </div>
+</div>

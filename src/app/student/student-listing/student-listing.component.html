@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 col-sm-12 col-12 offset-lg-2 offset-sm-2 offset-0">
+      <div class="studentList">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 col-6">
+            <h2>my students</h2>
+          </div>
+          <div class="col-lg-6 col-sm-6 col-6">
+            <button class="inviteStudntBtn studntLstngBtn" (click)="openDialog()">Add Student</button>
+          </div>
+        </div>
+        <div class="row stuList">
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="search">
+              <form>
+                <input type="text" placeholder="Search for a student" class="form-control">
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="sortableData">
+          <table align="center" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Lesson Link</th>
+                <th>Next Lesson</th>
+                <th>Last Lesson</th>
+                <th>Vocal Range</th>
+                <th>Student Since</th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of studentService.studentList">
+                <td class="studentName">
+                  <label *ngIf="student.ImageUrl != ''">
+                    <img src={{student.ImageUrl}} alt="" class="img-fluid">
+                  </label>
+                  <label *ngIf="student.ImageUrl === ''">
+                    <img src="../assets/images/user-icon.png" alt="">
+                  </label>
+                  <span>{{student.DisplayName}}</span>
+                </td>
+                <td class="nxtLesson">
+                  <button class="btn btn-default" [class.btn-success]="isCopied1" type="button" (click)="linkCopiedMessage()"
+                    ngxClipboard [cbContent]="commonService.appEndpoint+'/#/room/'+student.Roomkey" style="margin-left:20px; padding:0; background:none; line-height:17px;"><i
+                      class="fa fa-link fa-flip-horizontal" style="-webkit-text-stroke: 0px !important; color:#dfbfe4; font-size:13px;"></i></button>
+                </td>
+                <td class="nxtLesson">
+                  <span>{{student.NextLesson}}</span>
+                  <i class="fa fa fa-clock-o fa-rotate-90"></i>
+                </td>
+                <td>{{student.LastLesson}}</td>
+                <td>
+                  {{student.LowVocalRange}}-{{student.HighVocalRange}}
+                  <span>(as of {{student.ModifiedOn}})</span>
+                </td>
+                <td>{{student.CreatedOn}}</td>
+                <td>
+                  <div class="btn-group" dropdown placement="bottom right">
+                    <button id="button-basic" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">Actions
+                      <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                      aria-labelledby="button-basic">
+                      <li *ngIf="student.InvitationFlagStatus === 'Pending'" role="menuitem">
+                        <a class="dropdown-item" (click)="resendInvite(student.StudentId)" href="javascript:void(0);">
+                          <i class="fa fa-paper-plane"></i> Resend Invite</a>
+                      </li>
+                      <li *ngIf="student.InvitationFlagStatus === 'Accepted'" role="menuitem">
+                        <a class="dropdown-item" (click)="startLobbyLesson(student.StudentId,student.DisplayName)" href="javascript:void(0);">
+                          <i class="fa fa-plus-square-o"></i> Start Lesson</a>
+                      </li>
+                      <li *ngIf="student.InvitationFlagStatus === 'Accepted'" role="menuitem">
+                        <a class="dropdown-item" (click)="openCreateDialog(student)" href="javascript:void(0)">
+                          <i class="fa fa-plus-square-o"></i> Plan a Lesson</a>
+                      </li>
+                      <li *ngIf="student.InvitationFlagStatus === 'Accepted'" role="menuitem">
+                        <a class="dropdown-item" href="javascript:void(0)">
+                          <i class="fa fa-book"></i> View All Lessons</a>
+                      </li>
+                      <li *ngIf="student.InvitationFlagStatus === 'Accepted'" role="menuitem">
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="sendLinkToStudent(student.DisplayName, student.Roomkey, student.StudentEmail, student.CellNumber)">
+                          <i class="fa fa-link fa-flip-horizontal invite_link_icon"></i> Send Lesson Link</a>
+                      </li>
+                      <li *ngIf="student.InvitationFlagStatus === 'Accepted'" role="menuitem">
+                        <a class="dropdown-item" href="javascript:void(0)">
+                          <i class="fa fa-credit-card"></i> View Billing History</a>
+                      </li>
+                      <li role="menuitem">
+                        <a class="dropdown-item" (click)="getStudentProfile(student.StudentProfileId, student.ImageUrl)"
+                          href="javascript:void(0);">
+                          <i class="fa fa-user"></i> View Profile</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

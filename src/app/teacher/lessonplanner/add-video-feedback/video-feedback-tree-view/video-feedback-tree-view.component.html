@@ -1,0 +1,48 @@
+<div dnd-droppable [dropZones]="['source-dropZone']">
+    <ul id="dropTreeView" style="list-style: none;padding: 0;">
+
+        <li id="div_{{dir.Label}}" *ngFor="let dir of nodes; let i = index" dnd-sortable-container [sortableData]="nodes">
+            <div class="tree-node tree-node-content angular-ui-tree-handle" [ngClass]="{'tree-node-empty':dir.LabelName == '_emptynode_'}"
+                 dnd-sortable [sortableIndex]="i">
+                <img *ngIf="dir.FilterType == 'Song' " src="../../assets/images/song-icon.png">
+                <img *ngIf="dir.FilterType == 'Exercise' " src="../../assets/images/exercise-icon.png">
+                <img *ngIf="dir.FilterType == 'Video' " src="../../assets/images/vido-icon.png">
+                <a class="btn btn-success btn-xs" *ngIf="dir.length > 0 && dir.LabelName != '_emptynode_'" [ngClass]="{'tree-node-empty':dir.LabelName == '_emptynode_'}">
+                    <span class="glyphicon" [ngClass]="{'glyphicon-chevron-right': !dir.expanded,'glyphicon-chevron-down': dir.expanded}">
+                    </span>
+                </a>
+                <span *ngIf="dir.LabelName != '_emptynode_'">
+                    <label class="lblItemClass" id="lblItemName_{{dir.Label}}" (click)="labelItemClick(dir);">
+                        {{ (dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName != '' ) ? dir.TeacherItemName
+                        : dir.LabelName }}
+                    </label>
+                    <input id="txtItemName_{{dir.Label}}" (blur)="songItemNameChanged(dir);" type="text" value="{{ (dir.TeacherItemName != undefined && dir.TeacherItemName != null && dir.TeacherItemName != '') ? dir.TeacherItemName : dir.LabelName }}"
+                        class="editLibLabel txtItemClass" style="display:none; text-align: left;" />
+                </span>
+               
+                <a *ngIf="dir.LabelName != '_emptynode_' && dir.LabelName != 'Drag Here!...' && isVideoConnectedPage == false " class="pull-right btn btn-primary btn-xs"
+                    (click)="playSong(i,nodes,'PT')">
+                    <span>
+                        <img src="../../../assets/images/play-icon.png">
+                    </span>
+                </a>
+                <a [matMenuTriggerFor]="menu" *ngIf="dir.LabelName != '_emptynode_' && dir.LabelName != 'Drag Here!...' && isVideoConnectedPage == true "
+                    class="pull-right btn btn-primary btn-xs">
+                    <span>
+                        <img src="../../../assets/images/play-icon.png">
+                    </span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="playSong(i,nodes,'PT')">PT</button>
+                        <button mat-menu-item (click)="playSong(i,nodes,'PS')">PS</button>
+                        <button mat-menu-item (click)="playSong(i,nodes,'PA')">PA</button>
+                        <button mat-menu-item (click)="playSong(i,nodes,'SNP')">SNP</button>
+                    </mat-menu>
+                </a>
+            </div>
+            <div *ngIf="dir.expanded">
+                <app-video-feedback-tree-view [nodes]="dir.nodes" class="asdd"></app-video-feedback-tree-view>
+            </div>
+        </li>
+    </ul>
+
+</div>

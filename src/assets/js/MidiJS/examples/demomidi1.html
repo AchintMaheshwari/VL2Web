@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<!-- polyfill -->
+	<script src="../inc/shim/Base64.js" type="text/javascript"></script>
+	<script src="../inc/shim/Base64binary.js" type="text/javascript"></script>
+	<script src="../inc/shim/WebAudioAPI.js" type="text/javascript"></script>
+    <!-- jasmid package -->
+    <script src="../inc/jasmid/stream.js"></script>
+    <script src="../inc/jasmid/midifile.js"></script>
+    <script src="../inc/jasmid/replayer.js"></script>
+	<!-- midi.js package -->
+	<script src="../js/midi/audioDetect.js" type="text/javascript"></script>
+	<script src="../js/midi/gm.js" type="text/javascript"></script>
+	<script src="../js/midi/loader.js" type="text/javascript"></script>
+	<script src="../js/midi/plugin.audiotag.js" type="text/javascript"></script>
+	<script src="../js/midi/plugin.webaudio.js" type="text/javascript"></script>
+	<script src="../js/midi/plugin.webmidi.js" type="text/javascript"></script>
+    <script src="../js/midi/player.js?ver=4" type="text/javascript"></script>
+	<!-- utils -->
+	<script src="../js/util/dom_request_xhr.js" type="text/javascript"></script>
+	<script src="../js/util/dom_request_script.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <button id="start" onclick="javascript: start();">Start</button>
+
+<script type="text/javascript">
+
+    var tone5_pad3_midi = 'data:audio/midi;base64,TVRoZAAAAAYAAAABAMBNVHJrAAAAcAD/AwAA/1gEBAIYCAGQMmSBPYAyZAKQNGSBPYA0ZAOQNmSBPYA2ZAaQN2SBPYA3ZACQOWSBQIA5ZACQN2SBQIA3ZACQNmSBQIA2ZACQNGSBQIA0ZACQMmSBQIAyZACQNmQAOWSBP4A2ZAA5ZAD/LwA=';
+    var tone12_midi = 'data:audio/midi;base64,TVRoZAAAAAYAAAABAMBNVHJrAAAAjgD/WAQEAhgIAP8DAACQMmSBPTIAAzZkgT02AAM5ZIE9OQAGPmSBPYA+AACQQmSBQIBCAACQRWSBQIBFAACQQ2SBQIBDAACQQGSBQIBAAACQPWSBQIA9AACQOWSBQIA5AACQN2SBQIA3AACQNGSBQIA0AACQMmSBQIAyAACQNmQAOWSBQIA2AAA5AAD/LwA=';
+
+    var player = MIDI.Player;
+
+    function start() {
+
+        play();
+    }
+
+    function play() {
+        player.timeWarp = 1; // speed the song is played back
+        player.currentTime = 0;
+        player.startDelay = 0;
+        player.transpose = 3;
+        player.repetition = '1,1,-1,-1';
+
+        player.loadFile(tone5_pad3_midi, function () {
+
+            console.log('loaded');
+            player.start();
+            console.log('started');
+
+        });
+
+    }
+
+window.onload = function () {
+
+    MIDI.loadPlugin({
+        soundfontUrl: "./soundfont/",
+        instrument: "acoustic_grand_piano",
+		onprogress: function (state, progress) {
+		    console.log(state, progress);
+		},
+		onsuccess: function() {
+		    console.log('plugin loaded');
+
+		
+		    /// this sets up the MIDI.Player and gets things going...
+		    
+		    //play();
+		}
+	});
+
+
+};
+
+</script>
+</body>
+</html>

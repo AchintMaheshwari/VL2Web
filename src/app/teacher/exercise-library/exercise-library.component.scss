@@ -1,0 +1,171 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$purple: #90279d;
+$lightpurpletxt: #e6d9e8;
+$pinkback: #e90688;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+.exerciseLibrarycontainer {
+    overflow: visible !important;
+    .leftPanel {
+        padding-top: 70px; height: $fullwidth;
+        h4 {
+            font-size: $runningsize + 2; font-family: $secondaryfont; font-weight: 300; color: $color;
+        }
+        .exerciseLibraryList {
+            ul {
+                margin: 0; padding: 0 0 0 15px; list-style: none;
+                li {
+                    font-size: $smallsize; font-family: $primaryfont; font-weight: 400; color: $color; line-height: 25px;
+                }
+            }
+        }
+    }
+    .rightContent {
+        height: $fullwidth; padding-left: 155px; padding-right: 155px;
+        .rightNav {
+            width: $fullwidth;
+            ul {
+                text-align: right;
+                li {
+                    margin: 0 0 0 27px; display: inline-block; border-top: 3px solid transparent; -webkit-transition:all 0.4s ease-in-out; -moz-transition:all 0.4s ease-in-out; -o-transition:all 0.4s ease-in-out; transition:all 0.4s ease-in-out;
+                    img {
+                        padding-right: 10px;
+                    }
+                    a {
+                        color: $color; padding: 8px 0; display: block;
+                    }
+                    &:hover {
+                        border-color: $pinkback;
+                    }
+                    &.active {
+                        border-color: $pinkback;
+                    }
+                }
+            }
+        }
+        h2 {
+            font-size: $runningsize + 5; font-family: $secondaryfont; font-weight: 300; color: $color; text-transform: $upper;
+            span {
+                font-weight: 500;
+            }
+        }
+        .exerciseSearch {
+            width: calc(100% - 277px); float: left; @include position(relative, 1, left, 0);
+            input[type="text"] {
+                background: rgba(116, 17, 117, 0.4); width: $fullwidth; border: none; font-family: $primaryfont; color: $color; font-size: $runningsize + 2; font-weight:400; padding: 7px 12px 7px 40px; margin-bottom: 20px;
+                &:focus {
+                    outline: none;
+                }
+            }
+            &:before {
+                color: #a06b9d; font-family: 'FontAwesome'; font-size: $runningsize + 4; content: "\f002"; @include position(absolute, 0, left, 10px); top: 5px;
+            }
+            .btn-group {
+                width: 120px; @include position(absolute, 0, right, 0); top: 0; background: none;
+                button {
+                    background:url(../../../assets/images/drop-divider.png) no-repeat left center; background-color: none; padding: 9px 9px 8px 9px; border: none; width: $fullwidth;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &:after {
+                        display: none;
+                    }
+                }
+                .dropdown-basic {
+                    min-width:100% !important;
+                }
+                .dropdown-menu {
+                    margin: 0 !important;
+                    a {
+                        padding: 9px 15px; text-align: center !important; border-color: #89348b !important;
+                        img {
+                            padding-right: 5px;
+                        }
+                        &:hover {
+                            background: $pinkback !important;
+                        }
+                    }
+                }
+                .dropdown-menu.show {
+                    min-width:100% !important;
+                }
+            }
+        }
+        .exerciseSearchBtn {
+            width: 260px; float: right;
+            button {
+                width: calc(50% - 7px); color: $color; text-transform: $upper; font-size: $smallsize - 1; font-family: $secondaryfont; border: none; padding: 11px 0; margin: 0 2px; display: inline-block;
+                img {
+                    padding-right: 5px;
+                }
+                &.purple {
+                    background: $purple;
+                }
+                &.blue {
+                    background: $blue;
+                }
+            }
+        }
+    }
+}
+
+ul {
+    &.acordionRightHead {
+        position: absolute; top: 16px; right: 0; width: 80px; margin: 0; padding: 0;
+        li {
+            display: inline-block;
+            i {
+                &.fa-usd {
+                    color: $primary; margin-right: 30px;
+                }
+            }
+            button {
+                line-height: 20px !important;
+                &.mat-button {
+                    background: none; min-width: 100%; padding: 0;
+                }
+                &:focus {
+                    outline: none;
+                }
+                i {
+                    &.fa-link {
+                        color: $primary; margin-right: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+button {border: none; cursor: pointer;}

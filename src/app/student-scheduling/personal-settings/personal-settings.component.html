@@ -1,0 +1,153 @@
+<section id="scheduling">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="schedulingLeft">
+        <h2 class="headingBotSpace">Schedule Lessons</h2>
+        <ul>
+          <li class="lessonOption active">Personal Info</li>
+          <li class="lessonOption">Lesson options</li>
+          <li class="selectDate">Select Date(s)</li>
+          <li class="review">review</li>
+          <li class="payment">payment</li>
+        </ul>
+      </div>
+      <div class="settingsRight">
+        <div class="row">
+          <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0 accountSet">
+            <form #settingForm="ngForm">
+              <h1>Personal Info</h1>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>First Name</label>
+                  <span [ngClass]="{ 'editCaseError': ((firstName.dirty || firstName.touched || isFormSubmitFlag) && firstName.errors), 'editCaseSuccess':!firstName.errors}">
+                    <input type="text" pattern="^([A-Za-z]+[',.]?[ ]?[&]?[ ]?|[A-Za-z]?)+$" [ngModelOptions]="{updateOn: 'blur'}" required placeholder="First Name" maxlength="50" name="FName" [(ngModel)]="userData.FirstName" #firstName="ngModel">
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (firstName.errors && (firstName.dirty || firstName.touched)))">
+                    <div [hidden]="!firstName.errors" class="errorMessageHeader" style="bottom:4px;">Please enter your first name. We allow ' & . ,</div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Last Name</label>
+                  <span [ngClass]="{ 'editCaseError': ((lastName.dirty || lastName.touched || isFormSubmitFlag) && lastName.errors), 'editCaseSuccess':!lastName.errors}">
+                    <input type="text" pattern="^([A-Za-z]+[',.]?[ ]?[&]?[ ]?|[A-Za-z]?)+$" [ngModelOptions]="{updateOn: 'blur'}" required placeholder="Last Name" maxlength="50" name="LName" [(ngModel)]="userData.LastName" #lastName="ngModel">
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (lastName.errors && (lastName.dirty || lastName.touched)))">
+                    <div [hidden]="!lastName.errors" class="errorMessageHeader" style="bottom:4px;">Please enter your last name. We allow ' & . ,</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Email Address</label>
+                  <span class="editCaseSuccess">
+                    <input type="text" placeholder="email@emailaddress.com" maxlength="100" name="Email" [(ngModel)]="userData.Email" readonly>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Country</label>
+                  <span class="abc" style="margin-right: 10px;" [ngClass]="{ 'editCaseError': ((country.dirty || country.touched || isFormSubmitFlag) && country.errors), 'editCaseSuccess':!country.errors}">
+                    <mat-form-field>
+                      <mat-select required [(ngModel)]="CountryId" (change)="getISDCode($event)" name="CountryId" #country="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                        <mat-option *ngFor="let list of countryList;" [value]="list.CountryId">
+                          {{list.CountryName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (country.errors && (country.dirty || country.touched)))">
+                    <div [hidden]="!country.errors?.required" class="errorMessageHeader" style="bottom:4px;">Please select a Country.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>City</label>
+                  <span [ngClass]="{ 'editCaseError': ((city.dirty || city.touched || isFormSubmitFlag) && city.errors), 'editCaseSuccess':!city.errors}">
+                    <input type="text" placeholder="City" required name="City" [(ngModel)]="City" #city="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (city.errors && (city.dirty || city.touched)))">
+                    <div [hidden]="!city.errors" class="errorMessageHeader" style="bottom:4px;">Please tell us your City.</div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Mobile Number</label>
+                  <div style="width: 65px; float: left;">
+                    <input type="text" placeholder="XXXXXXXXXX" name="ISD" [(ngModel)]="userData.ISD" disabled style="width: 100%;">
+                  </div>
+                  <div style="margin-left: 75px;">
+                    <span [ngClass]="{ 'editCaseError': ((cellPhone.dirty || cellPhone.touched || isFormSubmitFlag) && cellPhone.errors), 'editCaseSuccess':!cellPhone.errors}">
+                      <input type="text" required placeholder="XXXXXXXXXX" maxlength="15" name="CellNumber" OnlyNumber="true" [(ngModel)]="userData.Mobile" #cellPhone="ngModel" (keypress)="numberOnly($event)">
+                      <!-- <input type="text" required valueType='full' placeholder="XXXXXXXXXX" mask="(000) 000-000000000" maxlength="19" name="CellNumber" OnlyNumber="true" [(ngModel)]="userData.Mobile" #cellPhone="ngModel" (input)="mobileChange($event.target.value)"> -->
+                    </span>
+                    <div *ngIf="(isFormSubmitFlag || (cellPhone.errors && (cellPhone.dirty || cellPhone.touched)))">
+                      <div [hidden]="!cellPhone.errors" class="errorMessageHeader" style="bottom:4px;">Please enter a valid phone number.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Zip Code</label>
+                  <span [ngClass]="{ 'editCaseError': ((zipCode.dirty || zipCode.touched || isFormSubmitFlag) && zipCode.errors), 'editCaseSuccess':!zipCode.errors}">
+                    <input type="text" placeholder="XXXXX" OnlyNumber="true" maxlength=10 required name="ZipCode" pattern="^[aA-zZ\d\-\s]+$" [(ngModel)]="userData.ZipCode" #zipCode="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (zipCode.errors && (zipCode.dirty || zipCode.touched)))">
+                    <div [hidden]="!zipCode.errors" class="errorMessageHeader" style="bottom:4px;">Please tell us your Zip code.</div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12 validateField">
+                  <label><span>*</span>Time Zone</label>
+                  <span class="abc" style="margin-right: 10px;" [ngClass]="{ 'editCaseError': ((timeZone.dirty || timeZone.touched || isFormSubmitFlag) && timeZone.errors), 'editCaseSuccess':!timeZone.errors}">
+                    <mat-form-field>
+                      <mat-select required [(ngModel)]="TimeZone" (change)="OnTimeZoneChange()" name="TimeZone" #timeZone="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                        <mat-option *ngFor="let zone of timeZones;" value="{{zone.value}}">
+                          {{zone.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </span>
+                  <div *ngIf="(isFormSubmitFlag || (timeZone.errors && (timeZone.dirty || timeZone.touched)))">
+                    <div [hidden]="!timeZone.errors?.required" class="errorMessageHeader" style="bottom:4px;">Please select a Time Zone.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-12">
+                  <label>Date of birth</label>
+                  <input [(ngModel)]="userData.DOB" name="DOB" placeholder="MM/DD/YYYY" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" type="text">
+                  <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12">
+                  <label>Gender</label>
+                  <ul class="gender">
+                    <li>
+                      <input id="male" class="radio-custom-male" name="gender" [(ngModel)]="userData.Gender" type="radio" value="Male">
+                      <label for="male" class="radio-custom-label-male" tooltip="Male" placement="bottom"></label>
+                    </li>
+                    <li>
+                      <input id="female" class="radio-custom-female" name="gender" [(ngModel)]="userData.Gender" type="radio" value="Female">
+                      <label for="female" class="radio-custom-label-female" tooltip="Female" placement="bottom"></label>
+                    </li>
+                    <li>
+                      <input id="trans" class="radio-custom-transgender" name="gender" [(ngModel)]="userData.Gender" type="radio" value="Transgender">
+                      <label for="trans" class="radio-custom-label-transgender" tooltip="Transgender" placement="bottom"></label>
+                    </li>
+                    <li>
+                      <input id="other" class="radio-custom-other" name="gender" [(ngModel)]="userData.Gender" type="radio" value="Other">
+                      <label for="other" class="radio-custom-label-other" tooltip="Other" placement="bottom"></label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="schedulingStepBtn">
+                <button (click)="updateStudentPersonalInfo()" [disabled]="isFormProcessing" class="pull-right">Next
+                  <img src="../assets/images/long-arrow-white.png" alt="">
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+button {
+    &.closeBtnNew {
+        float: right; background: none; color: #fff; padding: 0; border: none; cursor: pointer;
+    }
+    &:focus {
+        outline: none;
+    }
+}

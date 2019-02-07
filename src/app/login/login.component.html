@@ -1,0 +1,181 @@
+<div class="loginNew" *ngIf="isSignUpFlag === false">
+  <div class="loginLeft"></div>
+  <div class="loginRight">
+    <div class="loginFormNew">
+      <img src="../../assets/images/login-logo-new.jpg" alt="">
+      <div>
+        <tabset *ngIf="isSignUpFlag === false">
+          <tab heading="Log in" id="tabLogin" (select)="getLoginState()">
+            <form #loginForm="ngForm">
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((uName.dirty || uName.touched || isLoginSubmitFlag) && uName.errors), 
+                  'successMsgNew':!uName.errors}">
+                <input type="text" required [(ngModel)]="username" name="Username" #uName="ngModel" [disabled]='commonService.fbUserName != "" '
+                  pattern="^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="email@provider.com"
+                  [ngModelOptions]="{updateOn: 'blur'}">
+                <i class="fa fa-user-o"></i>
+                <div *ngIf="(isLoginSubmitFlag || (uName.errors && (uName.dirty || uName.touched)))">
+                  <div [hidden]="!uName.errors" class="errorMessage" style="bottom:4px;">
+                    Please enter valid email address.
+                  </div>
+                </div>
+              </span>
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((password.dirty || password.touched || isLoginSubmitFlag) && password.errors), 
+                  'successMsgNew':!password.errors}">
+                <input type="password" required [(ngModel)]="Password" pattern="^[a-zA-Z0-9!@#$%^&*]{4,32}$" #password="ngModel"
+                  name="Pwd" placeholder="●●●●●●●●●●●●●" [ngModelOptions]="{updateOn: 'blur'}">
+                <i class="fa fa-key password fa-flip-horizontal"></i>
+                <div *ngIf="(isLoginSubmitFlag || (password.errors && (password.dirty || password.touched)))">
+                  <div [hidden]="!password.errors" class="errorMessage" style="bottom:4px;">
+                    Please enter valid password of minimum 4 characters.
+                  </div>
+                </div>
+              </span>
+              <span class="input-fields">
+                <div style="float:left;">
+                  <input id="logIn" class="index-checkbox-custom" name="allday" [(ngModel)]="loggedInFlag" type="checkbox">
+                  <label for="logIn" class="index-checkbox-custom-label">Keep me logged in</label>
+                </div>
+                <div style="float:right;">
+                  <a href="#/forgot-password">Forgot password?</a>
+                </div>
+                <div class="clr"></div>
+              </span>
+              <span class="input-fields">
+                <button class="loginButton" (click)='loginProcessing()'>Log In</button>
+              </span>
+            </form>
+            <div class="loginSocial">
+              <h3>or log in with</h3>
+              <ul>
+                <li class="facebook" id="btnfacebook" (click)="signInWithFB(false)">
+                  <i class=" fa fa-facebook">
+                  </i>
+                </li>
+                <li class="twitter">
+                  <i class="fa fa-twitter" (click)="signTwitter(false)"></i>
+                </li>
+                <!-- <li class="gplus" (click)="signInWithGoogle(false)">
+                  <i class="fa fa-google-plus"></i>
+                </li> -->
+                <li class="instagram" *ngIf="!isMobileInstagramVisible">
+                  <a href='{{instagramUrl}}'>
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </li>
+
+                <li class="instagram" *ngIf="isMobileInstagramVisible" (click)="signInWithInstagram(false)">
+                  <a>
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="linkedin" (click)="signInWithLinkedIn(false)">
+                  <i class="fa fa-linkedin"></i>
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab heading="Sign Up" id="tabSignup" (select)="getSignupState()" >
+            <form #signupForm="ngForm">
+              <div *ngIf="(commonService.isTeacherInviteLink && !isSignUp)" class="inviteLinkMessage">
+                Please create your account to complete your teacher invite.
+              </div>
+              <span class="input-fields">
+                <div class="clr"></div>
+                <mat-form-field>
+                  <mat-select [disabled]="commonService.isUserTypeDisabled" [(ngModel)]="userService.userRole" name="userRole"
+                    (change)="setUserType()">
+                    <mat-option value="Role">Select User Type</mat-option>
+                    <mat-option value="Student">I am a student</mat-option>
+                    <mat-option value="Teacher">I am a teacher</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </span>
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((name.dirty || name.touched || isSignUpSubmitFlag) && name.errors), 
+                  'successMsgNew':!name.errors }">
+                <input type="text" required [(ngModel)]="userService.user.FirstName" name="Name" #name="ngModel"
+                  maxlength="60" pattern="^([A-Za-z]+[',.]?[ ]?[&]?[ ]?|[A-Za-z]?)+$" placeholder="Name"
+                  [ngModelOptions]="{updateOn: 'blur'}">
+                <div *ngIf="(isSignUpSubmitFlag || (name.errors && (name.dirty || name.touched)))">
+                  <div [hidden]="!name.errors" class="errorMessage" style="bottom:4px;">
+                    Please enter valid name.
+                  </div>
+                </div>
+              </span>
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((email.dirty || email.touched || isSignUpSubmitFlag) && (email.errors || isUserExists)), 
+                  'successMsgNew':!email.errors && ! isUserExists}">
+                <input type="text" (blur)="isUserExisting()" required [(ngModel)]="userService.user.Email" name="Email"
+                  [disabled]="commonService.isFBMCNewUser" #email="ngModel" pattern="^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                  placeholder="email@provider.com" [ngModelOptions]="{updateOn: 'blur'}">
+                <div *ngIf="(isSignUpSubmitFlag || isUserExists || (email.errors && (email.dirty || email.touched)))">
+                  <div [hidden]="!email.errors" class="errorMessage" style="bottom:4px;">
+                    Please enter valid email address.
+                  </div>
+                  <div *ngIf=!email.errors [hidden]="!isUserExists" class="errorMessage" style="bottom:4px;">
+                    Email already exists.
+                  </div>
+                </div>
+              </span>
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((pwd.dirty || pwd.touched || isSignUpSubmitFlag) && pwd.errors), 
+                  'successMsgNew':!pwd.errors}">
+                <input type="{{pwdType}}" required [(ngModel)]="userService.user.Password" maxlength="20" (blur)="verifyPassword()"
+                  pattern="^[a-zA-Z0-9!@#$%^&*]{4,12}$" #pwd="ngModel" name="Password" placeholder="Password"
+                  [ngModelOptions]="{updateOn: 'blur'}">
+                <i class="fa fa-eye password" (click)="showPassword(pwdType)"></i>
+                <div *ngIf="(isSignUpSubmitFlag || (pwd.errors && (pwd.dirty || pwd.touched)))">
+                  <div [hidden]="!pwd.errors" class="errorMessage" style="bottom:4px;">
+                    Please enter valid password of minimum 4 characters.
+                  </div>
+                </div>
+              </span>
+              <span [ngClass]="{ 'input-fields':true, 'errorMsgNew': ((rptPwd.dirty || rptPwd.touched || isSignUpSubmitFlag) && (rptPwd.errors || isPwdMismatch)), 
+                  'successMsgNew':(!rptPwd.errors && !isPwdMismatch)}">
+                <input type="{{rptPwdType}}" name="RepeatPwd" [(ngModel)]="repeatPassword" (blur)="verifyPassword()"
+                  #rptPwd="ngModel" required placeholder="Confirm Password" [ngModelOptions]="{updateOn: 'blur'}">
+                <i class="fa fa-eye password" (click)="showRptPassword(rptPwdType)"></i>
+                <div *ngIf="(isSignUpSubmitFlag || isPwdMismatch || (rptPwd.errors && (rptPwd.dirty || rptPwd.touched)))">
+                  <div [hidden]="!isPwdMismatch" class="errorMessage" style="bottom:4px;">
+                    The password values are a mismatch.
+                  </div>
+                </div>
+              </span>
+              <span class="input-fields">
+                <button class="loginButton" [disabled]="isSignUpProcessing" (click)="userSignUp()">Sign Up</button>
+              </span>
+            </form>
+            <div class="loginSocial">
+              <h3>or sign up with</h3>
+              <ul>
+                <li class="facebook" (click)="signInWithFB(true)">
+                  <i class="fa fa-facebook"></i>
+                </li>
+                <li class="twitter">
+                  <i class="fa fa-twitter" (click)="signTwitter(false)"></i>
+                </li>
+                <!-- <li class="gplus" (click)="signInWithGoogle(true)">
+                  <i class="fa fa-google-plus"></i>
+                </li> -->
+                <li class="instagram" *ngIf="!isMobileInstagramVisible">
+                  <a href='{{instagramUrl}}'>
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </li>
+
+                <li class="instagram" *ngIf="isMobileInstagramVisible" (click)="signInWithInstagram(false)">
+                  <a>
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="linkedin" (click)="signInWithLinkedIn(true)">
+                  <i class="fa fa-linkedin"></i>
+                </li>
+              </ul>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isSignUpFlag === true">
+  <app-confirm-email></app-confirm-email>
+</div>

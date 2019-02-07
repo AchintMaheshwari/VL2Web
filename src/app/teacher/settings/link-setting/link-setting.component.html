@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+    <h1>Link</h1>
+    <div class="linkbuilder table-responsive" *ngIf="linkDataLoaded">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="20%">Link Name</th>
+            <th width="20%">Lesson Type</th>
+            <th width="15%">Booking Type</th>
+            <th width="15%">Lesson Length</th>
+            <th width="20%">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>          
+          <tr [ngClass]="{'default': item.IsDefault === 1 }" *ngFor="let item of links;">
+            <td>{{item.LinkName}}</td>
+            <td>{{item.LessonType}}</td>
+            <td>{{item.BookingType}}</td>
+            <td>{{item.LessonLength}} minutes</td>
+            <td style="position:relative;">
+              <span>{{item.LessonPrice | currency:'USD':'symbol-narrow':'1.0-2'}}</span>
+              <ul>
+                <li #inputTarget style="float:left; list-style-type: none;">                          
+                    <button class="btn btn-default" [class.btn-success]= "isCopied1" type="button" (click) = "linkCopiedMessage()"
+                    ngxClipboard [cbContent]="'https://vlapp2.azurewebsites.net/#/studentscheduling/'+item.LinkGUID" style="margin:0; padding:0; background:none; line-height:17px;"><i class="fa fa-link fa-flip-horizontal" style="-webkit-text-stroke: 0px !important; color:#dfbfe4; font-size:13px;"></i></button>
+                </li>
+                <li (click)="openLinkModal(template, item.LessonLinkId)" style="float:left; list-style-type: none;">
+                  <i class="fa fa-pencil"></i>
+                </li>
+                <li (click)="deleteLessonLink(item.LessonLinkId)" style="float:left; list-style-type: none;">
+                  <i class="fa fa-trash"></i>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="openLinkModal(template, 0)"><i class="fa fa-plus"></i> Add New</button>
+      <ng-template #template>
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h2 *ngIf="linkData.LessonLinkId == 0" class="modal-title pull-left">Add New Link</h2>
+          <h2 *ngIf="linkData.LessonLinkId > 0" class="modal-title pull-left">Edit Link</h2>
+          <div class="clr"></div>
+          <div class="row">
+            <div class="col-lg-6" *ngIf="linkData.LessonLinkId > 0">
+              <label>Link Name</label>
+              <input type="text" name ="linkName" [(ngModel)]="referralLinkName" readonly>
+            </div>
+            <div class="col-lg-6" *ngIf="linkData.LessonLinkId === 0">
+                <label>Link Name</label>
+                <input type="text" maxlength="20" name ="linkName" [(ngModel)]="referralLinkName">
+              </div>
+            <div class="col-lg-6">
+              <label>Lesson Type</label> 
+              <!-- <select name ="lessonType" [(ngModel)]="selectedLessonType">
+                <option *ngFor= "let typ of settingService.lessonTypes;">{{typ}}</option>
+              </select> -->
+              <mat-form-field>
+                <mat-select name ="lessonType" [(ngModel)]="selectedLessonType">
+                  <mat-option *ngFor= "let typ of settingService.lessonTypes;" value={{typ}}>
+                    {{typ}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>Booking Type</label>
+              <!-- <select name ="bookingType" [(ngModel)]="selectedBookingType">
+                  <option *ngFor= "let type of settingService.bookingTypes;">{{type}}</option>
+              </select> -->
+              <mat-form-field>
+                <mat-select name ="bookingType" [(ngModel)]="selectedBookingType">
+                  <mat-option *ngFor= "let type of settingService.bookingTypes;" value={{type}}>
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <label>Lesson Length</label>
+              <!-- <select [(ngModel)]="selectedDuration" name ="Duration">
+                <option *ngFor= "let item of rates;">{{item.Duration}} Minutes</option>
+              </select> -->
+              <mat-form-field>
+                <mat-select [(ngModel)]="selectedDuration" name ="Duration">
+                  <mat-option *ngFor= "let item of rates;" value={{item.Duration}} Minutes>
+                    {{item.Duration}} Minutes
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <input id="defaultFlag" [(ngModel)]="isDefault" class="index-checkbox-custom" name="DefaultFlag" type="checkbox">
+                <label for="defaultFlag" class="index-checkbox-custom-label">Mark Link as Default</label>
+            </div>
+          </div>
+          <button data-dismiss="modal" (click)="upsertLessonLink()"><i class="fa fa-check"></i> Done</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

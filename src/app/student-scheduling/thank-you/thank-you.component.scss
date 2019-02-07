@@ -1,0 +1,31 @@
+.thankYouWrapper {
+    padding: 100px 0;
+    h2 {font-weight: 400; color: #fff; font-size: 30px; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0 0 50px 0;}
+    p {font-weight: 400; color: #e6d9e8; font-size: 18px; font-family: 'Lato', sans-serif; margin: 0; padding: 0;}
+    .thankYouBanner {
+        padding-top: 300px;
+        img {
+            &.desktopBanner {display: block;}
+            &.tabletBanner {display: none;}
+            &.mobileBanner {display: none;}
+        }
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+    .thankYouWrapper {padding: 50px 0;}
+    .thankYouWrapper h2 {padding: 0 0 20px 0;}
+    .thankYouBanner {padding-top: 100px !important;}
+    .thankYouBanner img.mobileBanner {display: block !important;}
+    .thankYouBanner img.tabletBanner {display: none !important;}
+    .thankYouBanner img.desktopBanner {display: none !important;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .thankYouWrapper {padding: 80px 0;}
+    .thankYouWrapper h2 {padding: 0 0 30px 0;}
+    .thankYouBanner {padding-top: 200px !important;}
+    .thankYouBanner img.mobileBanner {display: none !important;}
+    .thankYouBanner img.tabletBanner {display: block !important;}
+    .thankYouBanner img.desktopBanner {display: none !important;}
+}

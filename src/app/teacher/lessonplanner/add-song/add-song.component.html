@@ -1,0 +1,406 @@
+﻿<h2 *ngIf="songService.songId === 0">Add a Song</h2>
+<h2 *ngIf="songService.songId > 0">Edit a Song</h2>
+<div class="addSongTabs">
+  <div class="hideDiv"></div>
+  <tabset>
+    <tab heading="1" id="tab1" malihu-scrollbar style="height: 100%;">
+      <div class="tabber">
+        <form #formStep1="ngForm">
+          <div class="editNameLabel">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="dropFile">
+                  <div class="center">
+                    <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event, 'song')"
+                      [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+                      <div class="drop-zone">
+                        <div class="content">
+                          <img src="../../assets/images/drop-file-icon.png" alt="">
+                          <span>
+                            Upload a song
+                            <br />
+                            <label style="cursor: pointer;">
+                              DRAG OR
+                              <label class="upload-button">
+                                <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, 'song')"
+                                  [uploadInput]="uploadInput" multiple>
+                              </label> CLICK TO UPLOAD
+                              <br /> MIDI,WAV, OR MP3
+                            </label>
+                          </span>
+                          <div class="clr"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="noteFlight">
+                  <label class="jumpPointLabel">or paste a
+                    <span>noteflight </span> id
+                    <i mat-raised-button matTooltip="Explanation of what Noteflightis and how to find the ID. "
+                      aria-label="" class="fa fa-question"></i>
+                  </label>
+                  <input type="text" id="noteflightScoreID" [(ngModel)]="songModel.NoteflightScoreID" name="NoteflightScoreID">
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <mat-divider></mat-divider>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label>Genre</label>
+                <ng-multiselect-dropdown [placeholder]="" [data]="lessonService.genreList" [(ngModel)]="selectedGenre"
+                  [settings]="lessonService.dropdownSettings" (onSelect)="onValueSelect($event,'Genre')" (onSelectAll)="onValueSelectAll($event,'Genre')"
+                  (onDeSelect)="onValueDeSelect($event,'Genre')" (onDeSelectAll)="clearAllValues('Genre')" name="drpGenreList">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="col-lg-6">
+                <label> Vocal Type</label>
+                <ng-multiselect-dropdown [placeholder]="" [data]="lessonService.vocalList" [(ngModel)]="selectedVocal"
+                  [settings]="lessonService.dropdownSettings" (onSelect)="onValueSelect($event,'Vocal')" (onSelectAll)="onValueSelectAll($event,'Vocal')"
+                  (onDeSelect)="onValueDeSelect($event,'Vocal')" (onDeSelectAll)="clearAllValues('Vocal')" name="drpvocalList">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 validateError">
+                <label class="required">Title</label>
+                <span [ngClass]="{ 'editCaseError': ((title.dirty || title.touched || isStep1SubmitFlag) && title.errors),
+                'editCaseSuccess':!title.errors}">
+                  <input type="text" id="Label" required [(ngModel)]="songModel.Label" name="Label" #title="ngModel"
+                    maxlength="30" (change)="restrictWhiteSpace()">
+                  <div *ngIf="(isStep1SubmitFlag || (title.errors && (title.dirty || title.touched)))">
+                    <div [hidden]="!(title.errors?.required)" class="errorMessage">
+                      Please give a title to song.
+                    </div>
+                  </div>
+                </span>
+              </div>
+              <div class="col-lg-6">
+                <label>Artist</label>
+                <input type="text" [(ngModel)]="songModel.Artist" id="Artist" name="Artist">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label class="required">Tags</label>
+                <mat-form-field class="demo-chip-list">
+                  <mat-chip-list #chipList>
+                    <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      (matChipInputTokenEnd)="add($event)" style="margin: 0 0 5px 0 !important;" />
+                    <mat-chip *ngFor="let tags of songTagsList" [selectable]="selectable" [removable]="removable"
+                      (remove)="remove(tags)">
+                      {{tags.name}}
+                      <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6 validateError">
+                <label>Video URL</label>
+                <span [ngClass]="{ 'editCaseError': videoUrl.errors?.pattern , 'editCaseSuccess':!videoUrl.errors && songModel.VideoUrl != ''}">
+                  <input type="text" [(ngModel)]="songModel.VideoUrl" id="VideoUrl" #videoUrl="ngModel" name="VideoUrl"
+                    [ngModelOptions]="{updateOn: 'blur'}" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$">
+                  <div *ngIf="videoUrl.errors">
+                    <div [hidden]="!videoUrl.errors?.pattern" class="errorMessage">
+                      Please enter a valid video link for the song.
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label>Skill Level</label>
+                <mat-select name="drpSkill" placeholder="Select Skill Level" [(ngModel)]="songModel.SkillLevel">
+                  <mat-option *ngFor="let skill of lessonService.skillList" [value]="skill.value">{{skill.skill}}</mat-option>
+                </mat-select>
+              </div>
+              <div class="col-lg-6">
+                <label>Worship</label>
+                <mat-select name="drpWorship" placeholder="Select Worship" [(ngModel)]="songModel.Worship">
+                  <mat-option *ngFor="let worship of lessonService.worshipList" [value]="worship.value">{{worship.worship}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label>Key(s)</label>
+                <mat-select name="drpKey" placeholder="Select Key" [(ngModel)]="songModel.Keys">
+                  <mat-option *ngFor="let key of lessonService.keyList" [value]="key.item_id">{{key.item_text}}</mat-option>
+                </mat-select>
+              </div>
+              <div class="col-lg-6" style="margin-top: 38px;">
+                <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b !important" switchColor="#00afa8"
+                  color="#32353b" [checked]="songModel.AccessType === 'Public'" (change)="onAccessChange($event)"></ui-switch>
+                <label style="margin: 0;position: absolute; left: 61px; top: 2px;">{{songModel.AccessType}}</label>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <button mat-button [ngClass]="{ 'blueButton':true, 'buttonDisabled': !formStep1.valid }" (click)="setNextStep(2)">Next</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </tab>
+    <!-- <tab heading="2">
+            <div class="editNameLabel">
+              <label class="jumpPointLabel">ADD A SINGLE OR MULTIPLE TRACKS</label>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="dropFile">
+                    <div class="center">
+                      <div class="drop-container dropFile" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)"
+                        [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+                        <div class="drop-zone">
+                          <div class="content">
+                            <img src="../../assets/images/drop-file-icon.png" alt="">
+                            <span>
+                              Upload a song
+                              <br />
+                              <label>
+                                DRAG OR
+                                <label class="upload-button" style="cursor: pointer;">
+                                  <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                                    [uploadInput]="uploadInput" multiple>
+                                </label> CLICK TO UPLOAD
+                                <br /> MIDI,WAV, OR MP3
+                              </label>
+                            </span>
+                            <div class="clr"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>Key(s)</label>
+                  <mat-select name="drpKey" placeholder="Select Key" [(ngModel)]="songModel.Keys">
+                    <mat-option *ngFor="let key of lessonService.keyList" [value]="key.item_id">{{key.item_text}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="addSongTable" malihu-scrollbar>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                        <tr>
+                          <td><i class="material-icons">play_circle_outline</i></td>
+                          <td>Track song C Major</td>
+                          <td>2:54</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <button mat-button class="blueButton">Back</button>
+                <button mat-button class="blueButton">Next</button>
+              </div>
+            </div>
+          </tab> -->
+    <tab heading="2" id="tab2" malihu-scrollbar style="height: 100%;">
+      <form #formStep2="ngForm">
+        <div class="editNameLabel">
+          <div class="row">
+            <div class="col-lg-6">
+              <label class="jumpPointLabel">Set Jump Ponits
+                <i mat-raised-button matTooltip="Explanation of what jump points are and how to use them." aria-label=""
+                  class="fa fa-question"></i>
+              </label>
+            </div>
+            <div class="col-lg-6">
+              <ul class="jumpTimeSwitch">
+                <li>time (mm:ss)</li>
+                <li>
+                  <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b" switchColor="#00afa8"></ui-switch>
+                </li>
+                <li>measure</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row jumpPoints">
+            <div *ngFor="let JP of songModel.SongJumpPoints; let i = index" class="col-lg-6">
+              <table align="center" cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                  <tr class="validateError">
+                    <td style="color:white;" width="5%">{{i+1}}</td>
+                    <td width="75%">
+                      <input type="text" [(ngModel)]="JP.Name" (change)="restrictJPWhiteSpace(JP.Name)" maxlength=20
+                        name="jumpPointName{{i}}" placeholder="Name" style="width: 95%;">
+                    </td>
+                    <td width="20%">
+                      <span [ngClass]="{ 'CaseError': point.errors?.pattern , 'CaseSuccess':!point.errors && JP.Point != ''}">
+                        <input style="text-align: center;" maxlength=5 type="text" [(ngModel)]="JP.Point" #point="ngModel"
+                          name="jumpPoint{{i}}" [ngModelOptions]="{updateOn: 'blur'}" pattern="^(([1-9]|0[1-9]|[1-5][0-9]):[0-5][0-9])?$"
+                          placeholder="00:00">
+                      </span>
+                    </td>
+                  </tr>
+                  <div *ngIf="point.errors">
+                    <div [hidden]="!point.errors?.pattern" class="errorMessage" style="bottom: -4px; right: 15px;">
+                      Please enter valid time in mm:ss format.
+                    </div>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-lg-6">
+              <table align="center" cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                  <tr>
+                    <td width="5%" style="color:white;">
+                      <label style="cursor: pointer;" (click)="addJumpPoint()">+</label>
+                    </td>
+                    <td width="75%">
+                      <input type="text" disabled name="jumpPointName" style="width: 95%;">
+                    </td>
+                    <td width="20%">
+                      <input style="text-align: center;" type="text" disabled name="jumpPoint">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <button mat-button class="blueButton" (click)='setPreviousStep(2)'>Back</button>
+            <button mat-button [ngClass]="{ 'blueButton':true, 'buttonDisabled': !formStep2.valid }" (click)="setNextStep(3)">Next</button>
+          </div>
+        </div>
+      </form>
+    </tab>
+    <tab heading="3" id="tab3" malihu-scrollbar style="height: 100%;">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="dropFile">
+            <div class="center">
+              <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event, 'score')"
+                [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+                <div class="drop-zone">
+                  <div class="content">
+                    <img src="../../assets/images/upload-socre-icon.png" alt="">
+                    <span style="padding-top: 0px !important;">
+                      Upload a score
+                      <br />
+                      <label style="cursor: pointer;">
+                        DRAG OR
+                        <label class="upload-button">
+                          <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, 'score')"
+                            [uploadInput]="uploadInput" multiple>
+                        </label>click to upload
+                        <br />pdf, jpgs, pngs or gifs
+                      </label>
+                    </span>
+                    <div class="clr"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row stepThreeContent">
+        <div class="col-lg-6">
+          <label>Lyrics</label>
+          <textarea [(ngModel)]="songModel.Lyrics" id="Lyrics" name="Lyrics" trim="blur" rows="10"></textarea>
+        </div>
+        <div class="col-lg-6">
+          <label>translations</label>
+          <textarea [(ngModel)]="songModel.TransLations" id="TransLations" trim="blur" name="TransLations" rows="10"></textarea>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <button mat-button class="blueButton" (click)='setPreviousStep(3)'>Back</button>
+        <button class="genButton" (click)='addSong()' style="cursor: pointer;">
+          <img src="../assets/images/generate-btn-icon.png" alt=""> Generate</button>
+      </div>
+    </tab>
+  </tabset>
+</div>

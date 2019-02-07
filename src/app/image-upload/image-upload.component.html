@@ -1,0 +1,26 @@
+<form [formGroup]="pimgForm">
+  <button class="closeBtnNew" (click)="closeFileUpload()" style="position: absolute; right: 10px; top: 0;">
+    <i class="fa fa-times"></i>
+  </button>
+  <div class="croppingImgNew">
+    <ul>
+      <li>
+        <div class="file-upload">
+          <span class="text"></span>
+          <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+          <!-- <input id="custom-input" type="file" > -->
+          <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        </div>
+      </li>
+      <li class="last">
+        <span class="result rounded" *ngIf="data.image">
+          <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </span>
+        <button *ngIf="data.image" type="submit" (click)="fileupload()" [disabled]="pimgForm.invalid || loading" class="blueBtnSaveImg">Save Image
+          <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+        </button>
+      </li>
+      <div style="clear:both;"></div>
+    </ul>
+  </div>
+</form>

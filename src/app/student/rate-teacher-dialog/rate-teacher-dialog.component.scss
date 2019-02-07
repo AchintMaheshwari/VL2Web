@@ -1,0 +1,176 @@
+/**** font-family variables ****/
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$upper: uppercase;
+
+/**** color variables ****/
+$color: #fff;
+$primary: #c794c4;
+$buttonbg: #ff159b;
+$secondary: #ff0f98;
+$lightpurple: #dfbfe4;
+$lightpurpletxt: #e6d9e8;
+$lightgreentxt: #1fc600;
+$lightgraytxt: #d9d9d9;
+$blue: #00afa8;
+$yellow: #f3ef08;
+$purple: #90279d;
+$checkbpxback: #650d61;
+$graytxt: #dadfe9;
+
+/**** background color variables ****/
+$purplrback: #90279d;
+$pinkback: #e90688;
+$highlightback:#650d62;
+$pagiback: #430744;
+$actpagiback: #741175;
+$editfield: #580b5a;
+$indexleft: #0e0e0e;
+$graybg: #aeb5c3;
+$btnbg: #7c1f85;
+$darkgray: #23272a;
+
+/**** float variables ****/
+$fl: left;
+$fr: right;
+$fn: none;
+$headerback: #000;
+$bornone: none;
+$fullwidth: 100%;
+
+/**** mixin function ****/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.rateYourTeacher {
+    padding: 40px; background: #23272a; max-width: 400px;
+    button {
+        &.closeModal {
+            cursor: pointer; font-size: $runningsize; color: #aeb5c3; font-weight: 600; font-family: $secondaryfont; border: none; float: right; margin-right: -20px; margin-top: -20px; padding: 0; line-height: 10px !important; height: 10px !important; background: none;
+        }
+    }
+    .teacherImg {
+        width: 134px; height: 134px; margin: 0 auto;
+        img {
+            @include border-radius(100%); width: $fullwidth;
+        }
+    }
+    .startRatingRate {
+        text-align: center;
+        star-rating-comp {
+            display: inline-block;
+            .rating {
+                width: 100%;
+                .star-container {
+                    width: 100%;
+                    .star {
+                        width: 50px !important; height: 50px !important;
+                    }
+                }
+            }
+        }
+    }
+    // star-rating-comp {
+    //     .star-svg {
+    //         width: 100%;
+    //         .star-container {
+    //             width: 100%;
+    //             .star {
+    //                 width: 50px; height: 50px;
+    //             }
+    //         }
+    //     }
+    // }
+    h1 {
+        font-size: $runningsize * 2 - 2; font-weight: 300; font-family: $secondaryfont; margin: 0; padding: 0 0 30px 0; line-height: 37px; text-align: center;
+    }
+    .starRateing {
+        text-align: center; padding-bottom: 30px;
+        img {
+            max-width: 100%; display: inline-block;
+        }
+    }
+    textarea {
+        background: #181a1b; color: #616876; font-size: $smallsize + 1; font-family: $primaryfont; font-weight: 400; border: none; width: 100%; padding: 10px; resize: none;
+        &::-webkit-input-placeholder {
+            color: #616876;
+        }
+        &::-moz-placeholder {
+            color: #616876;
+        }
+        &:-ms-input-placeholder {
+            color: #616876;
+        }
+        &:-moz-placeholder {
+            color: #616876;
+        }
+        &:focus {
+            outline: none; box-shadow: none; -webkit-box-shadow: none;
+        }
+    }
+    button {
+        &.rateBlueBtn {
+            cursor: pointer; margin-top: 30px; background: $blue; color: $color; text-align: center; text-transform: uppercase; border: none; width: 100%; padding: 0 15px !important; font-size: 16px; font-weight: 400; font-family: $secondaryfont;
+            i {
+                padding-right: 5px;
+            }
+        }
+    }
+
+    .validateField {
+        position: relative;
+        span {
+          &.abc {
+            width: calc(100% - 80px) !important; display: block;
+            mat-select {
+              width: 100%;
+            }
+            &:before {
+              top: 10px !important;
+            }
+          }
+          &.editCaseSuccess {
+            position: relative;
+            input[type="text"] {
+                border: 1px solid transparent !important;
+            }
+            &:before {content: "\f00c"; font-family: 'FontAwesome'; font-size: 14px; top: 4px; right: 10px; color: #00afa8; position: absolute;
+            }
+          }
+          &.editCaseSuccess {
+            position: relative;
+            select {
+                border: 1px solid transparent !important;
+            }
+            &:before {
+              content: "\f00c"; font-family: 'FontAwesome'; font-size: 14px; top: 4px; right: 10px; color: #00afa8; position: absolute;
+            }
+          }
+          &.editCaseError {
+            position: relative;
+            input {
+              border: 1px solid #e90688;
+            }
+            &:before {
+              content: "\f00d"; font-family: 'FontAwesome'; font-size: 14px; top: 4px; right: 10px; color: #e90688; position: absolute;
+            }
+          }
+          &.editCaseError {
+            position: relative;
+            select {
+              border: 1px solid #e90688;
+            }
+            &:before {
+              content: "\f00d"; font-family: 'FontAwesome'; font-size: 14px; top: 4px; right: 10px; color: #e90688; position: absolute;
+            }
+          }
+        }
+      }
+}

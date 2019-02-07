@@ -1,0 +1,74 @@
+$runningsize: 16px;
+$lightpurpletxt: #e6d9e8;
+$bornone: none;
+$secondaryfont: 'Montserrat', sans-serif;
+
+select {
+    background:rgba(116, 16, 117, 0.4) !important; border:$bornone; width:calc(100% - 80px) !important; height:auto !important; color:$lightpurpletxt; font-size:$runningsize - 2; font-family:$secondaryfont; padding:10px 15px !important; margin-bottom:20px;
+}
+
+.validateField {
+    position: relative;
+    span {
+      &.editCaseSuccess {
+        position: relative;
+        input[type="text"] {
+            border: 1px solid transparent !important;
+        }
+        &:before {
+          content: "\f00c";
+          font-family: 'FontAwesome';
+          font-size: 14px;
+          top: 4px;
+          right: 10px;
+          color: #00afa8;
+          position: absolute;
+        }
+      }
+      &.editCaseSuccess {
+        position: relative;
+        select {
+            border: 1px solid transparent !important;
+        }
+        &:before {
+          content: "\f00c";
+          font-family: 'FontAwesome';
+          font-size: 14px;
+          top: 4px;
+          right: 10px;
+          color: #00afa8;
+          position: absolute;
+        }
+      }
+      &.editCaseError {
+        position: relative;
+        input {
+          border: 1px solid #e90688;
+        }
+        &:before {
+          content: "\f00d";
+          font-family: 'FontAwesome';
+          font-size: 14px;
+          top: 4px;
+          right: 10px;
+          color: #e90688;
+          position: absolute;
+        }
+      }
+      &.editCaseError {
+        position: relative;
+        select {
+          border: 1px solid #e90688;
+        }
+        &:before {
+          content: "\f00d";
+          font-family: 'FontAwesome';
+          font-size: 14px;
+          top: 4px;
+          right: 10px;
+          color: #e90688;
+          position: absolute;
+        }
+      }
+    }
+  }

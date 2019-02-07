@@ -1,0 +1,97 @@
+<div mat-dialog-content malihu-scrollbar>
+  <div class="createLesson">
+    <div class="dialogClose" (click)="onNoClick()">
+      <i class="material-icons">close</i>
+    </div>
+    <h2>{{this.lessonSer.dialogTitle}}</h2>
+    <form #createLessonForm="ngForm">
+      <div class="personPic">
+        <img *ngIf="(sharedService.LessonModel.Logo == 'default' || sharedService.LessonModel.Logo == '')" src="../assets/images/addImage.png" alt="">
+        <img *ngIf="(sharedService.LessonModel.Logo != 'default' && sharedService.LessonModel.Logo != '')" src={{sharedService.LessonModel.Logo}} alt="">
+        <div class="edit">
+          <i class="fa fa-pencil" (click)="openNewDialog();"></i>
+        </div>
+      </div>
+      <div class="clr">&nbsp;</div>
+      <div style="position:relative">
+        <div class="validateError">
+          <h4>Title</h4>
+          <span [ngClass]="{ 'editCaseError': ((lessonName.dirty || lessonName.touched || isFormSubmitFlag) && lessonName.errors), 'editCaseSuccess':!lessonName.errors}">
+            <input type="text" placeholder="Enter Title" required name="LessonName" [(ngModel)]="sharedService.LessonModel.LessonName" #lessonName="ngModel" [ngModelOptions]="{updateOn: 'blur'}" (ngModelChange)="lessonTitleValidate()">
+          </span>
+        </div>
+        <div class="errorMessageHeader" *ngIf="((lessonName.errors && (lessonName.dirty || lessonName.touched)) || isFormSubmitFlag)">
+          <div [hidden]="!lessonName.errors">Please enter lesson Title.</div>
+        </div>
+      </div>
+      <div style="position: relative;">
+        <div [ngClass]="{ 'validateError' : isDescriptionRequired }">
+          <h4>Description</h4>
+          <span [ngClass]="{ 'editCaseError': ((description.dirty || description.touched || isFormSubmitFlag) && description.errors && isDescriptionRequired), 'editCaseSuccess':!description.errors && isDescriptionRequired}">
+            <textarea placeholder="Enter description" [required]="isDescriptionRequired" name="Description" [(ngModel)]="sharedService.LessonModel.Description" #description="ngModel" [ngModelOptions]="{updateOn: 'blur'}" trim="blur"></textarea>
+          </span>
+        </div>
+        <div *ngIf="((description.errors && (description.dirty || description.touched)) || isFormSubmitFlag)">
+          <div [hidden]="!description.errors" class="errorMessageHeader" style="bottom: 10px;">Please enter lesson description.</div>
+        </div>
+      </div>
+      <div style="position: relative;">
+        <div>
+          <h4>Price</h4>
+          <span [ngClass]="{ 'editCaseError': ((price.dirty || price.touched || isFormSubmitFlag) && price.errors), 'editCaseSuccess':!price.errors && isPriceRequired}">
+            <input type="text" maxlength="7" placeholder="Enter Price" required name="Price" [(ngModel)]="sharedService.LessonModel.Price" #price="ngModel" [ngModelOptions]="{updateOn: 'blur'}" (blur)="validateDescAndlogo()" OnlyNumber="true" pattern="^[0-9]\d*(\.\d+)?$" />
+          </span>
+        </div>
+        <div *ngIf="((price.errors && (price.dirty || price.touched)) || isFormSubmitFlag)">
+          <div [hidden]="!price.errors" class="errorMessageHeader">Please enter lesson Price.</div>
+        </div>
+      </div>
+      <div class="clr"></div>
+      <div style="position: relative;">
+        <h4> Vocal Type</h4>
+        <ng-multiselect-dropdown [placeholder]="" [data]="lessonSer.vocalList" [(ngModel)]="selectedVocal" [settings]="lessonSer.dropdownSettings" (onDeSelectAll)="clearAllVocal($event)" name="drpvocalList"></ng-multiselect-dropdown>
+      </div>
+      <div class="clr"></div>
+      <div style="position: relative;">
+        <h4>Skill Level</h4>
+        <mat-select name="drpSkill" placeholder="Select Skill Level" [(ngModel)]="skillLevel" (change)="skillSelection($event.value)">
+          <mat-option *ngFor="let skill of lessonSer.skillList" [value]="skill.value">{{skill.skill}}</mat-option>
+        </mat-select>
+      </div>
+      <div class="validateError">
+        <h4>Tags</h4>
+        <mat-form-field class="demo-chip-list">
+          <mat-chip-list #chipList>
+            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
+            <mat-chip *ngFor="let tags of lessonTags" [selectable]="selectable" [removable]="removable" (remove)="remove(tags)">
+              {{tags.name}} <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <label>Created For</label>
+      <div>
+        <button class="purpleBtn" (click)="openDialogAddStudent()"><img src="../../assets/images/create-fro-btn-icon.png"> Add student or group</button>
+        <i (click)="openDialogAddStudent()" class="fa fa-user-plus" style="-webkit-text-stroke: 2px #463445; padding-left: 10px; font-size: 19px;"></i>
+      </div>
+      <div class="selectedList">
+        <button class="blueBtnList" *ngFor="let student of sharedService.LessonModel.Student">{{student.UserName}} <i (click)="removeStudent(student)" class="material-icons">close</i>
+        </button>
+        <div class="clr"></div>
+      </div>
+      <label for="Started">Lesson Date</label>
+      <input [(ngModel)]="sharedService.LessonModel.Started" name="Started" placeholder="MM/DD/YYYY" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" type="text" (blur)="dateTimeValidation(sharedService.LessonModel.Started)">
+      <owl-date-time id="datepicker" [pickerType]="'calendar'" #dt></owl-date-time>
+      
+      <div class="createLesSwitchContaiuner">
+          <ui-switch size="small" defaultBgColor="#32353b" defaultBoColor="#32353b !important" switchColor="#00afa8" color="#32353b" [checked]="sharedService.LessonModel.LessonAccessType === 'Public'" (change)="onAccessChange($event)"></ui-switch>
+          <label>{{sharedService.LessonModel.LessonAccessType}}</label>
+      </div>
+      
+      <button *ngIf="isShowEditLessonModel" style="cursor: pointer;" class="blueBtn cancelBtnNew" (click)="onNoClick()">Cancel</button>
+      <button *ngIf="isShowEditLessonModel" style="cursor: pointer;" class="blueBtn saveBtnNew" [disabled]="saveReadyFlag" (click)="saveLessonData()">Save</button>
+      <button *ngIf="isShowEditLessonModel" style="cursor: pointer;" class="blueBtn" [disabled]="saveReadyFlag" (click)="redirectToLessonPlanner()">Save & Go To Lesson Planner</button>
+      <button *ngIf="isShowCreateLessonModel" style="cursor: pointer;" class="blueBtn" [disabled]="saveReadyFlag" (click)="saveLessonData('GoToPlanner')">Create New Lesson</button>
+    </form>
+  </div>
+</div>

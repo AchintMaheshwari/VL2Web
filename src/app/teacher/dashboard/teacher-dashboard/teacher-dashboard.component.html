@@ -1,0 +1,275 @@
+<!-- contentPart -->
+<section id="contentPart">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-12 col-sm-12 col-12 offset-lg-1 offset-md-0 offset-sm-0 offset-0 dashboardRightNew">
+                <div class="rightContent teacherDashboard">
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-12 col-12 order-lg-1 order-sm-2 order-2">
+                            <div class="row" *ngIf="monthlyEarned != 0 || yearlyEarned != 0">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="teacherEarning">
+                                        <div class="monthEarning">
+                                            <div class="icon">
+                                                <img src="../assets/images/month-earn-icon.png" alt="">
+                                            </div>
+                                            <div class="content">
+                                                <h2>{{monthlyEarned| currency:'USD':'symbol-narrow':'1.0-2'}}</h2>
+                                                <p>earned this month</p>
+                                            </div>
+                                        </div>
+                                        <div class="yearEarning">
+                                            <div class="icon">
+                                                <img src="../assets/images/year-earn-icon.png" alt="">
+                                            </div>
+                                            <div class="content">
+                                                <h2>{{yearlyEarned| currency:'USD':'symbol-narrow':'1.0-2'}}</h2>
+                                                <p>earned this year</p>
+                                            </div>
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="todaySschedule">
+                                        <div>
+                                            <table class="table" cellpadding="0" cellspacing="0" border="0" style="min-width: 510px; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="3" class="schHead">upcoming lessons</th>
+                                                        <th class="schSecHead" (click)="openFullSchedule()" style="position: absolute; right: 30px; cursor: pointer; ">View
+                                                            Full Schedule</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let schedules of upcomingSchedules" class="lessonStart">
+                                                        <td>{{schedules.EventDate}}
+                                                        </td>
+                                                        <td>{{schedules.EventStartTime}} - {{schedules.EventEndTime}}
+                                                        </td>
+                                                        <td class="schPerName">
+                                                            <img src={{schedules.ImageUrl}} alt="" class="rounded-circle">
+                                                            <span>{{schedules.StudentName}}</span>
+                                                        </td>
+                                                        <td class="third">
+                                                            <div class="btn-group" dropdown placement="bottom right">
+                                                                <button id="button-alignment" dropdownToggle type="button"
+                                                                    class="dropdown-toggle" aria-controls="dropdown-alignment">Actions</button>
+                                                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                                                                    role="menu" aria-labelledby="button-alignment">
+                                                                    <li role="menuitem" *ngIf="schedules.isActionAllowed"
+                                                                        (click)="rescheduleSlot(schedules)" data-toggle="modal"
+                                                                        data-target="#editScheduleModel">
+                                                                        <a class="dropdown-item" href="javascript:void(0)">Reschedule</a>
+                                                                    </li>
+                                                                    <li role="menuitem" *ngIf="schedules.isActionAllowed"
+                                                                        (click)="cancelSlot(schedules)" data-toggle="modal"
+                                                                        data-target="#cancelScheduleModel">
+                                                                        <a class="dropdown-item" href="javascript:void(0)">Cancel</a>
+                                                                    </li>
+                                                                    <li role="menuitem">
+                                                                        <a class="dropdown-item" href="javascript:void(0)">Billing
+                                                                            Details</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="showPaymentFlag">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="recPayRecd">
+                                        <div class="table-responsive">
+                                            <table class="table" cellpadding="0" cellspacing="0" border="0" style="min-width: 400px; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="schHead" width="65%">Recent Payments Received</th>
+                                                        <th colspan="2" class="schSecHead" (click)="openPayments()"
+                                                            style="cursor: pointer;" width="35%">View Payment
+                                                            History</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let payment of teacherPayments">
+                                                        <td class="schPerName" width="65%">
+                                                            <img src={{payment.ImageUrl}} alt="" class="rounded-circle">
+                                                            <span>{{payment.StudentName}}</span>
+                                                        </td>
+                                                        <td width="15%">{{payment.Amount|
+                                                            currency:'USD':'symbol-narrow':'1.0-2'}}</td>
+                                                        <td *ngIf="payment.DaysAgo > 1" class="text-right" width="20%">{{payment.DaysAgo}}
+                                                            days ago</td>
+                                                        <td *ngIf="payment.DaysAgo === 1" class="text-right" width="20%">{{payment.DaysAgo}}
+                                                            day ago</td>
+                                                        <td *ngIf="payment.DaysAgo === 0" class="text-right" width="20%">Today</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                    <div class="dashTestimonial">
+                                        <h2 class="heading">Recent feedback</h2>
+                                        <a href="javascript:void(0);" class="viewAll">View All</a>
+                                        <div class="clr"></div>
+                                        <owl-carousel id="recentFeedback" [options]="{items: 1, dots: false, nav: true, autoplay:true, autoHeight:true, autoplayTimeout:7000}"
+                                            [items]="teacherReviews" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                                            <div class="item" *ngFor="let review of teacherReviews">
+                                                <div class="feedback">
+                                                    <div class="authorImg">
+                                                        <img src={{review.ImageURL}} alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="reviewConBack">
+                                                        <star-rating-comp [starType]="'svg'" [readOnly]="true"
+                                                            [showHalfStars]="true" rating="{{review.Rating}}"></star-rating-comp>
+                                                        <div class="clr"></div>
+                                                        <p>{{review.Comment}}</p>
+                                                        <div class="perName">{{review.StudentName}}
+                                                            <span>| {{review.DateReviewed}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </owl-carousel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-12 order-lg-2 order-sm-1 order-1">
+                            <div class="row" style="display: flex; flex-wrap: wrap;">
+                                <div class="col-lg-12 col-sm-6 col-12 smHalfLeft">
+                                    <div class="profileCompl">
+                                        <h2>profile completion</h2>
+                                        <ul>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.SettingsFlag,'uncheck':!profileStatusData.SettingsFlag}"
+                                                    [routerLink]="['/teacher/settings']">Settings</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.RatesFlag,'uncheck':!profileStatusData.RatesFlag}"
+                                                    [routerLink]="['/teacher/rate-settings']">Rates</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.LinkFlag,'uncheck':!profileStatusData.LinkFlag}"
+                                                    [routerLink]="['/teacher/link-setting']">Link</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.AvailabilityFlag,'uncheck':!profileStatusData.AvailabilityFlag}"
+                                                    [routerLink]="['/teacher/calendar']">Availability</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.ProfileFlag,'uncheck':!profileStatusData.ProfileFlag}"
+                                                    [routerLink]="['/teacher/profile/edit']">Profile</a>
+                                            </li>
+                                            <li>
+                                                <a [ngClass]="{'dropdown-item': true, 'check':profileStatusData.StripeConnectFlag,'uncheck':!profileStatusData.StripeConnectFlag}"
+                                                    [routerLink]="['/teacher/payment']">Stripe Connect</a>
+                                            </li>
+                                        </ul>
+                                        <label class="progressPerc">{{profileStatusData.PercentageCompletion}}%</label>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{'width': percentage}"
+                                                aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <button *ngIf="!isProfileComplete" (click)="completeTeacherProfile()" class="btn bluebtn">Complete
+                                            Profile</button>
+                                        <button *ngIf="isProfileComplete" class="btn bluebtn">Profile Completed !</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-6 col-12 smHalfRight">
+                                    <div class="studentsList">
+                                        <h2 style="float: none;">Students
+                                            <a [routerLink]="['/teacher/student-list']">View All</a>
+                                        </h2>
+                                        <ul *ngFor="let student of associatedStudentsList">
+                                            <li class="online">
+                                                <span *ngIf = "student.ImageURL != ''">
+                                                    <img src="{{student.ImageURL}}" alt="">
+                                                </span>
+                                                <span *ngIf = "student.ImageURL === ''">
+                                                    <img src="../assets/images/user-icon.png" alt="">
+                                                </span>
+                                                <label>{{student.StudentName}}</label>
+                                            </li>
+                                        </ul>
+                                        <button (click)="openDialog()" class="inviteStudntBtn">Add Student</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="editScheduleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="padding:0;">
+                    <div id="specPopup">
+                        <i data-dismiss="modal" class="fa fa-times"></i>
+                        <label>Booking</label>
+                        <span>
+                            Edit {{selectedSpecificDate}} booking to <input [(ngModel)]="selectedDate"
+                                [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" type="text" class="editBooking"
+                                data-date-format="dd-mm-yyyy">
+                            <owl-date-time [pickerType]="'calendar'" #dt3 data-date-format="dd-mm-yyyy"></owl-date-time>
+                        </span>
+                        <br />
+                        <div class="popupCon">
+                            <div class="fromCol">
+                                <span>From</span>
+                                <div class="clr"></div>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimefrom" [meridian]="meridian"></ngb-timepicker>
+                                </div>
+                            </div>
+                            <div class="untilCol">
+                                <span>To</span>
+                                <div class="clr"></div>
+                                <div class="input-group bootstrap-timepicker timepicker" style="padding-left:0px;">
+                                    <ngb-timepicker allowintegerOnly="true" [(ngModel)]="dateTimeTo" [meridian]="meridian"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                        <button (click)="setBookingData(eventId);" data-dismiss="modal"><i class="fa fa-check"></i> Set
+                            Hours</button>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="cancelScheduleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="padding:0;">
+                    <div id="specPopup">
+                        <i data-dismiss="modal" class="fa fa-times"></i>
+                        <label>Booking</label>
+                        <span>Are you sure you want to cancel {{selectedSpecificDate}} booking ?</span>
+                        <br />
+                        <div class="clr"></div>
+                        <div class="actionButtons">
+                            <button (click)="cancelEvent(eventId);" data-dismiss="modal"><i class="fa fa-check"></i>Yes</button>
+                            <button style="cursor:pointer" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

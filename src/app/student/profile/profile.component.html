@@ -1,0 +1,119 @@
+<form>
+    <!-- studentProfile -->
+    <section id="teacherProfile">
+        <div class="personheader">
+            <div class="row">
+                <div class="col-lg-8 col-sm-7 col-12">
+                    <div class="personDetails">
+                        <div class="personPic">
+                            <img *ngIf="commonService.isDefaultImageFlag" src="../assets/images/addImage.png" alt=""
+                                class="img-fluid">
+                            <img *ngIf="!commonService.isDefaultImageFlag" src={{studentImageUrl}} alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="personPerDetail">
+                            <h2>{{studentProfile.DisplayName}}</h2>
+                            <p>
+                                <i class="fa fa-map-marker"></i> {{studentProfile.ZipCode}}
+                            </p>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-5 col-12">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /studentProfile -->
+    <!-- contentPart -->
+    <section id="contentPart">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-12 leftPanel stuProLeft">
+                    <div class="leftContent">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-6">
+                                <!-- <div>
+                                    <h3>vocal Type</h3>
+                                    <p>{{studentProfile.VocalType}}</p>
+                                </div> -->
+                                <div>
+                                    <h3>vocal Range</h3>
+                                    <p>{{studentProfile.LowVocalRange}} - {{studentProfile.HighVocalRange}}</p>
+                                </div>
+                                <ul class="disclisting halfWidth">
+                                    <h3>vocal Styles</h3>
+                                    <li *ngFor="let style of studentProfile.StudentStyles">{{style}}</li>
+                                    <li *ngIf="this.studentProfile.OtherStyle != ''">{{studentProfile.OtherStyle}}</li>
+                                </ul>
+                                <div class="clr"></div>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-6">
+                                <!-- <div class="width40">
+                                    <h3>musical Worship</h3>
+                                    <ul class="halfWidth padLeftNone">
+                                        <li *ngIf="studentProfile.MusicalWorshipBaptist">Baptist</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipBuddhist">Buddhist</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipCatholic">Catholic</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipEpiscopal">Episcopal</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipHindi">Hindi</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipJewish">Jewish</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipLutheran">Lutheran</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipMethodist">Methodist</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipNonDenom">Non-Denom</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipMuslim">Muslim</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipPresbyterian">Presbyterian</li>
+                                        <li *ngIf="studentProfile.MusicalWorshipUnitarian">Unitarian</li>
+                                    </ul>
+                                </div> -->
+                                <div>
+                                    <h3>Current Level in School</h3>
+                                    <p>{{studentProfile.CurrentSchoolLevel}}</p>
+                                </div>
+                                <div *ngIf ='studentProfile.SchoolName != "" '>
+                                    <h3>School Name</h3>
+                                    <p>{{studentProfile.SchoolName}}</p>
+                                </div>
+                                <div>
+                                    <h3>Graduation Year</h3>
+                                    <p>{{studentProfile.GraduationYear}}</p>
+                                </div>
+                                <div>
+                                    <h3>member since</h3>
+                                    <p>{{studentProfile.CreatedOn|date:'MMMM yyyy'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-12">
+                    <div class="rightContent stuProRight">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div role="tabpanel" class="tab-pane fade in active show" id="overview">
+                                    <h3>introduction</h3>
+                                    <p>{{studentProfile.Introduction}}</p>
+                                    <div class="clr"></div>
+                                    <h3>i am currently singing or want to sing at...</h3>
+                                    <p>
+                                        <i class="fa fa-map-marker"></i> {{studentProfile.WhereCurrentlySing}}</p>
+                                    <div class="clr"></div>
+                                    <!-- <h3>my goals for voice study are...</h3>
+                                    <ul>
+                                        <li [hidden]="!studentService.toneQualityFlag">Improve my tone quality</li>
+                                        <li [hidden]="!studentService.vocalRangeFlag">Improve my vocal range</li>
+                                        <li [hidden]="!studentService.newSkillFlag">Learn a new skill</li>
+                                        <li [hidden]="!studentService.friendFamilyFlag">Impress my family/friends</li>
+                                        <li [hidden]="!studentService.otherGoalFlag">{{studentProfile.OtherGoalForStudy}}</li>
+                                    </ul> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- contentPart -->
+</form>

@@ -1,0 +1,70 @@
+<div class="connectedRight" style="width: 100%;">
+     <!--<tabset>
+      <tab heading="Lesson" customClass="gray"> -->
+        <div class="tabcontent widget active">
+          <div class="music-descr">
+            <div class="tools-line" id="current-music">
+              <ul class="tools" id="current-tempo"></ul>
+              <ul id="tranposeRepetitions" class="keys"></ul>
+              <div id="exercise"></div>
+            </div>
+          </div>
+          <div id="lesson-history-container" style="display:none;">
+            <br>
+            <h4 class="title">Previously This Lesson: </h4>
+            <div class="jcf-scrollable-wrapper" style="position: relative; width: 100px; height: 700px;">
+              <div id="history-music" class="jcf-scrollable frame" style="overflow: scroll; width: 700px; height: 689px;">
+              </div>
+              <div class="jcf-scrollbar jcf-scrollbar-vertical" style="touch-action: pan-x; position: absolute; height: 689px;">
+                <div class="jcf-scrollbar-dec"></div>
+                <div class="jcf-scrollbar-slider" style="position: relative; height: 689px;">
+                  <div class="jcf-scrollbar-handle" style="touch-action: none; position: absolute; top: 688px;"></div>
+                </div>
+                <div class="jcf-scrollbar-inc jcf-inactive"></div>
+              </div>
+              <div class="jcf-scrollbar jcf-scrollbar-horizontal" style="touch-action: pan-y; position: absolute; width: 89px;">
+                <div class="jcf-scrollbar-dec"></div>
+                <div class="jcf-scrollbar-slider" style="position: relative; width: 61px;">
+                  <div class="jcf-scrollbar-handle" style="touch-action: none; position: absolute; left: 61px;"></div>
+                </div>
+                <div class="jcf-scrollbar-inc jcf-inactive"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="songplayer" class="lobbyTabContent" style="height: 250px; padding:0;">
+          <div id="audioPlayer" class="" style="display: none;"></div>
+          <div id="excrisePlayer" class="" style="display: none;"></div>
+          <div id="videoPlayer"></div>
+        </div>
+       
+        <div class="treeViewNew" id="divlessonQueue">
+            <div class="lessonQueue">
+              <ul style="padding-top: 30px;">
+                <li style="float: left;">Lesson Queue</li>
+                <li style="display: inline-block;" *ngIf="userType == 'Teacher' ">
+                  <a [matMenuTriggerFor]="menu" *ngIf="userType == 'Teacher' " style="padding-right: 15px;">
+                    <span>
+                      <label id="selectedPlayMode" >PLAY MODE</label> <img id="imgSlectedPlayMode" src="../../../assets/images/play-s-icon.png">
+                    </span>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="playSong('PT')" style="font-size: 15px;"><img src="../../../assets/images/play-t-icon.png"> Play Teacher</button>
+                      <button mat-menu-item (click)="playSong('PS')" style="font-size: 15px;"><img src="../../../assets/images/play-s-icon.png"> Play Student</button>
+                      <button mat-menu-item (click)="playSong('PA')" style="font-size: 15px;"><img src="../../../assets/images/play-a-icon.png"> Play All</button>
+                      <button mat-menu-item (click)="playSong('SNP')" style="font-size: 15px;"><img src="../../../assets/images/play-n-icon.png"> Send No Play</button>
+                    </mat-menu>
+                  </a>
+                  Autoplay
+                  <ui-switch (change)="onAutoPlayChange($event)" size="small" defaultBgColor="#32353b" defaultBoColor="#ff159b !important"
+                    switchColor="#00afa8"></ui-switch>
+                </li>
+    
+              </ul>
+            </div>
+            <div malihu-scrollbar id="customScroll" style="height: 80%;">
+              <app-video-feedback-tree-view id="tree1" [nodes]="nodes"></app-video-feedback-tree-view>
+            </div>
+          </div>
+      <!-- </tab>
+     
+    </tabset> -->

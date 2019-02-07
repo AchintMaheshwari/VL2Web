@@ -1,0 +1,40 @@
+<div class="disconnectedBack">
+  <div class="innerDisconnected">
+    <div class="disconnected">
+      <div class="connectionContent">
+        <div id="statusReady" class="hidden">
+          <div class="outer">
+            <div class="inner">
+              <div class="innerData" style="width: 160px;">
+                <p *ngIf="userRole == 'Teacher'">Ready!</p>
+                <button class="blueBtn" (click)="startVideoLesson()" style="width: 160px;">Start Lesson</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show" id="statusWaiting">
+          <p class="lead">You are connected. Waiting for lesson to begin...</p>
+        </div>
+      </div>
+      <div class="content">
+        <div class="disconLeftCon">
+          <ul id="currentUsers">
+          </ul>
+        </div>
+        <div class="disconRightCon">
+          <div id="customScroll" class="customScrollbar" malihu-scrollbar>
+            <div id="lobbyChatLogScroller">
+            <p>Welcome to the lesson lobby. Your lesson will begin shortly.</p>
+            <ul id="chatLog">
+
+            </ul>
+          </div>
+          </div>
+          <div class="messageBar">
+            <input id="chatSubmit" width="600px" type="text" placeholder="Type your message and hit enter to send...">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

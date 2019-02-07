@@ -1,0 +1,87 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$runningsize: 16px;
+$lightpurpletxt: #e6d9e8;
+$lightpurple: #dfbfe4;
+$color: #fff;
+$blue: #00afa8;
+$fl: left;
+$fr: right;
+$bornone: none;
+$upper: uppercase;
+
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+        -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+
+.paymetNotRecd {
+    background:rgba(116, 17, 117, 0.2); padding:35px;
+    .accountNumber {
+        float:$fr; padding-top:10px;
+        label {
+            font-family:$secondaryfont; color:$lightpurpletxt; font-size:$runningsize - 3; font-weight:500; margin:0; padding:0; display:inline-block; text-transform:$upper;
+        }
+        p {
+            font-family:$primaryfont; color:$color; font-size:$runningsize - 3; font-weight:600; margin:0; padding:0; display:inline-block;
+        }
+    }
+    button {
+        background:$blue; color:$color; padding:10px 20px; text-align:center; width:auto; float:$fl; border:$bornone; margin:0; text-transform:$upper; font-family:$secondaryfont; font-size:$runningsize; font-weight:500; @include position(relative, 0, left, 0);
+        i {
+            -webkit-text-stroke:1px $blue !important; left:15px; right:auto;
+        }
+        &:focus {
+            outline:none;
+        }
+    }
+}
+.paymentHistory {
+    margin:0; padding:40px 0;
+    h2 {
+        font-family:$secondaryfont; color:$color; font-size:$runningsize + 3; font-weight:400; margin:0; padding:0 0 20px 0;
+        span {
+            font-weight:300; color:$lightpurpletxt;
+        }
+    }
+    .searchPayHistory {
+        @include position(relative,0 ,left, 0);
+        input[type="text"] {
+            width:600px; color:$lightpurpletxt; padding-left:39px; color:$lightpurple; font-family:$secondaryfont; font-weight:400; font-size:$runningsize;
+        }
+        &:before {
+            content: "\f002"; font-family:$iconfont; color:$lightpurple; @include position(absolute,0 ,left, 10px); top:7px;
+        }
+    }
+    .paymentTable {
+        th {
+            padding-left:0px; color:#9e739e; font-size:$runningsize - 4; font-family:$secondaryfont; text-transform:$upper; font-weight:500; border:$bornone; padding-top:0;
+        }
+        td {
+            padding-left:0px; border-top:$bornone; font-size:$runningsize - 1; font-family:$primaryfont; font-weight:400;
+            p {
+                font-family:$primaryfont; color:$color; font-style:italic;
+            }
+        }
+    }
+}

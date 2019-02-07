@@ -1,0 +1,69 @@
+.validateError span.successCase select {border:none;}
+.validateError span.successCase:before {display:none;}
+.validateError span.successCase:after {font-size:14px; top:13px; right:10px; color:#00afa8; position:absolute;}
+.validateError span.errorCase select {border:2px solid #e90688;}
+.validateError span.errorCase:before {display:none;} 
+.validateError span.errorCase:after{font-size:14px; top:13px; right:10px; color:#e90688; position:absolute;}
+
+.validateError span.caseSuccess input {border:none;}
+.validateError span.caseSuccess p.textfieldNew:before {display:none;}
+.validateError span.caseSuccess p.textfieldNew:after {content:"\f00c"; font-family: 'FontAwesome'; font-size:14px; top:13px; right:10px; color:#00afa8; position:absolute;}
+.validateError span.caseError input {border:1px solid #e90688;}
+.validateError span.caseError p.textfieldNew:before {display:none;} 
+.validateError span.caseError p.textfieldNew:after{content:"\f00d"; font-family: 'FontAwesome'; font-size:14px; top:13px; right:10px; color:#e90688; position:absolute;}
+
+.validateField {position:relative;}
+.validateField span.editCaseSuccess {position:relative;}
+.validateField span.editCaseSuccess input[type="text"] {border:none;}
+.validateField span.editCaseSuccess:before {content:"\f00c"; font-family: 'FontAwesome'; font-size:14px; top:4px; right:10px; color:#00afa8; position:absolute;}
+.validateField span.editCaseError {position:relative}
+.validateField span.editCaseError input {border:1px solid #e90688;}
+.validateField span.editCaseError:before {content:"\f00d"; font-family: 'FontAwesome'; font-size:14px; top:4px; right:10px; color:#e90688; position:absolute;}
+
+.validateData {position:relative;}
+.validateData span.caseSuccess {position:relative}
+.validateData span.caseSuccess input[type="text"] {border:none;}
+.validateData span.caseError {position:relative}
+.validateData span.caseError input {border:1px solid #e90688;}
+
+.modal {
+    padding-right: 0px !important;
+    background: rgba(192, 192, 192, 0.8); }
+    .modal-dialog {
+      max-width: 95% !important;}
+      .modal-body {
+        padding: 0 !important; }
+
+
+
+
+
+ul.editListing h4 {padding-top:0px;}
+p.ageSelector  {padding-top:15px; padding-bottom:10px;}
+select.edit {margin-bottom:0px !important;}
+
+.modal-open {
+	.modal {
+		padding-right:0px !important; background:rgba(192, 192, 192, 0.8);
+		.modal-dialog {
+			max-width:95%;
+			.modal-body {
+				padding:0 !important;
+				.courses {
+					.innerCourse {
+						.botBar {
+							padding: 15px 0 !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.teacherProfilePreview {
+	background:url(../../../assets/images/bg-tile.jpg) no-repeat fixed; color:#fff;
+}
+
+
+.editContainer .personEditDetail {width: 100% !important;}

@@ -1,0 +1,206 @@
+.music-descr .tools li {
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.music-descr .tools label,
+.music-descr .tools a {
+    text-align: center;
+    display: block;
+    min-width: 26px;
+    padding: 0 3px;
+    background: #232629;
+    color: #b9c0cd;
+    font-size: 12px;
+    line-height: 24px;
+    height: 26px;
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+    .music-descr .tools label i,
+    .music-descr .tools a i {
+        font-size: 14px;
+        position: relative;
+        vertical-align: middle;
+    }
+
+    .music-descr .tools label .icon-tempo,
+    .music-descr .tools a .icon-tempo {
+        font-size: 18px;
+        vertical-align: top;
+        display: inline-block;
+        margin: 2px 4px 0 0;
+    }
+
+.music-descr .tools label,
+.music-descr .tools a {
+    text-align: center;
+    display: block;
+    min-width: 26px;
+    padding: 0 3px;
+    background: #232629;
+    color: #b9c0cd;
+    font-size: 12px;
+    line-height: 24px;
+    height: 26px;
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+.music-descr .tools li {
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.music-descr .tools {
+    float: left;
+}
+
+.music-descr .keys a {
+    text-align: center;
+    display: block;
+    min-width: 26px;
+    padding: 0 3px;
+    color: #fff;
+    font: 300 13px/26px "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+.music-descr .keys li.first a {
+    border: 1px solid #485164;
+    color: #485164;
+    min-width: 27px;
+    line-height: 24px;
+}
+
+.exercisePlayer {
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.playerTrack ul {
+    margin: 15px 0 !important;
+    padding: 0 !important;
+    list-style: none;
+    height: 24px !important;
+}
+
+    .playerTrack ul li {
+        width: 100%;
+        display: block;
+        position: relative;
+        text-align: center;
+        float: none !important;
+    }
+
+    .playerTrack ul li:last-child {
+        width: 100%;
+        height: 24px;
+        background: none;
+    }
+
+        .playerTrack ul li div {
+            width: 100%;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+        }
+
+        .playerTrack ul li a {
+            color: #fff;
+            display: block;
+            text-align: center;
+            line-height: 25px;
+        }
+
+        .playerTrack ul li span {
+            position: absolute;
+            background: #282b2e;
+            width: 25px;
+            height: 25px;
+            color: #fff;
+        }
+
+            .playerTrack ul li span.prev {
+                left: 0;
+                top: 4px;
+            }
+
+            .playerTrack ul li span.next {
+                right: 0;
+                top: 4px;
+            }
+
+.tools-line {
+    padding: 30px 0 0 0;
+}
+
+    .tools-line ul.tools {
+        margin: 0;
+        padding: 0;
+        float: none;
+    }
+
+        .tools-line ul.tools li#tempo label.tempo input {
+            padding-left: 0px;
+            background: url(/assets/images/beat-icon.png) no-repeat left center;
+        }
+
+        .tools-line ul.tools li {
+            list-style: none;
+            display: inline-block;
+            float: none;
+        }
+
+            .tools-line ul.tools li.playBtn a {
+                background: #00afa8;
+                color: #fff;
+            }
+
+            .tools-line ul.tools li.stopBtn a {
+                background: #90279d;
+                color: #fff;
+            }
+
+            .tools-line ul.tools li.repeatBtn a {
+                background: #23272a;
+                color: #fff;
+            }
+
+            .tools-line ul.tools li#tempo input {
+                background: #23272a;
+                color: #aeb5c3;
+                font-size: 12px;
+                border: none;
+                width: 45px;
+                text-align: right;
+                padding-right: 5px;
+            }
+
+    /*.tools-line ul.keys {float: right; max-width: 260px; margin: 0; padding: 0;}*/
+    .tools-line ul.keys {
+        margin: 15px 0;
+        padding: 0;
+    }
+
+        .tools-line ul.keys li {
+            display: inline-block;
+        }
+
+            .tools-line ul.keys li:first-child {
+                background: #00afa8;
+                color: #fff;
+            }
+
+                .tools-line ul.keys li:first-child a {
+                    border: none;
+                    color: #fff;
+                }
+
+            .tools-line ul.keys li:last-child {
+                color: #fff;
+            }
+
+                .tools-line ul.keys li:last-child a {
+                    border: 1px solid #495062;
+                    color: #7283ae;
+                }

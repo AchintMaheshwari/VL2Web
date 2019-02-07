@@ -1,0 +1,53 @@
+<div class="videoConnectedTab">
+  <tabset>
+    <tab heading="Incoming Video" id="tab1" customClass="purple">
+      <div class="incomingVideo">
+        <div id="player-container" class="player-container">
+          <div id="videoPlayer"></div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Quiz Results" customClass="pink">
+      <div class="quizResults">
+        <ul malihu-scrollbar>
+          <li>
+            <label>Age</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.Age}}</span>
+          </li>
+          <li>
+            <label>What style(s) of singing are you interested in studying?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.Style +((studentQuizResult.OtherStyle != null && studentQuizResult.OtherStyle.trim() != ''  ) ? ",":"" ) + studentQuizResult.OtherStyle}}</span>
+          </li>
+          <li>
+            <label>What is your student level?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.StudentLevel}}</span>
+          </li>
+          <li>
+            <label>Where do you currently sing?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.WhereCurrentlySing}}</span>
+          </li>
+          <li>
+            <label>Have you taken voice lessons before?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.TakenVoiceLessonsBefore}}</span>
+          </li>
+          <li>
+            <label>How long did you take lessons before?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.HowLongTakeLessons}}</span>
+          </li>
+          <li>
+            <label>What are your goals for voice study?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.GoalsForVoiceStudy}}</span>
+          </li>
+          <li>
+            <label>How often do you practice vocal scales and/or exercises?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.HowOftenPractice}}</span>
+          </li>
+          <li>
+            <label>What do you want to be able to do with your voice that you cannot do today?</label>
+            <span *ngIf="studentQuizResult != null">{{studentQuizResult.WhatDoYouWant}}</span>
+          </li>
+        </ul>
+      </div>
+    </tab>
+  </tabset>
+</div>

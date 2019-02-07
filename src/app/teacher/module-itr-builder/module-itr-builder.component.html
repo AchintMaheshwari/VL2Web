@@ -1,0 +1,204 @@
+<div [ngClass]="{ 'connectedBack':true, 'chatModuleNew': true, 'conVideo':(sharedLibrary.isVideo || sharedLibrary.isExercise || 
+sharedLibrary.isLibrary || sharedLibrary.isStep2 || sharedLibrary.isStep3)}">
+  <div class="innerConnected" style="height: calc(100% - 48px)">
+    <div class="connectedLeft">
+      <div class="ItrRBuilderContent">
+        <h1>Integrated Training Routine (ITR) Builder:</h1>
+        <div class="clr"></div>
+        <div class="itrDropdownContainer">
+          <ul>
+            <li>
+              <div class="fullWidth">
+                <h3>Vocalize <i class="material-icons" placement="right" [tooltip]="vocalize">help</i></h3>
+                <ng-template #vocalize>"Vocalize" means Vocal Workout in more formal voice lesson talk track.</ng-template>
+                <div class="btn-group" dropdown>
+                  <button id="vocalize" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{vocal}}</button>
+                  <ul malihu-scrollbar id="vocalize" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of vocalizeList' (click)="onVocalizeChange(item.value)" [ngClass]="{ 'selected' : vocal === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vocal === "Sirens (Glissando)"'>
+                  <button id="siren" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{siren}}</button>
+                  <ul malihu-scrollbar id="siren" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of sirenList' (click)="onSirenChange(item.value)" [ngClass]="{ 'selected' : siren === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vocal === "Intermediate Vocalize"'>
+                  <button id="IntermediateVocalize" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{intermediate}}</button>
+                  <ul malihu-scrollbar id="IntermediateVocalize" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of intermediateList' (click)="onIntermediateChange(item.value)" [ngClass]="{ 'selected' : intermediate === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vocal === "Advanced Vocalize"'>
+                  <button id="advancedVocalize" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{advanced}}</button>
+                  <ul malihu-scrollbar id="advancedVocalize" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of advancedList' (click)="onAdvancedChange(item.value)" [ngClass]="{ 'selected' : advanced === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown>
+                  <button id="gender" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{gendr}}</button>
+                  <ul malihu-scrollbar id="gender" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of genderList' (click)="onGenderChange(item.value)" [ngClass]="{ 'selected' : gendr === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown>
+                  <button id="speed" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{spd}}</button>
+                  <ul malihu-scrollbar id="speed" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of speedList' (click)="onSpeedChange(item.value)" [ngClass]="{ 'selected' : spd === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="fullWidth">
+                <h3>Onset <i class="material-icons" placement="bottom" [tooltip]="onset">help</i></h3>
+                <ng-template #onset>"Onset means, "the start". How we begin a note greatly influences the outcome of
+                  the following training or singing".</ng-template>
+                <div class="btn-group" dropdown>
+                  <button id="OnsetOne" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{onsetValue}}</button>
+                  <ul malihu-scrollbar id="OnsetOne" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of onsetList' (click)="onOnsetChange(item.value)" [ngClass]="{ 'selected' : onsetValue === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="fullWidth">
+                <h3>Vowel Released <i class="material-icons" placement="bottom" [tooltip]="vowelReleased">help</i></h3>
+                <ng-template #vowelReleased>Be sure to study and understand the Acoustic Modes. The Acoustic Modes are 10 singing vowels or sound color spectrums, we use for building Integrated Training Routines. The innovation is also used to categorize vowel resonance in general terms, to facilitate discussions about singing resonance, singing vowels and formants in a way that is easy to grasp for student and teacher. The Acoustic Modes are:</ng-template>
+                <div class="btn-group" dropdown>
+                  <button id="vowelRel" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{vowel}}</button>
+                  <ul malihu-scrollbar id="VowelRel" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of vowelList' (click)="onVowelChange(item.value)" [ngClass]="{ 'selected' : vowel === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vowel === "Ending Vowels"'>
+                  <button id="vowelRelOne" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{eVowel}}</button>
+                  <ul malihu-scrollbar id="VowelRelOne" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of eVowelList' (click)="onEVowelChange(item.value)" [ngClass]="{ 'selected' : eVowel === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vowel === "Neutral Vowels"'>
+                  <button id="vowelRelTwo" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{nVowel}}</button>
+                  <ul malihu-scrollbar id="vowelRelTwo" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of nVowelList' (click)="onNVowelChange(item.value)" [ngClass]="{ 'selected' : nVowel === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='vowel === "Curbing Vowels"'>
+                  <button id="vowelRelTwo" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{cVowel}}</button>
+                  <ul malihu-scrollbar id="vowelRelTwo" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of cVowelList' (click)="onCVowelChange(item.value)" [ngClass]="{ 'selected' : cVowel === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="fullWidth">
+                <h3>Preset <i class="material-icons" placement="bottom" [tooltip]="preset">help</i></h3>
+                <ng-template #preset>"Presets are "best practice" integrated training routines developed by the TVS Certified Instructors. Each ITR has been practiced and approved to ensure its effectiveness and legitimacy".</ng-template>
+                <div class="btn-group" dropdown>
+                  <button id="presetListing" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{presetVal}}</button>
+                  <ul malihu-scrollbar id="presetListing_dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of presetList' (click)="onPresetChange(item.value)" [ngClass]="{ 'selected' : presetVal === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='presetVal === "Coordination & Tuning ITRs"'>
+                  <button id="coordinationTuning" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{cPreset}}</button>
+                  <ul malihu-scrollbar id="coordinationTuning_dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of cPresetList' (click)="onCPresetChange(item.value)" [ngClass]="{ 'selected' : cPreset === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='presetVal === "Strength Building ITRs"'>
+                  <button id="strengthBuilding" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{sPreset}}</button>
+                  <ul malihu-scrollbar id="strengthBuilding_dropdown" *dropdownMenu class="dropdown-menu" role="menu"
+                    aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of sPresetList' (click)="onSPresetChange(item.value)"
+                      [ngClass]="{ 'selected' : sPreset === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn-group" dropdown *ngIf='presetVal === "Acoustic Mode ITRs"'>
+                  <button id="acousticMode" dropdownToggle type="button" class="dropdown-toggle" aria-controls="dropdown-basic">{{aPreset}}</button>
+                  <ul malihu-scrollbar id="acousticMode" *dropdownMenu class="dropdown-menu" role="menu"
+                    aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor='let item of aPresetList' (click)="onAPresetChange(item.value)"
+                      [ngClass]="{ 'selected' : aPreset === item.value}">
+                      <a class="dropdown-item" href="javascript:void(0);">{{item.value}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottomStrip">
+        <div class="stripLeft">
+          <ul>
+            <li>
+              <a href="javascript:void(0);" (click)="unloadLibraryListComponent()"><img src="../../../assets/images/recommended-icon.png"
+                  alt=""> Video</a>
+            </li>
+            <!-- <li *ngIf = "(role === 'Teacher')"> -->
+            <li>
+              <a href="javascript:void(0);" (click)="loadLibraryListComponent()"><img src="../../../assets/images/bot-library-icon.png"
+                  alt=""> Library</a>
+            </li>
+            <li>
+              <div class="btn-group" dropdown [dropup]="isDropup">
+                <button id="button-dropup" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-dropup"><i
+                    class="fa fa-plus-square"></i> Add New</button>
+                <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+                  <li *ngIf="!sharedLibrary.isExercise" role="menuitem" (click)="addExercise()">
+                    <a class="dropdown-item" href="javascript:void(0);"><img src="../../../assets/images/exercise-icon.png"
+                        alt="">Exercise</a>
+                  </li>
+                  <li *ngIf="!sharedLibrary.isSong" role="menuitem" (click)="addSong()">
+                    <a class="dropdown-item" href="javascript:void(0);"><img src="../../../assets/images/song-icon.png"
+                        alt="">Song</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="stripRight">
+          <label *ngIf="sharedLibrary.LessonModel != null"><span>Lesson:</span>
+            {{sharedLibrary.LessonModel.LessonName}} </label>
+          <label *ngIf="sharedLibrary.LessonModel==null"><span>Lesson:</span> beginner warmup basics </label>
+          <button *ngIf="isStudent==0" (click)="endLesson()"><i class="fa fa-floppy-o"></i>End Lesson</button>
+          <button *ngIf="isStudent==1" (click)="endLesson()"><i class="fa fa-floppy-o"></i>Leave Lesson</button>
+        </div>
+      </div>
+    </div>
+    <app-lesson-queue></app-lesson-queue>
+    <div class="clr"></div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+.teacherIndexCard .card .personPic .grayEdit, .teacherPic .grayEdit {background:#aeb5c3; width:27px; height:27px; position:absolute; z-index:0; right:0; bottom:3px; border-radius:100%; text-align:center; cursor:pointer;}
+.teacherPic .onlineTag {background:#00afa8; width:27px; height:27px; position:absolute; z-index:0; right:0; bottom:3px; border-radius:100%; text-align:center; cursor:pointer;}

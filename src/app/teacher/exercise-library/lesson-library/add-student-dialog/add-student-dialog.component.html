@@ -1,0 +1,206 @@
+<div mat-dialog-content>
+  <div class="addStudenModal">
+    <div class="dialogClose" (click)="onNoClick()">
+      <i class="material-icons">close</i>
+    </div>
+    <h2>Add Student(s)</h2>
+    <div class="search col-lg-6 offset-lg-6">
+      <div class="searchStudent">
+        <input type="text" [(ngModel)]="filterStudents" placeholder="Search for a student and group...">
+      </div>
+    </div>
+    <tabset>
+      <tab heading="All" id="tab1">
+        <div class="addStuList" id="divOne" malihu-scrollbar style="max-height: 231px;">
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12" *ngFor="let listStudent of AssociatedStudent | filterStudentlibrary:filterStudents; let x = index">
+              <div class="addStubox" (click)="selectStudent(listStudent)">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>{{listStudent.UserName}}</h5>
+                  <p>{{listStudent.VocalType}}</p>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="blueBtn" (click)="hideModel()">
+          <i class="fa fa-plus"></i> Add Selected</button>
+        <div class="clr"></div>
+      </tab>
+      <tab heading="Students">
+        <div class="addStuList" id="divTwo" malihu-scrollbar style="max-height: 231px;">
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12" *ngFor="let listStudent of AssociatedStudent | filterStudentlibrary:filterStudents; let x = index">
+              <div class="addStubox" (click)="selectStudent(listStudent)">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>{{listStudent.UserName}}</h5>
+                  <p>{{listStudent.VocalType}}</p>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="blueBtn" (click)="hideModel()">
+          <i class="fa fa-plus"></i> Add Selected</button>
+        <div class="clr"></div>
+      </tab>
+      <tab heading="Groups">
+        <div class="addStuList" id="divThrtee" malihu-scrollbar style="max-height: 231px;">
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="addStubox">
+                <span>
+                  <img src="../../../../assets/images/add-stu-img.png" alt="">
+                </span>
+                <label>
+                  <h5>Addison Roberts</h5>
+                  <p>solo student</p>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="blueBtn">
+          <i class="fa fa-plus"></i> Add Selected</button>
+        <div class="clr"></div>
+      </tab>
+    </tabset>
+  </div>
+</div>

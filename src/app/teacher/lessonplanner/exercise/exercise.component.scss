@@ -1,0 +1,88 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$purple: #90279d;
+$lightpurpletxt: #e6d9e8;
+$pinkback: #e90688;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.drop-zone {
+    border-radius:0px;
+}
+
+.connectedBack {
+    width:$fullwidth; height:calc(100% - 66px); @include position(absolute, 0, left, 0);
+    .innerConnected {
+        width:$fullwidth; height:$fullwidth; display:flex; /*align-items:center; justify-content:center;*/     
+        .connectedLeft {
+            width:60%; /*max-width:623px; margin:0 auto;*/ float:left; padding:40px 80px;
+        }   
+        .connectedRight {
+            /* width:700px; */ width: 40%;
+            .lessonQueue {
+                ul {
+                    display:flex; padding-top: 30px;
+                    li {
+                        list-style:none; width:50%; display: inline-block; color:#878787; font-size:$smallsize - 1; font-family:$secondaryfont; text-transform:$upper;     font-weight: 600;
+                        &:last-child {
+                            text-align:right; display: inline-block;
+                        }
+                        ui-switch {
+                            display:inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mat-select {
+    background: rgba(116, 17, 117, 0.4);
+    width: 100%;
+    border: none;
+    font-family: "Lato", sans-serif;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 7px 12px;
+    margin-bottom: 20px;
+}
+
+.connectedRight {
+    padding-left: 0; padding-right: 0; padding-bottom: 30px;
+}
+
+.connectedBack {
+    height: calc(100% - 114px) !important;
+}

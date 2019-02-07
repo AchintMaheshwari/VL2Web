@@ -1,0 +1,356 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$upper: uppercase;
+$graybg: #aeb5c3;
+$color: #fff;
+$primary: #c794c4;
+$lightpurpletxt: #e6d9e8;
+$darkgray: #23272a;
+$blue: #00afa8;
+$fullwidth: 100%;
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$pinkback: #e90688;
+$lightpurple: #dfbfe4;
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+/**** mixin function ****/
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+        -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+.teachList {
+	padding-bottom:35px;
+}
+.teacherList {
+    padding:50px 0; width:$fullwidth;
+    h2 {
+        font-family:$secondaryfont; color:$color;  text-transform:$upper; font-size:$runningsize + 5; margin:0; padding:0 0 25px 0;
+    }
+    .search {
+        @include position(relative, 0, left, 0);
+        input[type="text"] {
+            font-family:$primaryfont; color:#a06b9d; font-size:$runningsize + 2; font-weight:400; padding:8px 15px 8px 50px; background:rgba(116, 17, 117, 0.4); border:none; @include border-radius(0);
+            &:focus {
+                outline:none; box-shadow:none;
+            }
+        }
+        &:before {
+            content: "\f002"; color:#a06b9d; font-family:$iconfont; font-size:$runningsize + 2; @include position(absolute, 0, left, 20px); top:7px;
+        }
+    }
+    .sortableData {
+		margin:0; padding:0;
+		table {
+			width:$fullwidth;
+			thead {
+				tr {
+					th {
+						position: relative; color:#a97da9; text-transform:$upper; font-family:$secondaryfont; font-size:$smallsize - 2; font-weight:400; border-bottom:1px solid rgba(223, 191, 228, 0.2); padding-bottom:15px;
+						button {
+							&.mat-sort-header-button {
+								text-transform: $upper !important;
+							}
+						}
+						&.sorting.up {
+							&:after {
+								content: "\f0d7"; position: absolute; bottom: 8px; right: 5px; font-family: 'FontAwesome';
+							}
+							&:before {
+								/*display: none;*/ opacity: 0.5;
+							}
+						}
+						&.sorting.down {
+							&:after {
+								content: "\f0d7"; position: absolute; bottom: 8px; right: 5px; font-family: 'FontAwesome'; opacity: 0.5;
+							}
+							&:before {
+								/*display: none;*/ opacity: 1;
+							}
+						}
+						&.sorting {
+							cursor: pointer;
+							&:before {
+								content: "\f0d8"; position: absolute; top: 8px; right: 5px; font-family: 'FontAwesome';
+							}
+							&:after {
+								content: "\f0d7"; position: absolute; bottom: 8px; right: 5px; font-family: 'FontAwesome';
+							}
+						}
+					}
+				}
+			}
+			tbody {
+				tr {
+					td {
+						font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:500; /*border-bottom:1px solid rgba(223, 191, 228, 0.2);*/
+						&.teacherName {
+							padding-top:10px;
+							label {
+								display:inline-block; width:35px;
+								img {
+									max-width:$fullwidth; -webkit-border-radius:$fullwidth; -moz-border-radius:$fullwidth; border-radius:$fullwidth;
+								}
+							}
+							span {
+								display:inline-block; font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:600; padding-left:14px;
+							}
+						}
+						&.nxtLesson {
+							i {
+								color:$pinkback; margin-left:10px;
+							}
+						}
+						.btn-group {
+							float:right;
+							button {
+								background:none; color:$color; font-family:$primaryfont; font-size:$runningsize - 1; color:$color; font-weight:500; border:none;
+								&:focus {
+									outline:none;
+								}
+							}
+						}
+						.dropdown-menu {
+							li {
+								a {
+									padding:10px 20px;
+									&:hover {
+										color:$color;
+									}
+								}
+								i {
+									padding-right:8px;
+								}
+							}
+						}
+						.dropdown-toggle {
+							&:after {
+								display:none;
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+}
+
+::-webkit-input-placeholder {color:#a06b9d;}
+::-moz-placeholder {color:#a06b9d;}
+:-ms-input-placeholder {color:#a06b9d;}
+:-moz-placeholder {color:#a06b9d;}
+
+.pagination { margin: 0px !important; }
+
+.sortByStu {
+	width: $fullwidth; text-align: right;
+	.space {
+		padding-top: 30px;
+	}
+	label {
+		font-size: $smallsize - 2; color: $primary; text-transform: $upper; font-family: $secondaryfont; font-weight: 600; margin: 0; padding: 0 15px 0 0; 
+	}
+	.btn-group {
+		position: relative;
+		button {
+			&.dropdown-toggle {
+				width: 200px; text-align: left; background: rgba(116, 17, 117, 0.4); border: none; color: $color; font-size: $smallsize + 1; font-family: $primaryfont; color: $lightpurpletxt; text-transform: $upper; padding: 10px; cursor: pointer;
+			}
+			&:focus {
+				outline: none; box-shadow: none;
+			}
+			&:after {
+				border: none; content: "\f107"; position: absolute; font-family: $iconfont; color: $color; width: 15px; height: 15px; right: 10px; top: 10px;
+			}
+		}
+		.dropdown-menu {
+			min-width: $fullwidth;
+			a {
+				&:hover {
+					color: $color;
+				}
+			}
+		}
+	}
+	.btn-group.open {
+		button {
+			&:after {
+				border: none; content: "\f106"; position: absolute; font-family: $iconfont; color: $color; width: 15px; height: 15px; right: 10px; top: 10px;
+			}
+		}
+	}
+	button {
+		&.claimBtn {
+			display: inline-block; background: $blue; color: $color; text-transform: $upper; border: none; padding: 8px 15px 10px 15px !important; margin-left: 15px;
+			i {
+				padding-right: 8px;
+			}
+		}
+	}
+}
+
+.listImg {
+	img {
+		border: 1px solid #450749; max-width: 100px;
+	}
+	video {
+		border: 1px solid #450749; width: 100px !important; max-height: 100px !important;
+	}
+	iframe {
+		border: 1px solid #450749; width: 100px !important; max-height: 100px !important;
+	}
+}
+.sortableData {
+	table {
+		width:$fullwidth;
+		thead {
+			tr {
+				th {
+					border: none;
+				}
+			}
+		}
+		tr {
+			td {
+				border-top: 1px solid rgba(223, 191, 228, 0.2);
+			}
+		}
+	}
+}
+
+.pagination {
+	border-top: 1px solid rgba(223, 191, 228, 0.2); border-bottom: 1px solid rgba(223, 191, 228, 0.2); padding: 10px 0; margin-top: 50px !important;
+	ul {
+		margin: 0; padding: 0; list-style: none; text-align: center; width: $fullwidth;
+		li {
+			display: inline-block;
+			a {
+				color: #7d4a86; font-size: $smallsize - 1; font-family: $primaryfont; font-weight: 500; padding: 5px 8px;
+			}
+			&.current {
+				a {
+					color: $color; background: #650d61;
+				}
+			}
+			&:hover {
+				a {
+					color: $color; background: #650d61; text-decoration: none;
+				}
+			}
+			&:first-child {
+				font-size: $runningsize + 1;
+				a {
+					padding-left: 10px; padding-right: 10px;
+				}
+				i {
+					padding-right: 5px;
+				}
+			}
+			&:last-child {
+				font-size: $runningsize + 1;
+				a {
+					padding-left: 10px; padding-right: 10px;
+				}
+				i {
+					padding-left: 5px; padding-right: 10px;
+				}
+			}
+		}
+	}
+}
+.addStuGridView {
+	table {
+		td {
+			border: none !important; padding-top: 0; padding-bottom: 0;
+			.content {
+				ul {
+					width: $fullwidth; margin: 0; padding: 20px 0; list-style: none;
+					li {
+						display: inline-block; color: #aeb6c3; font-size: $smallsize; font-weight: 400; font-family: $primaryfont; padding-right: 10px;
+						i {
+							vertical-align: middle;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+ul {
+	&.videoOptions {
+		li {
+			&:first-child {
+				label {
+					&.checkbox-custom-label {
+						margin-top: 0 !important;
+						&:before {
+							vertical-align: top;
+						}
+					}
+				}
+			}
+			&.middle {
+				width: calc(100% - 69px); float: left; text-align: center;
+			}
+		}
+	}
+}
+.dropMenuNew {
+	.btn-group {
+		a {
+			&.dropdown-toggle {
+				padding: 0 !important; width: 18px; color: #fff;
+				&:after {
+					display: none;
+				}
+			}
+		}
+		ul {
+			&.dropdown-menu {
+				padding: 0 !important; width: 172px !important;
+				li {
+					padding-right: 0 !important; display: block !important;
+					a {
+						&:hover {
+							color: #fff !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}

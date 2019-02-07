@@ -1,0 +1,523 @@
+<form #teacherForm="ngForm">
+    <!-- teacherProfile -->
+    <section id="teacherProfile">
+        <div class="personheader">
+            <div class="row flex-sm-row flex-lg-row flex-sm-column-reverse flex-column-reverse">
+                <div class="col-lg-8 col-sm-12 col-12">
+                    <div class="personDetails editPerDetail">
+                        <div class="personPic">
+                            <img *ngIf="commonService.isDefaultImageFlag" src="../assets/images/addImage.png" alt="" class="img-fluid">
+                            <img *ngIf="!commonService.isDefaultImageFlag" src={{commonService.userProfilePic}} alt="" class="img-fluid">
+                            <div class="edit">
+                                <i class="fa fa-pencil" (click)="openNewDialog();"></i>
+                            </div>
+                        </div>
+                        <div class="personPerDetail editContainer">
+                            <div class="personEditDetail">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-6 col-sm-6 col-12">
+                                        <div class="editName validateError">
+                                            <h2>
+                                                <i class="fa fa-asterisk"></i> display name</h2>
+                                            <span [ngClass]="{ 'editCaseError': ((fullName.dirty || fullName.touched || isFormSubmitFlag) && fullName.errors), 
+                                            'editCaseSuccess':!fullName.errors}">
+                                                <input type="text" class="edit" maxlength="70" pattern="^([A-Za-z]+[',.]?[ ]?[&]?[ ]?|[A-Za-z]?)+$" required name="DisplayName"
+                                                    [(ngModel)]="teacherProfile.DisplayName" [ngModelOptions]="{updateOn: 'blur'}"
+                                                    rows="1" #fullName="ngModel" style="height:40px;" placeholder="Your Name"
+                                                />
+                                            </span>
+                                            <div *ngIf="(isFormSubmitFlag || (fullName.errors && (fullName.dirty || fullName.touched)))">
+                                                <div [hidden]="!fullName.errors" class="errorMessageHeader">
+                                                    Please enter your full name. We allow ' & . ,
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-sm-6 col-12">
+                                        <div class="editComapny validateError">
+                                            <h2>
+                                                <i class="fa fa-asterisk"></i> Studio Name</h2>
+                                            <span [ngClass]="{ 'editCaseError': ((studio.dirty || studio.touched || isFormSubmitFlag) && studio.errors), 
+                                              'editCaseSuccess':!studio.errors}">
+                                                <input type="text" class="edit" maxlength="100" required pattern="^([A-Za-z0-9]+[',.]?[ ]?[&]?[ ]?|[A-Za-z0-9]?)+$" name="StudioName"
+                                                    [(ngModel)]="teacherProfile.StudioName" [ngModelOptions]="{updateOn: 'blur'}"
+                                                    rows="1" #studio="ngModel" style="height:40px;" placeholder="Your Studio"
+                                                />
+                                            </span>
+                                            <div *ngIf="(isFormSubmitFlag || (studio.errors && (studio.dirty || studio.touched)))">
+                                                <div [hidden]="!(studio.errors)" class="errorMessageHeader">
+                                                    Please enter your studio name. We allow ' & . ,
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-12 editbtn">
+                    <div class="lessonDetail editLessonDetail">
+                        <div class="editlessonBtn">
+                            <button class="previewbtn" data-toggle="modal" (click)="previewChanges()" data-target="#previewModal">
+                                <i class="fa fa fa-eye"></i> Preview</button>
+                            <button (click)="saveOrUpdateTeacherProfile()" [disabled]="isFormProcessing" class="publishbtn" type="submit">
+                                <i class="fa fa-check"></i> Publish</button>
+                        </div>
+                        <div [hidden]="teacherForm.valid || !isFormSubmitFlag" class="errorMessage" style="padding-top:10px;">
+                            We would like to know you better!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /teacher Profile -->
+    <!-- contentPart -->
+    <section id="contentPart">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-12 editLeftPanel">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="leftContent">
+                                <div class="validateError">
+                                    <h4 style="margin-top: 0px;">City</h4>
+                                    <span [ngClass]="{ 'editCaseError':((city.dirty || city.touched || isFormSubmitFlag) && city.errors), 
+                                'editCaseSuccess': !city.errors }">
+                                        <input type="text" [(ngModel)]="teacherProfile.City" name="City" required [ngModelOptions]="{updateOn: 'blur'}" class="edit"
+                                            #city="ngModel" placeholder="New York" maxlength="30" pattern="^([A-Za-z]+[']?[ ]?|[A-Za-z]?)+$">
+                                        <div *ngIf="(isFormSubmitFlag || (city.errors && (city.dirty || city.touched)))">
+                                            <div [hidden]="!city.errors?.required" class="errorMessage">
+                                                Please tell us your City name.
+                                            </div>
+                                            <div [hidden]="!city.errors?.pattern" class="errorMessage">
+                                                Please enter a valid City name.
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="validateError">
+                                    <h4>ZipCode</h4>
+                                    <span [ngClass]="{ 'editCaseError':((zipCode.dirty || zipCode.touched || isFormSubmitFlag) && zipCode.errors?.required), 
+                                'editCaseSuccess': !zipCode.errors?.required }">
+                                        <input type="text" [(ngModel)]="teacherProfile.ZipCode" name="zipCode" required [ngModelOptions]="{updateOn: 'blur'}" class="edit"
+                                            #zipCode="ngModel" maxLength="5" placeholder="XXXXX" OnlyNumber="true">
+                                        <div *ngIf="(isFormSubmitFlag || (zipCode.errors?.required && (zipCode.dirty || zipCode.touched)))">
+                                            <div [hidden]="!zipCode.errors?.required" class="errorMessage">
+                                                Please tell us your Zip code.
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="validateError">
+                                    <h4>short introduction</h4>
+                                    <span [ngClass]="{ 'editCaseError':((shortIntro.dirty || shortIntro.touched || isFormSubmitFlag) && (shortIntro.errors?.required || isHTMLTagPresent)), 
+                                'editCaseSuccess': !shortIntro.errors?.required && !isHTMLTagPresent }">
+                                        <textarea maxlength="200" (keyup)="changeRemainingCharacterLengthAndCheckTags(teacherProfile.ShortIntroduction)" [(ngModel)]="teacherProfile.ShortIntroduction"
+                                            name="ShortIntroduction" required [ngModelOptions]="{updateOn: 'blur'}" class="edit"
+                                            #shortIntro="ngModel" placeholder="Personalized vocal lessons with 15 years of experience."></textarea>
+                                        <div *ngIf="(isFormSubmitFlag || ((shortIntro.errors?.required || isHTMLTagPresent) && (shortIntro.dirty || shortIntro.touched)))">
+                                            <div [hidden]="!shortIntro.errors?.required" class="errorMessage">
+                                                Please tell us something about yourself.
+                                            </div>
+                                            <div [hidden]="!isHTMLTagPresent" class="errorMessage" style="padding-top:0px;">
+                                                Please enter anything except HTML tags.
+                                            </div>
+                                        </div>
+                                        <label class="shortIntro">Characters remaining: {{shortIntroLength}}</label>
+                                    </span>
+                                </div>
+                                <ul class="editListing availabilityListing">
+                                    <h4>availability</h4>
+                                    <li>
+                                        <input id="availabilityAcceptingNew" class="checkbox-custom" name="AvailabilityAcceptingNew" [(ngModel)]="teacherProfile.AvailabilityAcceptingNew" type="checkbox">
+                                        <label for="availabilityAcceptingNew" class="checkbox-custom-label">Accepting new students</label>
+                                    </li>
+                                    <li>
+                                        <input id="availabilityAutoAccept" class="checkbox-custom" name="AvailabilityAutoAccept" [(ngModel)]="teacherProfile.AvailabilityAutoAccept"
+                                            type="checkbox">
+                                        <label for="availabilityAutoAccept" class="checkbox-custom-label">Auto-accept new requests</label>
+                                    </li>
+                                    <li>
+                                        <input id="availabilityOfferSolo" class="checkbox-custom" name="AvailabilityOfferSolo" [(ngModel)]="teacherProfile.AvailabilityOfferSolo"
+                                            type="checkbox">
+                                        <label for="availabilityOfferSolo" class="checkbox-custom-label">Offering solo lessons</label>
+                                    </li>
+                                    <li>
+                                        <input id="availabilityOfferGroup" class="checkbox-custom" name="AvailabilityOfferGroup" [(ngModel)]="teacherProfile.AvailabilityOfferGroup"
+                                            type="checkbox">
+                                        <label for="availabilityOfferGroup" class="checkbox-custom-label">Offering group lessons</label>
+                                    </li>
+                                </ul>
+                                <p class="ageSelector padBotNone">
+                                    <span class="validateData">
+                                        <label>From age</label>
+                                        <span style="padding-right:7px;" [ngClass]="{'caseError': isAgeRangeInvalid , 'caseSuccess': !isAgeRangeInvalid }">
+                                            <input type="text" (keyup)="validateAge()" min="1" OnlyNumber="true" maxlength="2" [(ngModel)]="teacherProfile.AcceptingAgeLow"
+                                                name="AcceptingAgeLow" class="edit" style="width:41px; height:41px;" placeholder="15"
+                                            />
+                                        </span>
+                                        <label>to</label>
+                                        <span [ngClass]="{'caseError': isAgeRangeInvalid, 'caseSuccess': !isAgeRangeInvalid }">
+                                            <input type="text" (keyup)="validateAge()" min="1" [(ngModel)]="teacherProfile.AcceptingAgeHigh" maxlength="2" OnlyNumber="true"
+                                                name="AcceptingAgeHigh" class="edit" style="width:41px; height:41px;" placeholder="30"
+                                            />
+                                        </span>
+                                        <div [hidden]="!isAgeRangeInvalid" class="errorMessage">
+                                            Please enter a valid range
+                                        </div>
+                                    </span>
+                                </p>
+                                <ul class="halfWidth editListing">
+                                    <h4>vocal Styles</h4>
+                                    <li>
+                                        <input id="vocalStylePop" class="checkbox-custom" name="VocalStylePop" type="checkbox" [(ngModel)]="teacherProfile.VocalStylePop">
+                                        <label for="vocalStylePop" class="checkbox-custom-label">Pop</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleOpera" class="checkbox-custom" name="VocalStyleOpera" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleOpera">
+                                        <label for="vocalStyleOpera" class="checkbox-custom-label">Opera</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleClassical" class="checkbox-custom" name="VocalStyleClassical" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleClassical">
+                                        <label for="vocalStyleClassical" class="checkbox-custom-label">Classical</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleJazz" class="checkbox-custom" name="VocalStyleJazz" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleJazz">
+                                        <label for="vocalStyleJazz" class="checkbox-custom-label">Jazz</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleMusicalTheatre" class="checkbox-custom" name="VocalStyleMusicalTheater" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleMusicalTheater">
+                                        <label for="vocalStyleMusicalTheatre" class="checkbox-custom-label">Musical Theatre</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleFolk" class="checkbox-custom" name="VocalStyleFolk" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleFolk">
+                                        <label for="vocalStyleFolk" class="checkbox-custom-label">Folk</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleGospel" class="checkbox-custom" name="VocalStyleGospel" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleGospel">
+                                        <label for="vocalStyleGospel" class="checkbox-custom-label">Gospel</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleRock" class="checkbox-custom" name="VocalStyleRock" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleRock">
+                                        <label for="vocalStyleRock" class="checkbox-custom-label">Rock</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleHipHop" class="checkbox-custom" name="VocalStyleHipHop" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleHipHop">
+                                        <label for="vocalStyleHipHop" class="checkbox-custom-label">Hip Hop/R&B</label>
+                                    </li>
+                                    <li>
+                                        <input id="vocalStyleWorld" class="checkbox-custom" name="VocalStyleWorld" type="checkbox" [(ngModel)]="teacherProfile.VocalStyleWorld">
+                                        <label for="vocalStyleWorld" class="checkbox-custom-label">World</label>
+                                    </li>
+                                </ul>
+                                <div class="clr"></div>
+                                <div class="validateError">
+                                    <h4 class="marTop30">vocal Type</h4>
+                                    <span style="margin-right: 10px;" [ngClass]="{ 'errorCase': ((vocalType.dirty || vocalType.touched || isFormSubmitFlag) && vocalType.errors),
+                                 'successCase':!vocalType.errors}">
+                                        <select class="edit" name="VocalType" required [(ngModel)]="teacherProfile.VocalType" style="height:40px; margin-bottom:20px"
+                                            [ngModelOptions]="{updateOn: 'blur'}" #vocalType="ngModel">
+                                            <option *ngFor="let type of vocalTypes">{{type.type}}</option>
+                                        </select>
+                                    </span>
+                                    <div *ngIf="(isFormSubmitFlag || (vocalType.errors && (vocalType.dirty || vocalType.touched)))">
+                                        <div [hidden]="!vocalType.errors?.required" class="errorMessage">
+                                            Please select a Vocal Type.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <ul class="halfWidth editListing">
+                                        <h4>musical Worship</h4>
+                                        <li>
+                                            <input id="musicalWorshipBaptist" class="checkbox-custom" name="MusicalWorshipBaptist" [(ngModel)]="teacherProfile.MusicalWorshipBaptist"
+                                                ng type="checkbox">
+                                            <label for="musicalWorshipBaptist" class="checkbox-custom-label">Baptist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipBuddhist" class="checkbox-custom" name="MusicalWorshipBuddhist" [(ngModel)]="teacherProfile.MusicalWorshipBuddhist"
+                                                type="checkbox">
+                                            <label for="musicalWorshipBuddhist" class="checkbox-custom-label">Buddhist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipCatholic" class="checkbox-custom" name="MusicalWorshipCatholic" [(ngModel)]="teacherProfile.MusicalWorshipCatholic"
+                                                type="checkbox">
+                                            <label for="musicalWorshipCatholic" class="checkbox-custom-label">Catholic</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipEpiscopal" class="checkbox-custom" name="MusicalWorshipEpiscopal" [(ngModel)]="teacherProfile.MusicalWorshipEpiscopal"
+                                                type="checkbox">
+                                            <label for="musicalWorshipEpiscopal" class="checkbox-custom-label">Episcopal</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipHindi" class="checkbox-custom" name="MusicalWorshipHindi" [(ngModel)]="teacherProfile.MusicalWorshipHindi"
+                                                type="checkbox">
+                                            <label for="musicalWorshipHindi" class="checkbox-custom-label">Hindi</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipJewish" class="checkbox-custom" name="MusicalWorshipJewish" [(ngModel)]="teacherProfile.MusicalWorshipJewish"
+                                                type="checkbox">
+                                            <label for="musicalWorshipJewish" class="checkbox-custom-label">Jewish</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipLutheran" class="checkbox-custom" name="MusicalWorshipLutheran" [(ngModel)]="teacherProfile.MusicalWorshipLutheran"
+                                                type="checkbox">
+                                            <label for="musicalWorshipLutheran" class="checkbox-custom-label">Lutheran</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipMethodist" class="checkbox-custom" name="MusicalWorshipMethodist" [(ngModel)]="teacherProfile.MusicalWorshipMethodist"
+                                                type="checkbox">
+                                            <label for="musicalWorshipMethodist" class="checkbox-custom-label">Methodist</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipNonDenom" class="checkbox-custom" name="MusicalWorshipNonDenom" [(ngModel)]="teacherProfile.MusicalWorshipNonDenom"
+                                                type="checkbox">
+                                            <label for="musicalWorshipNonDenom" class="checkbox-custom-label">Non-Denom</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipMuslim" class="checkbox-custom" name="MusicalWorshipMuslim" [(ngModel)]="teacherProfile.MusicalWorshipMuslim"
+                                                type="checkbox">
+                                            <label for="musicalWorshipMuslim" class="checkbox-custom-label">Muslim</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipPresbyterian" class="checkbox-custom" name="MusicalWorshipPresbyterian" [(ngModel)]="teacherProfile.MusicalWorshipPresbyterian"
+                                                type="checkbox">
+                                            <label for="musicalWorshipPresbyterian" class="checkbox-custom-label">Presbyterian</label>
+                                        </li>
+                                        <li>
+                                            <input id="musicalWorshipUnitarian" class="checkbox-custom" name="MusicalWorshipUnitarian" [(ngModel)]="teacherProfile.MusicalWorshipUnitarian"
+                                                type="checkbox">
+                                            <label for="musicalWorshipUnitarian" class="checkbox-custom-label">Unitarian</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-12">
+                    <div class="editRightContent">
+                        <div class="row" style="padding-bottom: 10px;">
+                            <div class="col-lg-6 col-sm-12 col-12 editURL validateError">
+                                <h3>personalized url</h3>
+                                <span [ngClass]="{ 'caseError':  ((personalUrl.dirty || personalUrl.touched || isFormSubmitFlag) && (personalUrl.errors || !isPersonalizedURLNew)),
+                                  'caseSuccess':!personalUrl.errors && isPersonalizedURLNew}" style="padding-top:0px; width:100%;">
+                                    <label style="padding:10px 10px 0 0; margin:0;">www.voicelessons.com/</label>
+                                    <p class="textfieldNew" style="width:100%;">
+                                        <input type="text" maxlength="50" (blur)="checkUrlAvailability()" style="width: 100%" [(ngModel)]="teacherProfile.PersonalizedUrl"
+                                            required name="PersonalizedUrl" pattern="^[a-zA-Z0-9-.]*$" class="edit" #personalUrl="ngModel"
+                                            placeholder="ronda.swanson">
+                                    </p>
+                                </span>
+                                <div *ngIf="(isFormSubmitFlag || (personalUrl.errors && (personalUrl.dirty || personalUrl.touched)))">
+                                    <div [hidden]="!personalUrl.errors?.required && !personalUrl.errors?.pattern" class="urlErrorMessage" style="margin-top:-35px;">
+                                        Please enter a valid personalized URL. We allow - . (dash, period)
+                                    </div>
+                                </div>
+                                <div *ngIf="!personalUrl.errors && (personalUrl.dirty || personalUrl.touched)">
+                                    <div [hidden]="isPersonalizedURLNew" class="urlErrorMessage">
+                                        Sorry, that personalize URL is not available. Please try again.
+                                    </div>
+                                    <div [hidden]="!isPersonalizedURLNew" class="successMessage">
+                                        Success! I love to sing!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-12 validateError videoEditURL">
+                                <h3>video introduction url</h3>
+                                <span [ngClass]="{ 'editCaseError': ((videoUrl.dirty || videoUrl.touched || isFormSubmitFlag) && videoUrl.errors),
+                            'editCaseSuccess':!videoUrl.errors}">
+                                    <input type="text" maxlength="255" required [ngModelOptions]="{updateOn: 'blur'}" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                                        class="edit" placeholder="https://www.youtube.com/watch?v=lyu7v7nWzfo" style="margin-top:4px"
+                                        [(ngModel)]="teacherProfile.VideoIntroUrl" #videoUrl="ngModel" name="VideoIntroUrl">
+                                </span>
+                                <div *ngIf="(isFormSubmitFlag || (videoUrl.errors && (videoUrl.dirty || videoUrl.touched)))">
+                                    <div [hidden]="!(videoUrl.errors?.required || videoUrl.errors?.pattern)" class="errorMessage">
+                                        Please enter a valid video link from YouTube, Vimeo, Wistia, or other mp4.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 editTextarea">
+                                <h3>tell us a little about yourself</h3>
+                                <textarea class="edit" name="Introduction" [(ngModel)]="teacherProfile.Introduction" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 editTextarea">
+                                <h3>repertoir</h3>
+                                <textarea class="edit" ngModel name="Repetoire" [(ngModel)]="teacherProfile.Repertoir" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 qualificationedit">
+                                <h3>qualifications</h3>
+                                <p>Enter a specific date like mm/dd/yyyy, a month like mm/yyyy, or a range of years like 2000-2004.</p>
+                                <ul>
+                                    <li>
+                                        <label class="serialNo"></label>
+                                        <span class="date" style="width:110px; padding:0 20px 0 10px;">Date</span>
+                                        <span class="description" style="padding-left:20px;">Description</span>
+                                    </li>
+                                    <li *ngFor="let qualification of teacherProfile.TeacherQualifications; let i = index">
+                                        <label style="color:white;" class="serialNo">{{i+1}}</label>
+                                        <span class="date">
+                                            <input type="text" name="Date{{i}}" NumberWithSymbols="true" [(ngModel)]="qualification.Date" class="edit" placeholder="08/2017">
+                                        </span>
+                                        <span class="description">
+                                            <input type="text" name="Description{{i}}" [(ngModel)]="qualification.Description" class="edit" placeholder="Qualification description">
+                                        </span>
+                                    </li>
+                                    <li class="addmore">
+                                        <label style="color:white;" class="serialNo" (click)="addQualification()">+</label>
+                                        <span class="date">
+                                            <input type="text" disabled class="edit">
+                                        </span>
+                                        <span class="description">
+                                            <input type="text" disabled class="edit">
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 editSocial">
+                                <h3>social media usernames</h3>
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-facebook-official"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaFacebook" name="SocialMediaFacebook" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-twitter-square"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaTwitter" name="SocialMediaTwitter" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-instagram"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaInstagram" name="SocialMediaInstagram" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-linkedin-square"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaLinkedIn" name="SocialMediaLinkedIn" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-youtube-square"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaYouTube" name="SocialMediaYouTube" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12 loopSocial">
+                                        <label>
+                                            <i class="fa fa-pinterest-square"></i>
+                                        </label>
+                                        <span>
+                                            <input type="text" class="edit" [(ngModel)]="teacherProfile.SocialMediaPinterest" name="SocialMediaPinterest" placeholder="Your Username">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12 validateField">
+                                <h3>Website URL</h3>
+                                <span [ngClass]="{'editCaseError': webUrl.errors?.pattern,
+                                 'editCaseSuccess':(!webUrl.errors?.pattern && teacherProfile.WebsiteUrl != '')}">
+                                    <input type="text" maxlength="255" [ngModelOptions]="{updateOn: 'blur'}" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                                        class="edit" id="url" placeholder="www.Song-Dance-Co-NYC.org"
+                                        [(ngModel)]="teacherProfile.WebsiteUrl" name="WebsiteUrl" #webUrl="ngModel" />
+                                </span>
+                                <div *ngIf="webUrl.errors">
+                                    <div [hidden]="!webUrl.errors?.pattern" class="errorMessage">
+                                        Please enter a valid website address.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /contentPart -->
+
+    <!-- Preview Model -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="teacherProfilePreview">
+                        <div class="topBar">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12" style="background: black;">
+                                        <div class="header-content">
+                                            <div class="menu-toggle menu-open">
+                                                <div class="menu-toggle-hamburger">
+                                                    <span></span>
+                                                </div>
+                                                <h1 class="logo">
+                                                    <a href="javascript:void(0);">
+                                                        <img src="../assets/images/logo.jpg" alt="" class="img-fluid">
+                                                    </a>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <div class="headerRight">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="glyphicon glyphicon-comment"></i>
+                                                        <span></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="fa fa-bell"></i>
+                                                        <span></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);">
+                                                        <i class="glyphicon glyphicon-user"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="close" data-dismiss="modal" aria-label="Close" style="opacity:1;">
+                                                    <i class="fa fa-times" style="text-shadow:none; color:#505661; opacity:1;"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- teacherProfile -->
+                        <app-teacher-profile></app-teacher-profile>
+                        <!-- contentPart -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Preview Model -->
+</form>

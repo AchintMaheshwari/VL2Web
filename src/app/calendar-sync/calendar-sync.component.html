@@ -1,0 +1,225 @@
+<section id="calenderSection">
+    <div class="container-fluid">
+        <div class="row">
+            <teacher-calendar-menu></teacher-calendar-menu>
+            <div class="calenderRight" style="width:calc(100% - 321px);">
+                <div class="syncCalender">
+                    <a href="javascript:void(0);" (click)="onBack()">
+                        <i class="fa fa-long-arrow-left"></i> Back</a>
+                    <h2>Calendar Sync</h2>
+                    <ul class="nav nav-tabs" id="syncTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#google" role="tab" aria-controls="google"
+                                aria-selected="true">Google calendar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#icloud" role="tab" aria-controls="icloud"
+                                aria-selected="false">icloud</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#outlook365" role="tab" aria-controls="outlook365"
+                                aria-selected="false">outlook office 365</a>
+                        </li>
+                        <!-- <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#outlookexchange" role="tab" aria-controls="outlookexchange" aria-selected="false">outlook exchange</a></li>
+                                        <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#outlook" role="tab" aria-controls="outlook" aria-selected="false">outlook.com</a></li> -->
+                    </ul>
+                    <div class="tab-content" id="syncTabContent">
+                        <div class="tab-pane fade syncTabData show active" id="google" role="tabpanel" aria-labelledby="home-tab" *ngIf="isShowGoogle">
+                            <p>To get started, allow Voice Lessons access to your Google Calendar account. You will be taken
+                                to Google to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!-- <form #googleForm="ngForm">                                                        -->
+                                    <div class="col-lg-8 col-sm-7 col-12">
+                                        <h3>Sync Settings</h3>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="gAddNewAppointments" class="checkbox-custom" name="GAddNewAppointments" (change)="changeTwoWaySyncSetting(googleSetting.AddNewAppointments,'google')"
+                                                    type="checkbox" [(ngModel)]="googleSetting.AddNewAppointments">
+                                                <label for="gAddNewAppointments" class="checkbox-custom-label">Add new appointments from Voice Lessons to Google Calendar (read only)</label>
+                                            </li>
+                                            <li>
+                                                <input id="gEnableBlockingTimes" class="checkbox-custom" name="GEnableBlockingTimes" type="checkbox" [(ngModel)]="googleSetting.EnableBlockingTimes">
+                                                <label for="gEnableBlockingTimes" class="checkbox-custom-label">Enable blocking off times in Voice Lessons from {{googleSetting.ConnectedToEmail}}
+                                                    (read only)</label>
+                                            </li>
+                                        </ul>
+                                        <h4>reminders</h4>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="gDoNotSetReminders" class="radio-custom" (click)="changeGoogleReminderSettings()" name="GoogleReminders" type="radio"
+                                                    [checked]="googleSetting.DoNotSetReminders">
+                                                <label for="gDoNotSetReminders" class="radio-custom-label">Do not set a reminder before appointments</label>
+                                            </li>
+                                            <li>
+                                                <input id="gReminderBeforeMinutes" class="radio-custom" name="GoogleReminders" type="radio" [checked]="googleSetting.ReminderBeforeMinutes>0">
+                                                <label for="gReminderBeforeMinutes" class="radio-custom-label">Set reminders for
+                                                    <input type="text" name="gReminderMinutes" [(ngModel)]="googleSetting.ReminderBeforeMinutes"
+                                                        OnlyNumber="true" maxlength="2"> minutes before appointments</label>
+                                            </li>
+                                        </ul>
+                                        <button class="blueBtn" (click)="updateGoogleSetting()">Save Settings</button>
+                                        <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                            <button class="blueBtn">Sync Calendar</button>
+                                        </a>
+                                    </div>
+                                    <!-- </form> -->
+                                    <div class="col-lg-4 col-sm-5 col-12">
+                                        <div class="calendarSynced">
+                                            <h3>Calendar synced!</h3>
+                                            <h4>connected to</h4>
+                                            <p>{{googleSetting.ConnectedToEmail| lowercase}}</p>
+                                            <h4>last sync</h4>
+                                            <p>{{googleSetting.LastSync}} {{googleSetting.TimeScale}} ago</p>
+                                            <button class="pinkBtn">
+                                                <i class="fa fa-ban fa-flip-horizontal"></i> stop syncing</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade syncTabData show active" id="google" role="tabpanel" aria-labelledby="home-tab" *ngIf="!isShowGoogle">
+                            <p>To get started, allow Voice Lessons access to your Google Calendar account. You will be taken
+                                to Google to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                        <button class="blueBtn">Sign in to Google calendar</button>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade syncTabData" id="icloud" role="tabpanel" aria-labelledby="profile-tab" *ngIf="isShowIcloud">
+                            <p>To get started, allow Voice Lessons access to your iCloud Calendar account. You will be taken
+                                to iCloud to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-7 col-12">
+                                        <h3>Sync Settings</h3>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="iCloudAddNewAppointments" name="ICloudAddNewAppointments" class="checkbox-custom" (change)="changeTwoWaySyncSetting(iCloudSetting.AddNewAppointments,'iCloud')"
+                                                    type="checkbox" [(ngModel)]="iCloudSetting.AddNewAppointments">
+                                                <label for="iCloudAddNewAppointments" class="checkbox-custom-label">Add new appointments from Voice Lessons to iCloud Calendar (read only)</label>
+                                            </li>
+                                            <li>
+                                                <input id="iEnableBlockingTimes" class="checkbox-custom" name="iEnableBlockingTimes" type="checkbox" [(ngModel)]="iCloudSetting.EnableBlockingTimes">
+                                                <label for="iEnableBlockingTimes" class="checkbox-custom-label">Enable blocking off times in Voice Lessons from {{iCloudSetting.ConnectedToEmail}}
+                                                    (read only)</label>
+                                            </li>
+                                        </ul>
+                                        <h4>reminders</h4>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="iDoNotSetReminders" class="radio-custom" type="radio" (click)="changeiCloudReminderSettings()" name="ICloudReminders"
+                                                    type="radio" [checked]="iCloudSetting.DoNotSetReminders">
+                                                <label for="iDoNotSetReminders" class="radio-custom-label">Do not set a reminder before appointments</label>
+                                            </li>
+                                            <li>
+                                                <input id="iReminderBeforeMinutes" class="radio-custom" name="ICloudReminders" type="radio" [checked]="iCloudSetting.ReminderBeforeMinutes>0">
+                                                <label for="iReminderBeforeMinutes" class="radio-custom-label">Set reminders for
+                                                    <input type="text" [(ngModel)]="iCloudSetting.ReminderBeforeMinutes"
+                                                        OnlyNumber="true" maxlength="2"> minutes before appointments</label>
+                                            </li>
+                                        </ul>
+                                        <button class="blueBtn" (click)="updateiCloudSetting()">Save Settings</button>
+                                        <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                            <button class="blueBtn">Sync Calendar</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-5 col-12">
+                                        <div class="calendarSynced">
+                                            <h3>Calendar synced!</h3>
+                                            <h4>connected to</h4>
+                                            <p>{{iCloudSetting.ConnectedToEmail| lowercase}}</p>
+                                            <h4>last sync</h4>
+                                            <p>{{iCloudSetting.LastSync}} {{iCloudSetting.TimeScale}} ago</p>
+                                            <button class="pinkBtn">
+                                                <i class="fa fa-ban fa-flip-horizontal"></i> stop syncing</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade syncTabData" id="icloud" role="tabpanel" aria-labelledby="profile-tab" *ngIf="!isShowIcloud">
+                            <p>To get started, allow Voice Lessons access to your iCloud Calendar account. You will be taken
+                                to iCloud to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                        <button class="blueBtn">Sign in to iCloud calendar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade syncTabData" id="outlook365" role="tabpanel" aria-labelledby="contact-tab" *ngIf="isShowExchange">
+                            <p>To get started, allow Voice Lessons access to your Outlook Calendar account. You will be taken
+                                to Outlook to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-7 col-12">
+                                        <h3>Sync Settings</h3>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="eAddNewAppointments" class="checkbox-custom" name="EAddNewAppointments" type="checkbox" [(ngModel)]="exchangeSetting.AddNewAppointments"
+                                                    (change)="changeTwoWaySyncSetting(exchangeSetting.AddNewAppointments,'exchange')">
+                                                <label for="eAddNewAppointments" class="checkbox-custom-label">Add new appointments from Voice Lessons to Outlook Calendar (read only)</label>
+                                            </li>
+                                            <li>
+                                                <input id="eEnableBlockingTimes" class="checkbox-custom" name="EEnableBlockingTimes" type="checkbox" [(ngModel)]="exchangeSetting.EnableBlockingTimes">
+                                                <label for="eEnableBlockingTimes" class="checkbox-custom-label">Enable blocking off times in Voice Lessons from {{exchangeSetting.ConnectedToEmail}}
+                                                    (read only)</label>
+                                            </li>
+                                        </ul>
+                                        <h4>reminders</h4>
+                                        <ul class="syncSetting">
+                                            <li>
+                                                <input id="eDoNotSetReminders" class="radio-custom" name="ExchangeReminders" (click)="changeExchangeReminderSettings()" type="radio"
+                                                    [checked]="exchangeSetting.DoNotSetReminders">
+                                                <label for="eDoNotSetReminders" class="radio-custom-label">Do not set a reminder before appointments</label>
+                                            </li>
+                                            <li>
+                                                <input id="eReminderBeforeMinutes" class="radio-custom" name="ExchangeReminders" type="radio" [checked]="exchangeSetting.ReminderBeforeMinutes>0">
+                                                <label for="eReminderBeforeMinutes" class="radio-custom-label">Set reminders for
+                                                    <input type="text" [(ngModel)]="exchangeSetting.ReminderBeforeMinutes"
+                                                        OnlyNumber="true" maxlength="2"> minutes before appointments</label>
+                                            </li>
+                                        </ul>
+                                        <button class="blueBtn" (click)=" updateExchangeSetting()">Save Settings</button>
+                                        <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                            <button class="blueBtn">Sync Calendar</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-5 col-12">
+                                        <div class="calendarSynced">
+                                            <h3>Calendar synced!</h3>
+                                            <h4>connected to</h4>
+                                            <p>{{exchangeSetting.ConnectedToEmail| lowercase}}</p>
+                                            <h4>last sync</h4>
+                                            <p>{{exchangeSetting.LastSync}} {{exchangeSetting.TimeScale}} ago</p>
+                                            <button class="pinkBtn">
+                                                <i class="fa fa-ban fa-flip-horizontal"></i> stop syncing</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade syncTabData" id="outlook365" role="tabpanel" aria-labelledby="contact-tab" *ngIf="!isShowExchange">
+                            <p>To get started, allow Voice Lessons access to your Outlook Calendar account. You will be taken
+                                to Outlook to sign in and grant access, then automatically return to this page.</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <a href="{{commonService.apiDevEndpoint}}/login/index/{{teacherId}}">
+                                        <button class="blueBtn">Sign in to Outlook calendar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

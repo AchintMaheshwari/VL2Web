@@ -1,0 +1,196 @@
+/**** font-family variables ****/
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$iconfont: 'FontAwesome';
+$runningsize: 16px;
+$smallsize: $runningsize - 2px;
+$upper: uppercase;
+
+/**** color variables ****/
+$color: #fff;
+$primary: #c794c4;
+$buttonbg: #ff159b;
+$secondary: #ff0f98;
+$lightpurple: #dfbfe4;
+$lightpurpletxt: #e6d9e8;
+$lightgreentxt: #1fc600;
+$lightgraytxt: #d9d9d9;
+$blue: #00afa8;
+$yellow: #f3ef08;
+$purple: #90279d;
+$checkbpxback: #650d61;
+$graytxt: #dadfe9;
+
+/**** background color variables ****/
+$purplrback: #90279d;
+$pinkback: #e90688;
+$highlightback:#650d62;
+$pagiback: #430744;
+$actpagiback: #741175;
+$editfield: #580b5a;
+$indexleft: #0e0e0e;
+$graybg: #aeb5c3;
+$btnbg: #7c1f85;
+$darkgray: #23272a;
+
+
+.studentQuiz {
+    padding: 70px 40px; max-width: 1000px; width: 100%; margin: 0 auto;
+    h1 {
+        font-family: $secondaryfont; color: $color; font-weight: 400; font-size: $runningsize + 9; margin: 0; padding: 0 0 30px 0;
+    }
+    .quizForm {
+        label {
+            font-family: $secondaryfont; color: $color; font-size: $smallsize; text-transform: $upper; margin: 0; padding: 0 0 18px 0;
+            span {
+                color: #b26eb9; font-weight: 300; font-style: italic;
+            }
+        }
+        input[type="text"] {
+            background: $editfield; border: none; color: $lightpurpletxt; font-size: $smallsize + 1; font-family: $primaryfont; padding: 5px 11px; line-height: 27px; width: 100%; margin-bottom: 19px;
+        }
+        .mat-select {
+            background: $editfield; border: none; color: $lightpurpletxt; font-size: $smallsize + 1; font-family: $primaryfont; padding: 5px 11px; line-height: 27px; width: 100%; margin-bottom: 19px;
+        }
+        .quizBtn {
+            margin-left: -15px;
+            button {
+                display: inline-block; width: calc(20% - 15px); margin-left: 15px; margin-bottom: 19px; height: 49px; border: none; background: $btnbg; cursor: pointer; font-family: $secondaryfont; font-size: $runningsize; font-weight: 400; color: $color; text-align: center;
+                &.active {
+                    background: #e90688;
+                }
+                &:hover {
+                    background: #e90688;
+                }
+            }
+        }
+        .stuLabelBtn {
+            margin-left: -15px;
+            button {
+                display: inline-block; width: calc(33.33334% - 19px); margin-left: 15px; margin-bottom: 19px; height: 49px; border: none; background: $btnbg; cursor: pointer; font-family: $secondaryfont; font-size: $runningsize; font-weight: 400; color: $color; text-align: center;
+                &.active {
+                    background: #e90688;
+                }
+                &:hover {
+                    background: #e90688;
+                }
+            }
+        }
+        .practiceBtns {
+            margin-left: -15px;
+            button {
+                display: inline-block; width: calc(50% - 19px); margin-left: 15px; margin-bottom: 19px; height: 49px; border: none; background: $btnbg; cursor: pointer; font-family: $secondaryfont; font-size: $runningsize; font-weight: 400; color: $color; text-align: center;
+                &.active {
+                    background: #e90688;
+                }
+                &:hover {
+                    background: #e90688;
+                }
+            }
+        }
+        .submitBtn {
+            button {
+                &.blueBtn {
+                    letter-spacing: 1px; border: none; font-size: $runningsize; background: $blue; color: $color; text-transform: $upper; font-family: $primaryfont; font-weight: 400; padding: 8px 15px; display: inline-block;
+                }
+            }
+        }
+        ul {
+            &.radio {
+                margin: 0; padding: 0; list-style: none;
+                li {
+                    display: inline-block; padding-right: 31px;
+                }
+            }
+        }
+    }
+}
+
+.radio-custom {
+    opacity:0; position:absolute; display:inline-block; vertical-align:middle; margin:0; cursor:pointer;
+  }
+  .radio-custom-label {
+      display:inline-block; vertical-align:middle; cursor:pointer; position:relative;
+  }
+  .radio-custom {
+      + .radio-custom-label:before {
+          content:''; background: #812087; display:inline-block; vertical-align:middle; width:22px; margin:-4px 15px 0 0; height:22px; padding:2px; text-align:center;
+      }
+      &:checked + .radio-custom-label:before {
+          background:url(../../../assets/images/checkbox-icon.png) no-repeat #812087; margin-top:-4px;
+      }
+      &:focus + .radio-custom-label {
+          outline:none;
+      }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .studentQuiz .quizForm .quizBtn button {width: calc(25% - 19px);}
+    .studentQuiz .quizForm .submitBtn button.blueBtn {width: 100%}
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 767px) {
+    .studentQuiz {padding-left: 15px; padding-right: 15px;}
+    .studentQuiz .quizForm .quizBtn button {width: calc(50% - 15px); font-size: 14px; margin-bottom: 15px;}
+    .studentQuiz .quizForm .practiceBtns button {width: calc(50% - 19px); font-size: 14px; margin-bottom: 15px;}
+    .studentQuiz .quizForm .submitBtn button.blueBtn {width: 100%}
+  }
+
+  @media only screen and (min-width: 0px) and (max-width: 599px) {
+    .studentQuiz {padding-left: 15px; padding-right: 15px;}
+    .studentQuiz .quizForm .quizBtn button {width: calc(50% - 15px); font-size: 14px; margin-bottom: 15px;}
+    .studentQuiz .quizForm .stuLabelBtn button, .studentQuiz .quizForm .practiceBtns button {font-size: 14px; width: calc(100% - 15px); margin-bottom: 15px;}
+    .studentQuiz .quizForm .submitBtn button.blueBtn {width: 100%}
+  }
+
+.validateError {position:relative; padding: 0;}
+.validateError span {padding-bottom: 7px;}
+.validateError span.editCaseSuccess {position:relative;}
+.validateError span.editCaseSuccess input[type="text"] {border:none;}
+.validateError span.editCaseSuccess:before {content:"\f00c"; font-family: 'FontAwesome'; font-size:14px; top:8px; right:10px; color:#00afa8; position:absolute;}
+.validateError span.editCaseError {position:relative}
+.validateError span.editCaseError input {border:1px solid #e90688 !important;}
+.validateError span.editCaseError:before {content:"\f00d"; font-family: 'FontAwesome'; font-size:14px; top:8px; right:10px; color:#e90688; position:absolute;}
+.validateError span.CaseSuccess {position:relative;}
+.validateError span.CaseSuccess input[type="text"] {border:none;}
+.validateError span.CaseSuccess:before {font-family: 'FontAwesome'; font-size:14px; top:8px; right:10px; color:#00afa8; position:absolute;}
+.validateError span.CaseError {position:relative}
+.validateError span.CaseError input {border:1px solid #e90688 !important;}
+.validateError span.CaseError:before {font-family: 'FontAwesome'; font-size:14px; top:8px; right:10px; color:#e90688; position:absolute;}
+
+
+
+
+
+.validateError {
+    h4 {
+        font-size: 13px; text-transform: uppercase; font-family: "Montserrat", sans-serif; margin-bottom: 10px;
+    }
+    span {
+        &.editCaseError {
+            input {
+                border: 1px solid #e90688 !important;
+            }
+        }
+    }
+}
+
+.errorMessage {
+    position: absolute; bottom: 0;
+}
+
+.errorMessageHeader {
+    font-size: 12px; font-family: "Montserrat", sans-serif; font-weight: 500;
+}
+
+.stuEditgoals {
+	h4 {
+	    font-family:$secondaryfont; padding-left: 0 !important;
+		span {
+            display: inline-block !important; font-family:$primaryfont; font-style:italic; color:$lightpurple; text-transform:none; padding-left:10px; font-size:14px; padding-bottom: 0px;
+        }
+        &:before {
+            display: none;
+        }
+	}
+}

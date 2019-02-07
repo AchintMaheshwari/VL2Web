@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OAuth2Callback</title>
+<script type="text/javascript">
+if (window.location.hash.indexOf('#access_token') > -1) {    
+      var access_token = window.location.hash.replace('#access_token=', '');
+      window.location.href='/#/oauth2callback#access_token='+access_token;
+}
+</script>
+</head>
+<body style="background: #111;">
+
+
+</body>
+</html>

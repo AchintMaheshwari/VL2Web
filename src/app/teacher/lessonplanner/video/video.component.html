@@ -1,0 +1,78 @@
+<div class="connectedBack">
+  <div class="innerConnected">
+    <div class="connectedLeft">
+      <app-add-video></app-add-video>
+    </div>
+    <div *ngIf="isGuidedVideoLesson && !isPlaylist" class="connectedRight">
+      <app-guidedvideo-lesson-queue></app-guidedvideo-lesson-queue>
+    </div>
+    <div *ngIf="!isGuidedVideoLesson && !isPlaylist" class="connectedRight">
+       <app-lesson-queue></app-lesson-queue> 
+    </div>
+    <div *ngIf="!isGuidedVideoLesson && isPlaylist" class="connectedRight">
+      <app-playlist-lesson-queue></app-playlist-lesson-queue> 
+   </div>
+  </div>
+  <div class="bottomStrip">
+    <div class="stripLeft">
+      <ul>
+          <li *ngIf="!isGuidedVideoLesson">
+              <a href="javascript:void(0);">
+                <img src="../../../assets/images/recommended-icon.png" alt=""> Recommended</a>
+            </li>
+            <li *ngIf="isGuidedVideoLesson" (click)='redirectGuidedLessonVideo()'>
+              <a href="javascript:void(0);">
+                <img src="../../../assets/images/recommended-icon.png" alt=""> Video</a>
+            </li>
+        <li (click)="redirectToLibrary()">
+          <a href="javascript:void(0);">
+            <img src="../../../assets/images/bot-library-icon.png" alt=""> Library</a>
+        </li>
+      
+        <li>
+          <div class="btn-group" dropdown [dropup]="isDropup">
+            <button id="button-dropup" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-dropup">
+              <i class="fa fa-plus-square"></i> Add New</button>
+            <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+              <li (click)="addNewSong()" role="menuitem">
+                <a class="dropdown-item" href="javascript:void(0);">
+                  <img src="../../../assets/images/song-icon.png" alt="">Song</a>
+              </li>
+              <li (click)="addNewExercise()" role="menuitem">
+                <a class="dropdown-item" href="javascript:void(0);">
+                  <img src="../../../assets/images/exercise-icon.png" alt="">Exercise</a>
+              </li>
+            </ul>
+          </div>
+          
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="isGuidedVideoLesson && !isPlaylist" class="stripRight">
+      <label *ngIf="guidedvideoService.LessonModel != null && guidedvideoService.LessonModel.LessonName !=''">
+        <span>Lesson:</span> {{guidedvideoService.LessonModel.LessonName}} </label>
+      <label *ngIf="guidedvideoService.LessonModel==null || guidedvideoService.LessonModel.LessonName == ''">
+        <span>Lesson:</span> beginner warmup basics </label>
+      <button (click)='upsertGuidedVideoLesson()'>
+        <i class="fa fa-floppy-o"></i>Save & Exit</button>
+
+    </div>
+    <div *ngIf="!isGuidedVideoLesson && !isPlaylist" class="stripRight">
+      <label *ngIf="sharedLibrary.LessonModel != null && sharedLibrary.LessonModel.LessonName !=''">
+        <span>Lesson:</span> {{sharedLibrary.LessonModel.LessonName}} </label>
+      <label *ngIf="sharedLibrary.LessonModel==null || sharedLibrary.LessonModel.LessonName == ''">
+        <span>Lesson:</span> beginner warmup basics </label>
+      <button (click)='upsertLesson()'>
+        <i class="fa fa-floppy-o"></i>Save & Exit</button>
+    </div>
+    <div *ngIf="!isGuidedVideoLesson && isPlaylist" class="stripRight">
+      <label *ngIf="playlistService.LessonModel != null && playlistService.LessonModel.LessonName !=''">
+        <span>Lesson:</span> {{playlistService.LessonModel.LessonName}} </label>
+      <label *ngIf="playlistService.LessonModel==null || playlistService.LessonModel.LessonName == ''">
+        <span>Lesson:</span> beginner warmup basics </label>
+      <button (click)='upsertPlayListLesson()'>
+        <i class="fa fa-floppy-o"></i>Save & Exit</button>
+    </div>
+  </div>
+  <div class="clr"></div>
+</div>

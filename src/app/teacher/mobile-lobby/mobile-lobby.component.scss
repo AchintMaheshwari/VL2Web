@@ -1,0 +1,56 @@
+.disconRightCon {
+    height: 100%; background: rgba(116, 17, 117, 0.4);
+    .header {
+        padding: 20px 0; position: relative; text-align: center; background: #000;
+        a {
+            color: #4e5360; font-size: 31px; position: absolute; left: 20px; top: 12px;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    #customScroll {
+        height: calc(100% - 136px); padding: 25px 35px;
+        #lobbyChatLogScroller {
+            p {
+                color: #fff; font-size: 15px; font-family: "Lato", sans-serif; font-style: italic;
+            }
+            ul {
+                &#chatLog {
+                    margin: 0; padding: 0; list-style: none;
+                    li {
+                        line-height: 20px; padding: 0 0 7px 0;
+                        label {
+                            font-size: 12px; font-family: "Montserrat", sans-serif; color: #c794c4; text-transform: uppercase; margin: 0;
+                        }
+                        span {
+                            font-size: 15px; font-family: "Lato", sans-serif; color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // .messageBar {
+    //     border-top: 1px solid #424445; padding: 0 20px;
+    //     input {
+    //         background: none; border: none; width: 100%; color: #fff; font-size: 16px; font-weight: 400; font-family: "Montserrat", sans-serif; padding: 20px 0;
+    //         &:focus {
+    //             outline: none; box-shadow: none; -webkit-box-shadow: none;
+    //         }
+    //     }
+    // }
+}
+
+::-webkit-input-placeholder {
+    color: #fff !important;
+}
+::-moz-placeholder {
+    color: #fff !important;
+}
+:-ms-input-placeholder {
+    color: #fff !important;
+}
+:-moz-placeholder {
+    color: #fff !important;
+}

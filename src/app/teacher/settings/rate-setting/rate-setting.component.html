@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1 offset-0">
+    <h1>My Lessons Rates</h1>
+    <div class="lessonrate table-responsive" *ngIf="ratesDataLoaded">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="145px">Duration</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of rates">
+            <td>{{item.Duration}}</td>
+            <td style="position:relative;">
+              <span>{{item.Price | currency:'USD':'symbol-narrow':'1.0-2'}}</span>
+              <ul>
+                <li (click)="openRatesModel(template, item.RateId)">
+                  <i class="fa fa-pencil"></i>
+                </li>
+                <li (click)="deleteRates(item.RateId)">
+                  <i class="fa fa-trash"></i>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="openRatesModel(template, 0)">
+        <i class="fa fa-plus"></i> Add New</button>
+      <ng-template #template>
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h2 *ngIf="rateData.RateId == 0" class="modal-title pull-left">Add New Lesson rate</h2>
+          <h2 *ngIf="rateData.RateId > 0" class="modal-title pull-left">Edit Lesson rate</h2>
+          <div class="duration">
+            <label>Duration</label>
+            <select [(ngModel)]="selectedDuration" [disabled]="isDurationDisabled" name="Duration">
+              <option *ngFor="let duration of settingService.durations;">{{duration}} Minutes</option>
+            </select>
+          </div>
+          <div class="price">
+            <label>Price</label>
+            <div class="priceInput">
+              <input type="text" maxlength="6" [(ngModel)]="priceValue" name="Price" OnlyNumber="true">
+            </div>
+          </div>
+          <div class="clr"></div>
+          <button data-dismiss="modal" (click)="upsertRates()">
+            <i class="fa fa-check"></i> Done</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

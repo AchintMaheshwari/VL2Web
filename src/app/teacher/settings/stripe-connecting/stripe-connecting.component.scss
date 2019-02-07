@@ -1,0 +1,42 @@
+$primaryfont: 'Lato', sans-serif;
+$secondaryfont: 'Montserrat', sans-serif;
+$runningsize: 16px;
+$lightpurpletxt: #e6d9e8;
+$color: #fff;
+$blue: #00afa8;
+$fl: left;
+$bornone: none;
+$upper: uppercase;
+
+@mixin position($type, $z-index, $property, $value) {
+	position:$type;
+	z-index:$z-index;
+	@if $property == top {
+    	top: $value;
+  	}
+	@else if $property == right {
+    	right: $value;
+  	}
+	@else if $property == bottom {
+    	bottom: $value;
+  	}
+	@else if $property == left {
+    	left: $value;
+	}
+}
+
+.paymetNotConnected {
+    margin:0; padding:0;
+    p {
+        font-family:$primaryfont; color:$lightpurpletxt; font-size:$runningsize; font-weight:400;
+    }
+    button {
+        background:$blue; color:$color; padding:10px 20px; text-align:center; width:auto; float:$fl; border:$bornone; margin-top:25px; text-transform:$upper; font-family:$secondaryfont; font-size:$runningsize; font-weight:500; @include position(relative, 0, left, 0);
+        i {
+            -webkit-text-stroke:2px $blue !important; left:15px; right:auto;
+        }
+        &:focus {
+            outline:none;
+        }
+    }
+}

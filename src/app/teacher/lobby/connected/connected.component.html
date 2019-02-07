@@ -1,0 +1,121 @@
+<div [ngClass]="{ 'connectedBack':true, 'chatModuleNew': true, 'conVideo':(sharedLibrary.isVideo || sharedLibrary.isExercise || 
+sharedLibrary.isLibrary || sharedLibrary.isStep2 || sharedLibrary.isStep3)}">
+    <div class="innerConnected" style="height: calc(100% - 48px)">
+        <div class="connectedLeft">
+            <div class="clr"></div>
+            <div class="content" style="position: relative; width: 100%; height: 100%;">
+                <div id="vidyoConnector" *ngIf="sharedLibrary.isVideo" class="text-center" style="width:100%; margin:0; height:100%; position: relative;">
+                    <header class="connect-state in" style="float:left">
+                        <strong><div id="connectionStatus">Initializing</div></strong>
+                    </header>
+                    <header class="connect-state in" style="display:none;float:left" id="rec">
+                        <strong id="recStrong"><div id="recordingStatus"></div></strong>
+                    </header>
+                    <div class="video" id="renderer" style="position: absolute;top: 0px;width: 100%;left: 0%;right: 0%;bottom: 60px;"></div>
+                    <div id="failed" class="hidden">
+                        <span id="error"></span>
+                        <span id="message"></span>
+                    </div>
+                    <div class="LessonDetail">
+                        <div class="LessonLeft">{{ displayName }} x3
+                            <i class="fa fa-question" [tooltip]="tolTemplate" placement="bottom"></i>
+                        </div>
+                        <ng-template #tolTemplate class="lobbyTooltip">
+                            <div class="image">
+                                <img src="../../assets/images/stu-img.jpg" alt="">
+                            </div>
+                            <div class="stuDetail">
+                                <span class="stuName">{{ displayName }}</span>
+                                <ul>
+                                    <li>Range: C1-C9</li>
+                                    <li>Student since May 2016</li>
+                                    <li>Soprano</li>
+                                    <li>Jazz concentration</li>
+                                </ul>
+                            </div>
+                            <div class="clr"></div>
+                        </ng-template>
+                        <div class="LessonRight">
+                            <div id="toolbar" class="controls-bar">
+                                <button>
+                                <i class="fa fa-video-camera cameraOn" id="cameraButton" title="Camera Privacy"></i>
+                              </button>
+                                <button>
+                                <i class="fa fa-microphone microphoneOn" id="microphoneButton" title="Microphone Privacy"></i>
+                              </button>
+                                <button>
+                                <i class="fa fa-phone callStart" id="joinLeaveButton" title="Join Conference"></i>
+                              </button>
+                                <button>
+                                <i class="fa fa-circle" id="recordButton" title="Toggle/Pause Recording"></i>
+                              </button>
+                                <button data-toggle="modal" data-target="#optionsParameters" id="optionsButton">
+                                <i class="glyphicon glyphicon-cog"></i>
+                              </button>
+                                <button data-toggle="modal" data-target="#shareScreenParameters" id="shareScreenButton" title="Share Screen">
+                                <i class="fa fa-share-square-o shareScreenIcon" style="background:#00afa8"></i>
+                              </button>
+                                <button>
+                                <i class="fa fa-arrows-alt" aria-hidden="true" title="Full Screen" id="fullScreenButtonTeacher"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+                <div *ngIf="sharedLibrary.isLibrary" style="height: 100% !important; width: 100%; position: absolute;">
+                    <app-librarylist></app-librarylist>
+                </div>
+                <div *ngIf="sharedLibrary.isSong" class="innerTabContentNew" style="height: 100% !important; width: 100%; position: absolute;">
+                    <app-add-song></app-add-song>
+                </div>
+                <div *ngIf="sharedLibrary.isExercise" class="innerTabContentNew" style="height: 100% !important; width: 100%; position: absolute;">
+                    <app-add-exercise></app-add-exercise>
+                </div>
+            </div>
+            <div class="bottomStrip">
+                <div class="stripLeft">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);" (click)="unloadLibraryListComponent()">
+                                <img src="../../../assets/images/recommended-icon.png" alt=""> Video</a>
+                        </li>
+                        <!-- <li *ngIf = "(role === 'Teacher')"> -->
+                        <li>
+                            <a href="javascript:void(0);" (click)="loadLibraryListComponent()">
+                                <img src="../../../assets/images/bot-library-icon.png" alt=""> Library</a>
+                        </li>
+                        <li>
+                            <div class="btn-group" dropdown [dropup]="isDropup">
+                                <button id="button-dropup" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-dropup">
+                  <i class="fa fa-plus-square"></i> Add New</button>
+                                <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+                                    <li *ngIf="!sharedLibrary.isExercise" role="menuitem" (click)="addExercise()">
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <img src="../../../assets/images/exercise-icon.png" alt="">Exercise</a>
+                                    </li>
+                                    <li *ngIf="!sharedLibrary.isSong" role="menuitem" (click)="addSong()">
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <img src="../../../assets/images/song-icon.png" alt="">Song</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="stripRight">
+                    <label *ngIf="sharedLibrary.LessonModel != null">
+            <span>Lesson:</span> {{sharedLibrary.LessonModel.LessonName}} </label>
+                    <label *ngIf="sharedLibrary.LessonModel==null">
+            <span>Lesson:</span> beginner warmup basics </label>
+                    <button *ngIf="isStudent==0" (click)="endLesson()">
+            <i class="fa fa-floppy-o"></i>End Lesson</button>
+                    <button *ngIf="isStudent==1" (click)="endLesson()">
+            <i class="fa fa-floppy-o"></i>Leave Lesson</button>
+                </div>
+            </div>
+        </div>
+        <app-lesson-queue></app-lesson-queue>
+        <div class="clr"></div>
+    </div>
+</div>

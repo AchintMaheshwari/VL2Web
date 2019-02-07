@@ -1,0 +1,49 @@
+<div class="connectedBack">
+  <div class="innerConnected">
+    <app-librarylist></app-librarylist>
+    <app-playlist-lesson-queue></app-playlist-lesson-queue>
+    <div class="bottomStrip">
+      <div class="stripLeft">
+        <ul>
+          <li>
+            <a href="javascript:void(0);">
+              <img src="../../../assets/images/recommended-icon.png" alt=""> Recommended</a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" routerLink="/teacher/lesson-planner/library">
+              <img src="../../../assets/images/bot-library-icon.png" alt=""> Library</a>
+          </li>
+          <li>
+            <div class="btn-group" dropdown [dropup]="isDropup">
+              <button id="button-dropup" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-dropup">
+                <i class="fa fa-plus-square"></i> Add New</button>
+              <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+                <li role="menuitem" (click)="addExercise()">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/exercise-icon.png" alt="">Exercise</a>
+                </li>
+                <li role="menuitem" (click)="addSong()">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/song-icon.png" alt="">Song</a>
+                </li>
+                <li role="menuitem" (click)="addVideo()">
+                  <a class="dropdown-item" href="javascript:void(0);">
+                    <img src="../../../assets/images/vido-icon.png" alt="">Video</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="stripRight">
+        <label *ngIf="playlistService.LessonModel != null">
+          <span>Lesson:</span> {{playlistService.LessonModel.LessonName}} </label>
+        <label *ngIf="playlistService.LessonModel==null">
+          <span>Lesson:</span> beginner warmup basics </label>
+        <button (click)='upsertLesson()' style="cursor:pointer">
+          <i class="fa fa-floppy-o"></i>Save & Exit</button>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>

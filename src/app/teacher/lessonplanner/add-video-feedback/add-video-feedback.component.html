@@ -1,0 +1,70 @@
+<div class="connectedBack">
+  <app-gvl-payment *ngIf="guidedvideoService.PaymentTime=='PayBeforeSubmission' && guidedvideoService.Price != 0"></app-gvl-payment>
+  <div class="innerConnected">
+    <div class="connectedLeft">
+      <form #addVideo="ngForm">
+        <h2>Provide Video Feedback</h2>
+        <div class="row">
+          <div class="col-lg-6 col-sm-12 col-12">
+            <div class="recordonkeyboard" (click)="checkPreviousVideoChange()">
+              <img src="../../../../assets/images/video-camera-icon.png" style="max-height: 65px;" alt="">
+              <span>Record on
+              <br />Webcam</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12 col-12">
+            <div class="drop-container dropFile" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+              <div class="drop-zone">
+                <div class="content">
+                  <img src="../../assets/images/drop-file-icon.png" alt="">
+                  <span>...or add video file
+                    <br />
+                    <label>Drag or
+                      <label class="upload-button">
+                        <input id="uploadedfile" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+                      </label>
+                      click to upload</label>
+                  </span>
+                  <div class="clr"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lessonPlannerForm">
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 col-12 validateField">
+              <label>Video URL</label>
+              <span [ngClass]="{ 'editCaseError': videoUrl.errors?.pattern , 'editCaseSuccess':!videoUrl.errors && guidedvideoService.VideoURL != ''}">
+                <input type="text" name="VideoURL" [(ngModel)]="guidedvideoService.VideoURL" #videoUrl="ngModel" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$" (click)="checkVideoChange()" (change)="setVideoURL()">
+                <div *ngIf="videoUrl.errors">
+                  <div [hidden]="!videoUrl.errors?.pattern" class="errorMessage">Please enter a valid video link.</div>
+                </div>
+              </span>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-12 validateField">
+              <label>Other</label>
+              <span [ngClass]="{ 'editCaseError': otherVideoUrl.errors?.pattern , 'editCaseSuccess':!otherVideoUrl.errors && guidedvideoService.otherVideoUrl != ''}">
+                <textarea rows="5" cols="52" type="text" name="otherVideoUrl" [(ngModel)]="guidedvideoService.otherVideoUrl" #otherVideoUrl="ngModel" (click)="checkOtherVideoChange()" (change)="setOtherUrl()"></textarea>
+                <div *ngIf="otherVideoUrl.errors">
+                  <div [hidden]="!otherVideoUrl.errors?.pattern" class="errorMessage">Please enter a valid video link.</div>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <div class="genButton">
+                <button [disabled]="!this.form.valid" (click)='upserVideoSubmissionData()'>
+                  <img src="../assets/images/generate-btn-icon.png" alt=""> Save & Exit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="connectedRight">
+      <app-add-video-lesson-queue></app-add-video-lesson-queue>
+    </div>
+  </div>
+</div>

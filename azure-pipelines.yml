@@ -28,4 +28,4 @@ steps:
       dist
     TargetFolder: '$(Build.ArtifactStagingDirectory)'  
 
-- task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@r1
